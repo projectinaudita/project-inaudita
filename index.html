@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Inaudita</title>
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Crimson Text', serif;
+      color: #f5f5f5;
+      background: linear-gradient(180deg, #0b0b0d, #1a1a1d);
+      overflow: hidden;
+    }
+
+    .hero {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+      background: url('https://images.unsplash.com/photo-1611508315729-685a9f462d7a?auto=format&fit=crop&w=1950&q=80') center center / cover no-repeat;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(2px);
+    }
+
+    .content {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Crimson Text', serif;
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      letter-spacing: 2px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #c0c0c0;
+      margin-bottom: 2rem;
+      max-width: 600px;
+      line-height: 1.6;
+    }
+
+    .btn {
+      padding: 1rem 2rem;
+      border: 1px solid #c0c0c0;
+      color: #f5f5f5;
+      background: transparent;
+      font-size: 1rem;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .btn:hover {
+      background: #f5f5f5;
+      color: #0b0b0d;
+      border-color: #f5f5f5;
+      box-shadow: 0 0 10px #f5f5f5;
+    }
+
+    .fade {
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .branding {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5rem;
+      color: #f5f5f5;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      p { font-size: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <div class="overlay"></div>
+    <div class="branding">Project Inaudita</div>
+    <div class="content fade">
+      <h1>Not Everything Lost Was Forgotten.</h1>
+      <p>Some stories were never meant to be heard.<br>Some wounds were never meant to heal.</p>
+      <a href="https://project-inaudita.netlify.app" class="btn">Enter the Silence</a>
+    </div>
+  </div>
+</body>
+</html>
