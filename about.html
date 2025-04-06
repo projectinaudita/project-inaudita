@@ -33,6 +33,24 @@
       max-width: 700px;
       margin: auto;
     }
+    .reflection-button {
+      display: inline-block;
+      margin-top: 2rem;
+      padding: 0.8rem 1.6rem;
+      font-size: 1.1rem;
+      color: #fff;
+      background: linear-gradient(90deg, #ff4e50, #f9d423);
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      box-shadow: 0 0 15px rgba(255, 78, 80, 0.6);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .reflection-button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(255, 78, 80, 0.8);
+    }
     main {
       flex: 1;
       padding: 3rem 2rem;
@@ -74,12 +92,20 @@
     .socials i {
       margin-right: 6px;
     }
+    .logo-footer {
+      margin-top: 1rem;
+    }
+    .logo-footer img {
+      height: 25px;
+      opacity: 0.85;
+    }
   </style>
 </head>
 <body>
   <header>
     <h1>Inside Project Inaudita</h1>
     <p>Where silence breaks, stories unfold, and society is forced to confront what it ignores.</p>
+    <a href="reflection.html" class="reflection-button">Take the Reflection Test</a>
   </header>
 
   <main>
@@ -109,6 +135,9 @@
     <div class="socials">
       <a href="https://www.instagram.com/project_inaudita/" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
       <a href="https://www.youtube.com/@hear.the.unheard" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
+    </div>
+    <div class="logo-footer">
+      <img src="logo.png" alt="Project Inaudita Logo">
     </div>
     <p>&copy; 2025 Project Inaudita. All rights reserved.</p>
   </footer>
