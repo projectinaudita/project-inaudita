@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>In Memoriam</title>
+  <style>
+      body {
+      margin: 0;
+      padding: 0;
+      background: url('candle_bg.png') no-repeat center center fixed;
+      background-size: cover;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      color: white;
+    }
+    h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    }
+    .candle-buttons {
+      position: relative;
+      width: 800px;
+      height: 500px;
+    }
+    .candle-button {
+      position: absolute;
+      width: 50px;
+      height: 100px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-riv { left: 255px; top: 260px; }
+    .btn-mira { left: 255px; top: 265px; }
+    .btn-kian { left: 460px; top: 250px; }
+    .btn-elio { left: 600px; top: 240px; }
+    .message {
+      margin-top: 30px;
+      font-size: 24px;
+      letter-spacing: 2px;
+      animation: fadeIn 3s forwards 2s;
+      opacity: 0;
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+    }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <h1>in memoriam</h1>
+  <div class="candle-buttons">
+    <button class="candle-button btn-riv" onclick="goToClue('riv')"></button>
+    <button class="candle-button btn-mira" onclick="goToClue('mira')"></button>
+    <button class="candle-button btn-kian" onclick="goToClue('kian')"></button>
+    <button class="candle-button btn-elio" onclick="goToClue('elio')"></button>
+  </div>
+  <div class="message">remember.</div>
+  <script>
+    function goToClue(name) {
+      window.location.href = `/clue_${name}.html`;
+    }
+  </script>
+</body>
+</html>
