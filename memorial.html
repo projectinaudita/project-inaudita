@@ -80,7 +80,24 @@
       opacity: 0;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }
+  .riddle {
+      position: absolute;
+      bottom: 40px;
+      font-size: 20px;
+      text-align: center;
+      max-width: 600px;
+      opacity: 0;
+      transition: opacity 2s;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.6);
+    }
 
+    .riddle.show {
+      opacity: 1;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
     @keyframes fadeIn {
       to { opacity: 1; }
     }
@@ -100,5 +117,22 @@
       window.location.href = `/clue_${name}.html`;
     }
   </script>
+<div class="message">remember.</div>
+  <div class="riddle" id="riddle">
+    Four stood silent, shadows cold, </br>
+    Where light once danced in hands of gold. </br>
+    Touch the quiet. Break the spell— </br>
+    The ones who left have more to tell. </br>
+  </div>
+  <script>
+    function goToClue(name) {
+      window.location.href = `/clue_${name}.html`;
+    }
+
+    setTimeout(() => {
+      document.getElementById('riddle').classList.add('show');
+    }, 4000);
+  </script>
 </body>
 </html>
+
