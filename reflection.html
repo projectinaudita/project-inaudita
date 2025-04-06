@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Spark!</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', cursive;
+      background-color: #fef6e4;
+      color: #001858;
+      transition: all 0.5s ease;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 40px;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+    p.intro {
+      font-size: 1.2em;
+      margin-bottom: 40px;
+      transition: all 1s ease;
+    }
+    .question {
+      margin-bottom: 30px;
+    }
+    .question h2 {
+      font-size: 1.3em;
+    }
+    .options button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px 20px;
+      font-size: 1em;
+      border: none;
+      border-radius: 10px;
+      background-color: #f582ae;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .options button:hover {
+      background-color: #ff8fab;
+    }
+    .glitch {
+      animation: glitch 0.8s infinite;
+      color: red;
+      font-weight: bold;
+    }
+    @keyframes glitch {
+      0% { transform: translate(0); }
+      20% { transform: translate(-2px, 2px); }
+      40% { transform: translate(2px, -2px); }
+      60% { transform: translate(-2px, -2px); }
+      80% { transform: translate(2px, 2px); }
+      100% { transform: translate(0); }
+    }
+    .hidden {
+      display: none;
+    }
+    .final-message {
+      font-size: 1.5em;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="title">🌈 Find Your Spark! 🌈</h1>
+    <p class="intro" id="introText">Welcome to our super-fun self-discovery quiz! ✨ Just a few simple questions to help you discover your inner light. Ready?</p>
+
+    <div class="question" id="q1">
+      <h2>How do you usually handle stress?</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q1')">I bury it and move on.</button>
+        <button onclick="nextQuestion('q1')">I try to talk to someone about it.</button>
+        <button onclick="nextQuestion('q1')">I distract myself with activities.</button>
+        <button onclick="nextQuestion('q1')">I pretend it doesn’t exist.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q2">
+      <h2>When something goes wrong, your first instinct is to:</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q2')">Blame yourself.</button>
+        <button onclick="nextQuestion('q2')">Try to fix it for everyone.</button>
+        <button onclick="nextQuestion('q2')">Shut down completely.</button>
+        <button onclick="nextQuestion('q2')">Laugh it off like nothing happened.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q3">
+      <h2>What best describes your childhood role?</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q3')">The responsible one.</button>
+        <button onclick="nextQuestion('q3')">The peacemaker.</button>
+        <button onclick="nextQuestion('q3')">The performer.</button>
+        <button onclick="nextQuestion('q3')">The invisible one.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q4">
+      <h2>Do you ever feel like people only see what you let them see?</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q4')">Yes, always.</button>
+        <button onclick="nextQuestion('q4')">Sometimes.</button>
+        <button onclick="nextQuestion('q4')">No, I’m transparent.</button>
+        <button onclick="nextQuestion('q4')">I don’t know anymore.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q5">
+      <h2>If you could change one thing about the world, what would it be?</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q5')">Make it fair.</button>
+        <button onclick="nextQuestion('q5')">Make people listen.</button>
+        <button onclick="nextQuestion('q5')">Erase all pain.</button>
+        <button onclick="nextQuestion('q5')">Uncover the truth.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q6">
+      <h2>Do you believe systems can be trusted?</h2>
+      <div class="options">
+        <button onclick="nextQuestion('q6')">Not at all.</button>
+        <button onclick="nextQuestion('q6')">Only when watched.</button>
+        <button onclick="nextQuestion('q6')">I want to believe, but no.</button>
+        <button onclick="nextQuestion('q6')">Trust is a myth.</button>
+      </div>
+    </div>
+
+    <div class="question hidden" id="q7">
+      <h2>What do you hide best?</h2>
+      <div class="options">
+        <button onclick="revealMessage()">Fear.</button>
+        <button onclick="revealMessage()">Pain.</button>
+        <button onclick="revealMessage()">Anger.</button>
+        <button onclick="revealMessage()">Who I really am.</button>
+      </div>
+    </div>
+
+    <div class="final-message hidden" id="final">
+      <p class="glitch">This wasn’t a quiz. It was a mirror.</p>
+      <p class="glitch">We have read the fractures beneath your smile. The ache you polish into gold.</p>
+      <p class="glitch">They tried to erase you. But we saw the pattern, and we remembered you.</p>
+      <p class="glitch">Welcome to the Fracture Protocol. You have been selected.</p>
+      <p class="glitch">To go forward, solve this:</p>
+      <p class="glitch">Where names are written, candles burn,</p>
+      <p class="glitch">And grief repeats in quiet turn.</p>
+      <p class="glitch">You’ll find the key in echoes said—</p>
+      <p class="glitch">The place we mourn our quiet dead.</p>
+      <p class="glitch">/m__o__al.html</p>
+    </div>
+  </div>
+
+  <script>
+    function nextQuestion(currentId) {
+      document.getElementById(currentId).classList.add('hidden');
+      const next = document.getElementById('q' + (parseInt(currentId.replace('q','')) + 1));
+      if (next) next.classList.remove('hidden');
+
+      if (currentId === 'q2') {
+        document.body.style.backgroundColor = '#fcd5ce';
+        document.body.style.color = '#720026';
+        document.getElementById('introText').textContent = 'Just keep going. It gets brighter. Right?';
+      }
+      if (currentId === 'q3') {
+        document.body.style.backgroundColor = '#2b2d42';
+        document.body.style.color = '#edf2f4';
+        document.body.style.fontFamily = 'Courier New, monospace';
+        document.getElementById('title').textContent = '▮▮ Initiating Spark Sequence ▮▮';
+        document.getElementById('introText').textContent = 'The light inside you flickers, doesn’t it? They never noticed. But we did.';
+      }
+      if (currentId === 'q4') {
+        document.getElementById('introText').textContent = 'Answer carefully. They’re listening now.';
+      }
+    }
+
+    function revealMessage() {
+      document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
+      document.getElementById('final').classList.remove('hidden');
+      document.body.style.backgroundColor = 'black';
+      document.body.style.color = '#ff0000';
+      document.body.style.fontFamily = 'Courier New, monospace';
+      document.getElementById('title').textContent = ':: ACCESS GRANTED ::';
+      document.getElementById('introText').textContent = '';
+    }
+  </script>
+</body>
+</html>
