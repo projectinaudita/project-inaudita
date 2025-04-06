@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Initializing...</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      font-size: 18px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    #terminal {
+      width: 80%;
+      max-width: 800px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+    .blinking-cursor {
+      display: inline-block;
+      width: 10px;
+      animation: blink 1s step-start infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div id="terminal"><span class="blinking-cursor">|</span></div>
+
+  <script>
+    const lines = [
+      ">> Initializing protocol...",
+      ">> Checking emotional resonance...",
+      ">> Calibration complete. Your pain has been noted.",
+      ">> Integrating archived memories...",
+      ">> Ready to access the Inaudita Archive.",
+      "",
+      ">> Establishing secure connection...",
+      ">> Verifying access privileges...",
+      ">> Access level: CONFIDENTIAL",
+      ">> Decrypting session...",
+      ">> Welcome back, operative.",
+      ">> Hidden elements embedded.",
+      ">> Locate them. Test begins now.",
+      "confirm_choice:yes"
+    ];
+
+    const terminal = document.getElementById('terminal');
+    let lineIndex = 0;
+    let charIndex = 0;
+    let currentLine = '';
+
+    function type() {
+      if (lineIndex < lines.length) {
+        const line = lines[lineIndex];
+        if (charIndex < line.length) {
+          currentLine += line[charIndex];
+          terminal.innerHTML = terminal.innerHTML.replace(/<span class=\"blinking-cursor\">\|<\/span>/, '') +
+                               line[charIndex] + '<span class="blinking-cursor">|</span>';
+          charIndex++;
+          setTimeout(type, 30);
+        } else {
+          terminal.innerHTML = terminal.innerHTML.replace(/<span class=\"blinking-cursor\">\|<\/span>/, '') + '\n';
+          currentLine = '';
+          charIndex = 0;
+          lineIndex++;
+          setTimeout(type, 300);
+        }
+      }
+    }
+
+    type();
+  </script>
+</body>
+</html>
