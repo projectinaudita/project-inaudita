@@ -8,8 +8,7 @@
       body {
       margin: 0;
       padding: 0;
-      background: url('project-inaudita
-        /candle_bg.png') no-repeat center center fixed;
+      background: url('candle_bg.png') no-repeat center center fixed;
       background-size: cover;
       font-family: 'Courier New', monospace;
       display: flex;
@@ -19,36 +18,69 @@
       flex-direction: column;
       color: white;
     }
-    h1 {
+  h1 {
+      margin-top: 30px;
       font-size: 48px;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
     }
-    .candle-buttons {
+
+    .image-container {
       position: relative;
-      width: 800px;
-      height: 500px;
+      width: 1200px;
+      height: auto;
+      margin-top: 20px;
     }
+
+    .image-container img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
     .candle-button {
       position: absolute;
-      width: 50px;
-      height: 100px;
       background: transparent;
       border: none;
       cursor: pointer;
     }
-    .btn-riv { left: 255px; top: 260px; }
-    .btn-mira { left: 255px; top: 265px; }
-    .btn-kian { left: 460px; top: 250px; }
-    .btn-elio { left: 600px; top: 240px; }
+
+    .btn-riv {
+      top: 227px;
+      left: 124px;
+      width: 116px;
+      height: 238px;
+    }
+
+    .btn-mira {
+      top: 215px;
+      left: 351px;
+      width: 114px;
+      height: 238px;
+    }
+
+    .btn-kian {
+      top: 231px;
+      left: 818px;
+      width: 100px;
+      height: 236px;
+    }
+
+    .btn-elio {
+      top: 233px;
+      left: 1039px;
+      width: 114px;
+      height: 251px;
+    }
+
     .message {
-      margin-top: 30px;
+      margin-top: 20px;
       font-size: 24px;
       letter-spacing: 2px;
       animation: fadeIn 3s forwards 2s;
       opacity: 0;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.7);
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
