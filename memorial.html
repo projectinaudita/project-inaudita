@@ -106,17 +106,14 @@
 <body>
   <h1>in memoriam</h1>
   <div class="candle-buttons">
-    <button class="candle-button btn-riv" onclick="goToClue('riv')"></button>
+    <button class="candle-button btn-riv" onclick="window.location.href='https://projectinaudita.netlify.app/candle1.html'"></button>
+
     <button class="candle-button btn-mira" onclick="goToClue('mira')"></button>
     <button class="candle-button btn-kian" onclick="goToClue('kian')"></button>
     <button class="candle-button btn-elio" onclick="goToClue('elio')"></button>
   </div>
   <div class="message">remember.</div>
-  <script>
-    function goToClue(name) {
-      window.location.href = `/clue_${name}.html`;
-    }
-  </script>
+  
 <div class="message">remember.</div>
   <div class="riddle" id="riddle">
     Four stood silent, shadows cold, </br>
