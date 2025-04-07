@@ -15,6 +15,7 @@
       justify-content: center;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
     }
     #terminal {
       width: 80%;
@@ -27,14 +28,64 @@
       width: 10px;
       animation: blink 1s step-start infinite;
     }
-
     @keyframes blink {
       50% { opacity: 0; }
+    }
+    #passwordBox {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #111;
+      padding: 20px;
+      border: 2px solid #0f0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      z-index: 10;
+    }
+    #passwordBox input {
+      padding: 10px;
+      margin-top: 10px;
+      font-size: 16px;
+      background: black;
+      color: #0f0;
+      border: 1px solid #0f0;
+    }
+    #passwordBox button {
+      padding: 10px;
+      margin-top: 10px;
+      background: #0f0;
+      color: black;
+      cursor: pointer;
+      border: none;
+    }
+    .creepy-msg {
+      position: absolute;
+      color: red;
+      font-size: 20px;
+      font-weight: bold;
+      z-index: 999;
+      animation: flicker 0.5s infinite alternate;
+    }
+    @keyframes flicker {
+      from { opacity: 0.1; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
   <div id="terminal"><span class="blinking-cursor">|</span></div>
+
+  <div id="passwordBox">
+    <h1>Enter Access Key</h1>
+    <input type="password" id="passwordInput" placeholder="ACCESS CODE"/>
+    <button onclick="checkPassword()">Confirm</button>
+    <div class="message" id="errorMessage"></div>
+  </div>
+
+  <!-- Hidden trigger to activate password screen -->
+  <div id="hiddenTrigger" style="position: absolute; bottom: 10px; left: 10px; width: 50px; height: 50px;"></div>
 
   <script>
     const lines = [
@@ -79,6 +130,82 @@
     }
 
     type();
+
+    let attempts = 0;
+    let creepyMessages = [
+      "They know.",
+      "Why are you here?",
+      "You were warned.",
+      "You're not supposed to see this.",
+      "It’s watching you.",
+      "Every click echoes.",
+      "It won’t let you leave.",
+      "Stop. Now.",
+      "It’s too late.",
+      "If you fail, they'll come.",
+      "You're not alone.",
+      "You’re being watched.",
+      "They found you.",
+      "Don’t trust this page.",
+      "RUN.",
+      "Nothing is hidden forever.",
+      "We warned you.",
+      "This was a mistake.",
+      "Turn back before it's too late.",
+      "You’ve gone too far."
+    ];
+
+    const password = "suvanlovesanishaalot";
+    const passwordBox = document.getElementById("passwordBox");
+    const hiddenTrigger = document.getElementById("hiddenTrigger");
+    const errorMessage = document.getElementById("errorMessage");
+
+    hiddenTrigger.addEventListener("click", () => {
+      passwordBox.style.display = "flex";
+    });
+
+    function checkPassword() {
+      const userInput = document.getElementById("passwordInput").value;
+
+      if (userInput === password) {
+        window.location.href = "access_granted.html";
+      } else {
+        attempts++;
+        errorMessage.textContent = "Access Denied.";
+
+        if (attempts >= 3) {
+          document.body.classList.add("glitch");
+          triggerCreepySequence();
+        } else {
+          triggerCreepyMessages(attempts);
+        }
+      }
+    }
+
+    function triggerCreepyMessages(count) {
+      for (let i = 0; i < count * 4; i++) {
+        setTimeout(() => {
+          showCreepyMessage();
+        }, i * 1500);
+      }
+    }
+
+    function triggerCreepySequence() {
+      for (let i = 0; i < creepyMessages.length; i++) {
+        setTimeout(() => {
+          showCreepyMessage();
+        }, i * 1000);
+      }
+    }
+
+    function showCreepyMessage() {
+      const msg = document.createElement("div");
+      msg.classList.add("creepy-msg");
+      msg.style.top = `${Math.random() * window.innerHeight}px`;
+      msg.style.left = `${Math.random() * window.innerWidth}px`;
+      msg.textContent = creepyMessages[Math.floor(Math.random() * creepyMessages.length)];
+      document.body.appendChild(msg);
+    }
   </script>
 </body>
 </html>
