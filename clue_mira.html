@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Excellence Initiative Scholarship</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+      font-family: 'Segoe UI', sans-serif;
+      color: #222;
+      transition: all 1s ease;
+    }
+    header {
+      background: #002244;
+      color: white;
+      padding: 1rem 2rem;
+      text-align: center;
+    }
+    .content {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: white;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+    input, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.5rem;
+    }
+    button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      background: #004488;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .glitch {
+      background: #0c0c0c !important;
+      color: #00ff99 !important;
+      font-family: 'Courier New', monospace !important;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Excellence Initiative Scholarship</h1>
+    <p>For gifted students committed to excellence in all aspects of life.</p>
+  </header>
+
+  <div class="content">
+    <form id="applicationForm">
+      <label>Full Name:</label>
+      <input type="text" required>
+
+      <label>Age:</label>
+      <input type="number" required>
+
+      <label>Academic Interest:</label>
+      <input type="text" required>
+
+      <button type="submit">Submit Application
+         </button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("applicationForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      window.location.href = "quiz.html";
+    });
+  </script>
+</body>
+</html>
