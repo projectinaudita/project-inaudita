@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orion Future Leaders Initiative</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f2f2f2;
+      color: #111;
+      padding: 2rem;
+      transition: background 0.5s, color 0.5s;
+    }
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    h1, h2 {
+      text-align: center;
+    }
+    label {
+      display: block;
+      margin: 1rem 0 0.5rem;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+    .glitch {
+      animation: glitch 1s infinite;
+      color: red;
+      font-weight: bold;
+    }
+    @keyframes glitch {
+      0% { opacity: 1; }
+      25% { opacity: 0.8; transform: translate(1px, -1px); }
+      50% { opacity: 0.6; transform: translate(-1px, 1px); }
+      75% { opacity: 0.8; transform: translate(1px, 1px); }
+      100% { opacity: 1; transform: translate(0); }
+    }
+    .dark-mode {
+      background: #111;
+      color: #f2f2f2;
+    }
+    .hidden {
+      display: none;
+    }
+    .button {
+      background: #111;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Orion Future Leaders Initiative</h1>
+    <p><em>Empowering the brightest minds of tomorrow.</em></p>
+
+    <form id="quizForm">
+      <h2>Section 1: General Information</h2>
+      <label>Name:</label><input type="text" name="name">
+      <label>Age:</label><input type="number" name="age">
+      <label>School:</label><input type="text" name="school">
+      <label>GPA:</label><input type="text" name="gpa">
+
+      <label>Top 3 Achievements:</label>
+      <input type="text" name="ach1">
+      <input type="text" name="ach2">
+      <input type="text" name="ach3">
+
+      <h2>Section 2: Leadership & Integrity</h2>
+      <label>1. Group project teammate is struggling. You...</label>
+      <select name="q1">
+        <option>a) Help them even if it affects your own time.</option>
+        <option>b) Let them fail—it’s not your job.</option>
+        <option>c) Redo their part and take the win.</option>
+      </select>
+
+      <label>2. Your friend is caught cheating. You...</label>
+      <select name="q2">
+        <option>a) Report them.</option>
+        <option>b) Say nothing.</option>
+        <option>c) Frame someone else.</option>
+      </select>
+
+      <h2>Section 3: Character Challenges</h2>
+      <label>3. A bully opens up about suicidal thoughts. What do you do?</label><textarea name="q3"></textarea>
+
+      <label>4. Traumatic experience essay requirement. You...</label>
+      <select name="q4">
+        <option>a) Make something up.</option>
+        <option>b) Stay honest and risk it.</option>
+        <option>c) Use someone else’s story.</option>
+      </select>
+
+      <h2>Section 4: Psychological Resilience</h2>
+      <label>5. Is praise without affection love?</label>
+      <select name="q5">
+        <option>Yes</option>
+        <option>No</option>
+        <option class="glitch">[GLITCHING]</option>
+      </select>
+
+      <label>6. Younger student idolizes you. You...</label>
+      <select name="q6">
+        <option>a) Be honest.</option>
+        <option>b) Stay silent.</option>
+        <option>c) Let them believe the lie.</option>
+      </select>
+
+      <h2>Section 5: Final Evaluation</h2>
+      <label>7. Finish the sentence: "If I fail, I..."</label>
+      <input type="text" value="...don’t deserve to exist." readonly>
+
+      <label>8. My worth is defined by...</label>
+      <input type="text" value="[output... output... output...]" readonly class="glitch">
+
+      <button type="submit" class="button">Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('quizForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.body.classList.add('dark-mode');
+      setTimeout(() => {
+        window.location.href = "hades_access.html"; // Redirect to Hades profile page
+      }, 2000);
+    });
+  </script>
+</body>
+</html>
