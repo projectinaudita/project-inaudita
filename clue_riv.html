@@ -72,20 +72,33 @@
       from { opacity: 0.1; }
       to { opacity: 1; }
     }
-    /* Make the hidden trigger more obvious but still subtle */
+
+    /* Morse flicker message */
     #hiddenTrigger {
       position: absolute;
-      bottom: 10px;
-      left: 10px;
-      width: 60px;
-      height: 60px;
+      bottom: 20px;
+      left: 20px;
+      width: 20px;
+      height: 20px;
       background: rgba(0, 255, 0, 0.1);
-      border: 1px dashed #0f0;
+      border: 1px solid rgba(0, 255, 0, 0.05);
+      animation: morseBlink 10s infinite;
       cursor: pointer;
-      transition: background 0.3s;
+      z-index: 20;
     }
-    #hiddenTrigger:hover {
-      background: rgba(0, 255, 0, 0.3);
+    @keyframes morseBlink {
+      0%, 1% { background-color: #0f0; }
+      2%, 3% { background-color: transparent; }
+      5%, 6% { background-color: #0f0; }
+      7%, 9% { background-color: transparent; }
+      10%, 12% { background-color: #0f0; }
+      13%, 15% { background-color: transparent; }
+      17%, 20% { background-color: #0f0; }
+      21%, 25% { background-color: transparent; }
+      26%, 27% { background-color: #0f0; }
+      28%, 30% { background-color: transparent; }
+      32%, 34% { background-color: #0f0; }
+      35%, 100% { background-color: transparent; }
     }
   </style>
 </head>
@@ -99,8 +112,8 @@
     <div class="message" id="errorMessage"></div>
   </div>
 
-  <!-- Subtle glitchy button trigger -->
-  <div id="hiddenTrigger" title="Click if you dare"></div>
+  <!-- Hidden flickering morse button -->
+  <div id="hiddenTrigger" title="Remember, you were one of them. Now help us."></div>
 
   <script>
     const lines = [
