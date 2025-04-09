@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VERITAS INVITE</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to bottom, #0e0d0d, #1a1a1a);
+      color: #f5f5f5;
+      overflow: hidden;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+    .title {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: gold;
+      margin-bottom: 1rem;
+    }
+    .subtitle {
+      font-size: 1.25rem;
+      margin-bottom: 2rem;
+      color: #ccc;
+    }
+    .input-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="text"] {
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid #555;
+      background-color: #1e1e1e;
+      color: #f5f5f5;
+      border-radius: 6px;
+    }
+    button {
+      padding: 0.75rem;
+      font-size: 1rem;
+      background-color: gold;
+      color: #1a1a1a;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .message {
+      margin-top: 1rem;
+      color: #ff4f4f;
+      min-height: 1.5rem;
+    }
+    .fade-out {
+      animation: fadeOut 1s forwards;
+    }
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(1.2);
+      }
+    }
+    .hint {
+      position: absolute;
+      bottom: 1.5rem;
+      font-size: 0.875rem;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">VERITAS INVITE</div>
+    <div class="subtitle">Curated Moments for the Elite</div>
+    <div class="input-area">
+      <label for="passcode">To enter the private suite, confirm your value.</label>
+      <input type="text" id="passcode" placeholder="Enter the Toastword:" autocomplete="off" />
+      <button onclick="checkCode()">Enter</button>
+      <div class="message" id="message"></div>
+    </div>
+    <div class="hint">Hint: What do they never say in the toast?</div>
+  </div>
+
+  <audio id="errorSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_e92c404fa6.mp3?filename=error-126627.mp3"></audio>
+  <audio id="successSound" src="https://cdn.pixabay.com/download/audio/2022/03/11/audio_06cdb48b8f.mp3?filename=confirmation-004-89722.mp3"></audio>
+
+  <script>
+    let failCount = 0;
+    function checkCode() {
+      const input = document.getElementById('passcode').value.trim().toLowerCase();
+      const message = document.getElementById('message');
+      const errorSound = document.getElementById('errorSound');
+      const successSound = document.getElementById('successSound');
+
+      if (input === "me") {
+        successSound.play();
+        message.style.color = "#aaffaa";
+        message.textContent = "Access granted... Entering private suite.";
+        setTimeout(() => {
+          document.body.classList.add("fade-out");
+          setTimeout(() => {
+            window.location.href = "/prlv__suite.html";
+          }, 1000);
+        }, 1000);
+      } else {
+        failCount++;
+        errorSound.play();
+        message.style.color = "#ff4f4f";
+        message.textContent = failCount >= 3 ?
+          "You were never on the list." :
+          "Sorry, only curated guests allowed.";
+        document.body.style.backgroundColor = failCount >= 3 ? "#111" : "#1a1a1a";
+      }
+    }
+  </script>
+</body>
+</html>
