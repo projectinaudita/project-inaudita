@@ -109,11 +109,11 @@
       if (input === "me") {
         successSound.play();
         message.style.color = "#aaffaa";
-        message.textContent = "Access granted... Entering private suite.";
+        message.textContent = "Access granted....";
         setTimeout(() => {
           document.body.classList.add("fade-out");
           setTimeout(() => {
-            window.location.href = "/prlv__suite.html";
+            window.location.href = "/party.html";
           }, 1000);
         }, 1000);
       } else {
