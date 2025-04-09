@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Access Granted</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #0b0b0b;
+      color: #c5c5c5;
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+    }
+
+    .popup {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 60px;
+      background: rgba(12, 12, 12, 0.95);
+      border: 1px solid #333;
+      box-shadow: 0 0 50px rgba(200, 0, 0, 0.15);
+      text-align: center;
+      z-index: 10;
+      opacity: 0;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.95); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+
+    .popup h1 {
+      margin: 0 0 15px;
+      font-size: 2em;
+      color: #d72638;
+      letter-spacing: 2px;
+    }
+
+    .popup p {
+      margin: 0;
+      font-size: 1.2em;
+      color: #bfbfbf;
+    }
+
+    .turn-back {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #666;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeInText 3s ease-in forwards;
+      animation-delay: 2.5s;
+    }
+
+    @keyframes fadeInText {
+      0% { opacity: 0; transform: translateY(5px); }
+      100% { opacity: 0.6; transform: translateY(0); }
+    }
+
+    .whisper {
+      position: absolute;
+      bottom: 10%;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #6b1d1d;
+      font-size: 0.9em;
+      font-style: italic;
+      opacity: 0;
+      animation: fadeInText 2s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <div class="popup">
+    <h1>Access Granted.</h1>
+    <p>Viewing Case #0016</p>
+    <div class="turn-back">You can still turn back.</div>
+  </div>
+
+  <audio autoplay>
+    <source src="/audio/glitch_static.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const whispers = [
+      "you shouldn't be here...",
+      "they're watching now...",
+      "why open what should stay buried?",
+      "this isn't just a file...",
+      "you’ve made a mistake."
+    ];
+
+    setTimeout(() => {
+      const msg = document.createElement('div');
+      msg.className = 'whisper';
+      msg.textContent = whispers[Math.floor(Math.random() * whispers.length)];
+      document.body.appendChild(msg);
+    }, 3000);
+
+    setTimeout(() => {
+      window.location.href = "riv_casefile.html";
+    }, 8500);
+  </script>
+</body>
+</html>
