@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact - Project Inaudita</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Global Styles */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            margin: 0 auto;
+            max-width: 1200px;
+        }
+
+        /* Header Section */
+        header {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(34, 193, 195, 0.7)), url('your-image-url.jpg') center/cover no-repeat;
+            height: 80vh;
+            color: #fff;
+            text-align: center;
+            padding-top: 150px;
+        }
+
+        header h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.5rem;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+
+        /* Milestones Section */
+        .milestones {
+            background-color: #1a1a1a;
+            padding: 60px 0;
+        }
+
+        .milestones h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #f0f0f0;
+            margin-bottom: 40px;
+            font-weight: lighter;
+        }
+
+        .milestone-list {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .milestone {
+            background: #333;
+            border-radius: 8px;
+            padding: 40px;
+            width: 250px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .milestone:hover {
+            transform: scale(1.05);
+        }
+
+        .milestone h3 {
+            font-size: 3rem;
+            color: #f28c28;
+            font-weight: bold;
+        }
+
+        .milestone p {
+            color: #ccc;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        /* Impact Stories Section */
+        .impact-stories {
+            padding: 60px 0;
+            background-color: #1f1f1f;
+        }
+
+        .impact-stories h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #f0f0f0;
+            margin-bottom: 30px;
+        }
+
+        .story {
+            background: #333;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .story blockquote {
+            font-size: 1.2rem;
+            color: #ddd;
+            font-style: italic;
+            line-height: 1.5;
+            border-left: 4px solid #f28c28;
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .story footer {
+            font-style: normal;
+            font-size: 1.1rem;
+            color: #aaa;
+        }
+
+        /* Support Resources Section */
+        .support-resources {
+            background: #2b2b2b;
+            padding: 60px 0;
+        }
+
+        .support-resources h2 {
+            font-size: 2.5rem;
+            text-align: center;
+            color: #f0f0f0;
+            margin-bottom: 40px;
+        }
+
+        .resources-list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            justify-items: center;
+        }
+
+        .resources-list a {
+            background-color: #f28c28;
+            color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-decoration: none;
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .resources-list a:hover {
+            background-color: #e67e22;
+        }
+
+        .disclaimer {
+            font-size: 1rem;
+            color: #aaa;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        footer {
+      text-align: center;
+      padding: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      background: rgba(0, 0, 0, 0.4);
+    }
+    .socials {
+      margin-bottom: 1rem;
+    }
+    .socials a {
+      color: #f5f5f5;
+      margin: 0 10px;
+      text-decoration: none;
+      font-size: 1.3rem;
+      transition: color 0.3s;
+    }
+    .socials a:hover {
+      color: #ff4444;
+    }
+    .socials i {
+      margin-right: 6px;
+    }
+    .logo-footer {
+      margin-top: 1rem;
+    }
+    .logo-footer img {
+      height: 25px;
+      opacity: 0.85;
+    }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>The Echo of a Whisper</h1>
+            <p>Impact that speaks louder than words. Stories shared. Lives connected.</p>
+        </div>
+    </header>
+
+    <!-- Milestones Section -->
+    <section class="milestones">
+        <div class="container">
+            <h2>Real-World Impact</h2>
+            <div class="milestone-list">
+                <div class="milestone">
+                    <h3>300+</h3>
+                    <p> Individuals reached through school sessions, peer discussions, and informal meetups—opening up important conversations around trauma, emotional neglect, and mental health. </p>
+
+                </div>
+                <div class="milestone">
+                    <h3>15+</h3>
+                    <p>Teens connected to trusted mental health professionals and support systems.</p>
+                </div>
+                <div class="milestone">
+                    <h3>3</h3>
+                    <p>Communities built safe spaces to listen, share, and heal together.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Stories Section -->
+    <section class="impact-stories">
+        <div class="container">
+            <h2>Stories That Changed Lives</h2>
+            <div class="story">
+                <blockquote>
+                    "I never talked about my abuse until I saw that film. It felt like I could finally breathe. Thank you for giving me the courage to speak."
+                </blockquote>
+                <footer>- Survivor, 19</footer>
+            </div>
+            <div class="story">
+                <blockquote>
+                    "Your project helped me tell my therapist the truth for the first time. It’s changed my life."
+                </blockquote>
+                <footer>- Anonymous, 17</footer>
+            </div>
+        </div>
+    </section>
+
+    <!-- Support Resources Section -->
+    <section class="support-resources">
+        <div class="container">
+            <h2>Guided Toward Healing</h2>
+            <p>If you’ve connected with Project Inaudita, we want to ensure you have the resources and support you need.</p>
+            <div class="resources-list">
+                <a href="https://childlineindia.org/a/about/childline-india#:~:text=Call%201098%20%E2%80%93%20Any%20child%20or,units%20are%20mobilised%20if%       20necessary.">Child Helpline</a>
+               <a href="https://www.reddit.com/r/mentalhealth/">Help is available</a>
+                <a href="https://www.reddit.com/r/mentalhealth/">Online Support Communities</a>
+            </div>
+            <p class="disclaimer">*We are not mental health professionals but are dedicated to connecting those who need help to trusted services.</p>
+        </div>
+    </section>
+
+ <footer>
+    <div class="socials">
+      <a href="https://www.instagram.com/project_inaudita/" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
+      <a href="https://www.youtube.com/@hear.the.unheard" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
+    </div>
+    <div class="logo-footer">
+      <img src="logo.png" alt="Project Inaudita Logo">
+    </div>
+    <p>&copy; 2025 Project Inaudita. All rights reserved.</p>
+  </footer>
+</body>
+</html>
