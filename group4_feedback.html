@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Feedback – Group 4</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 2rem;
+      font-family: 'Inter', sans-serif;
+      background-color: #f3f4f7;
+      color: #222;
+    }
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+    }
+    .feedback {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      max-width: 700px;
+      margin: 0 auto;
+      position: relative;
+    }
+    .comment {
+      background: #f9f9fb;
+      border-left: 4px solid #ccc;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.2rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+    }
+    .comment.teacher-a {
+      border-left-color: #8aa3ff;
+    }
+    .comment.teacher-b {
+      border-left-color: #ff8a8a;
+    }
+    .glitch-message, .hidden-message {
+  font-family: monospace;
+  font-size: 0.85rem;
+  color: #777;
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 1.5rem;
+  border-right: none; /* Remove the cursor */
+}
+    .visible {
+      opacity: 1;
+      animation: typewriter 3s steps(40, end) 1 forwards, blink 0.7s step-end infinite;
+    }
+  </style>
+</head>
+<body>
+  <h1>Project Comments (Internal Communications)</h1>
+  <h4> Not to be accessed by students. </h4>
+  <div class="feedback">
+    <div class="comment teacher-a">
+      <strong>Teacher A:</strong> Nice effort on visual elements. The layout shows care and thoughtfulness. I especially liked the closing section.
+    </div>
+    <div class="comment teacher-b">
+      <strong>Teacher B:</strong> We do not accept solo submissions for group work. Please ask them to resubmit with full team or accept an incomplete tag.
+    </div>
+
+    <div id="glitchOne" class="glitch-message"></div>
+    <div id="glitchTwo" class="hidden-message"></div>
+  </div>
+
+  <script>
+    const firstMessage = "why did no one......they said I volunteered..I just wanted to.....";
+    const secondMessage = "you were never supposed to see this.";
+    const glitchOne = document.getElementById("glitchOne");
+    const glitchTwo = document.getElementById("glitchTwo");
+
+    setTimeout(() => {
+      glitchOne.classList.add("visible");
+      let index = 0;
+      function typeFirst() {
+        if (index < firstMessage.length) {
+          glitchOne.textContent += firstMessage.charAt(index);
+          index++;
+          setTimeout(typeFirst, 80);
+        } else {
+          setTimeout(() => {
+            glitchTwo.classList.add("visible");
+            let j = 0;
+            function typeSecond() {
+              if (j < secondMessage.length) {
+                glitchTwo.textContent += secondMessage.charAt(j);
+                j++;
+                setTimeout(typeSecond, 70);
+              } else {
+                glitchTwo.innerHTML = `<a href='/thread_access.html' style='color: #777; text-decoration: none;'>${secondMessage}</a>`;
+              }
+            }
+            typeSecond();
+          }, 5000);
+        }
+      }
+      typeFirst();
+    }, 3000);
+  </script>
+</body>
+</html>
