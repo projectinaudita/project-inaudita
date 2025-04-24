@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case File #0016</title>
+  <style>
+    body {
+      background-color: #0b0b0b;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      margin: 0;
+      padding: 2rem;
+      line-height: 1.6;
+    }
+
+    .section {
+      margin-bottom: 2.5rem;
+    }
+
+    h1, h2 {
+      color: #ff6666;
+      border-bottom: 1px solid #333;
+      padding-bottom: 0.5rem;
+    }
+
+    .redacted {
+      background-color: #111;
+      color: #111;
+      border-bottom: 1px dotted #555;
+      cursor: help;
+      position: relative;
+    }
+
+    .redacted:hover::after {
+      content: attr(data-reveal);
+      position: absolute;
+      background: #222;
+      color: #ffcccc;
+      padding: 2px 6px;
+      border: 1px solid #444;
+      top: 100%;
+      left: 0;
+      white-space: nowrap;
+      z-index: 10;
+    }
+
+    .audio-player {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="section">
+    <h1>Case File #0016: Riv</h1>
+    <p><strong>Status:</strong> Confidential</p>
+    <p><strong>Subject Overview:</strong> Adolescent subject demonstrating symptoms of anxiety, social withdrawal, and dissociation. Referenced as "Riv" throughout logs.</p>
+  </div>
+
+  <div class="section">
+    <h2>Incident Logs</h2>
+    <ul>
+      <li><strong>10/02:</strong> Subject found crying in stairwell. Refused to speak. <span class="redacted" data-reveal="S">████</span> notified but took no action.</li>
+      <li><strong>10/09:</strong> Digital altercation recorded on school platform. <span class="redacted" data-reveal="u">████</span> comments referenced identity, leading to panic episode.</li>
+      <li><strong>10/11:</strong> Subject’s locker vandalized. Message read: "We know what you are." <span class="redacted" data-reveal="v">████</span></li>
+      <li><strong>10/12:</strong> Temporary silence from all peers. Deliberate isolation suspected. <span class="redacted" data-reveal="a">████</span></li>
+      <li><strong>10/13:</strong> Subject wrote essay titled "How to Disappear." Flagged by counselor. <span class="redacted" data-reveal="n">████</span></li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Therapist Notes</h2>
+    <p>Session 03: Subject struggles with a persistent internal voice insisting they "deserve this." Avoids eye contact. Indicates self-perception as a ghost in their own life.</p>
+    <p>Session 04: Subject described memory loss during high-stress social interactions. Possible dissociative episodes. Reports feeling like "someone else steps in. Not me. Not safe."</p>
+  </div>
+
+  <div class="section">
+    <h2>Social Feed Snapshots</h2>
+    <ul>
+      <li>@srry4what: "lol imagine crying about a joke. it’s called humor 💀"</li>
+      <li>@notthatdeep: "we all got problems. doesn’t mean you get to make it about you."
+      <li>@last_to_notice: "wait was this fr? why didn’t anyone say anything sooner 😭"</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Audio Fragment</h2>
+    <p>Recovered from school hallway intercom, approx 3:14am</p>
+    <div class="audio-player">
+      <audio controls>
+        <source src="/audio/whisper_fragment.mp3" type="audio/mpeg" />
+        Your browser does not support the audio element.
+      </audio>
+    </div>
+  </div>
+</body>
+</html>
