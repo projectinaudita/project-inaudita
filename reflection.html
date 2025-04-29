@@ -147,16 +147,74 @@
     </div>
 
     <div class="final-message hidden" id="final">
-      <p class="glitch">This wasn’t a quiz. It was a mirror.</p>
-      <p class="glitch">We have read the fractures beneath your smile. The ache you polish into gold.</p>
-      <p class="glitch">They tried to erase you. But we saw the pattern, and we remembered you.</p>
-      <p class="glitch">Welcome to the Fracture Protocol. You have been selected.</p>
-      <p class="glitch">To go forward, solve this:</p>
-      <p class="glitch">Where names are written, candles burn,</p>
-      <p class="glitch">And grief repeats in quiet turn.</p>
-      <p class="glitch">You’ll find the key in echoes said—</p>
-      <p class="glitch">The place we mourn our quiet dead.</p>
-      <p class="glitch">https://projectinaudita.netlify.app/countdown.html</p>
+       <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #000000;
+      color: #eaeaea;
+      font-family: 'Courier New', monospace;
+      text-align: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+    .timer {
+      font-size: 6rem;
+      letter-spacing: 10px;
+      color: #ff0000;
+      animation: glitch 2s infinite;
+    }
+    @keyframes glitch {
+      0% {
+        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
+      }
+      25% {
+        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
+      }
+      50% {
+        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
+      }
+      75% {
+        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
+      }
+      100% {
+        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <div class="timer" id="countdown"></div>
+  </div>
+
+  <script>
+    const countdownElement = document.getElementById('countdown');
+
+    function updateCountdown() {
+      // Set the target date (20th May 2025 at 12:00 AM IST)
+      const targetDate = new Date('2025-05-20T00:00:00+05:30');
+      const now = new Date();
+      const timeDiff = targetDate - now;
+
+      if (timeDiff <= 0) {
+        countdownElement.innerHTML = 'Time’s Up';
+        return;
+      }
+
+      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+
+      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+  </script>
     </div>
   </div>
 
