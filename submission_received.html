@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submission Received</title>
+  <style>
+    body {
+      background-color: #f4f4f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+      color: #333;
+    }
+    .container {
+      background-color: white;
+      padding: 3rem;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+    }
+    input[type="email"] {
+      padding: 0.7rem;
+      width: 80%;
+      margin-top: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+    button {
+      margin-top: 1rem;
+      padding: 0.6rem 1.2rem;
+      background-color: #4a5cff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    button:hover {
+      background-color: #394ae3;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="form-container">
+    <h2>Thank You, Applicant.</h2>
+    <p>Your scholarship application has been received.<br>
+    Our review team is currently assessing your potential.</p>
+
+    <p>To receive updates on your application status, you may enter your email below:</p>
+    <input type="email" id="email" placeholder="you@example.com">
+    <br>
+    <button onclick="handleSubmit()">Submit Email</button>
+  </div>
+
+  <script>
+    function isValidEmail(email) {
+      const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return regex.test(email);
+    }
+
+    function handleSubmit() {
+      const email = document.getElementById('email').value.trim();
+      const container = document.getElementById('form-container');
+
+      let message;
+      if (!email) {
+        message = "It’s okay — we already had the email on file.";
+      } else if (!isValidEmail(email)) {
+        message = "Liar. But don’t worry, we already had the email with us ;)";
+      } else {
+        message = `Confirmation sent to ${email}. Thank you.`;
+      }
+
+      // Replace form with transition page
+      container.innerHTML = `
+        <h2>${message}</h2>
+        <p>While you wait, we invite you to take part in a short reflection activity that has helped past applicants prepare emotionally.</p>
+        <button onclick=\"window.location.href='inquietus.html'\">Start Reflection</button>
+      `;
+    }
+  </script>
+</body>
+</html>
