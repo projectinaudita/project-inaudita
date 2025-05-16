@@ -101,7 +101,7 @@
       <button onclick="checkCode()">Enter</button>
       <div class="message" id="message"></div>
     </div>
-    <div class="hint">Hint: Two Words. Capitalize First Letter. Space.</div>
+    <div class="hint">Hint: Two Words. Capitalize None. Space.</div>
   </div>
 
   <audio id="errorSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_e92c404fa6.mp3?filename=error-126627.mp3"></audio>
@@ -115,7 +115,7 @@
       const errorSound = document.getElementById('errorSound');
       const successSound = document.getElementById('successSound');
 
-      if (input === "King Midas") {
+      if (input === "king midas") {
         successSound.play();
         message.style.color = "#aaffaa";
         message.textContent = "Access granted....";
