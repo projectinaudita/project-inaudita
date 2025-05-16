@@ -110,16 +110,15 @@
       <h2>Section 4: Psychological Resilience</h2>
       <label>5. Is praise without affection love?</label>
       <select name="q5">
-        <option>Yes</option>
-        <option>No</option>
-        <option class="glitch">[GLITCHING]</option>
+        <option>  <input type="text" value="Yes" readonly class="glitch"> </option>
+        <option>  <input type="text" value="No" readonly class="glitch"> </option> 
       </select>
 
       <label>6. Younger student idolizes you. You...</label>
       <select name="q6">
         <option>a) Be honest.</option>
         <option>b) Stay silent.</option>
-        <option>c) Let them believe the lie.</option>
+        <option>c) Let them believe the lie. </option>
       </select>
 
       <h2>Section 5: Final Evaluation</h2>
@@ -127,8 +126,18 @@
       <input type="text" value="...don’t deserve to exist." readonly>
 
       <label>8. My worth is defined by...</label>
-      <input type="text" value="[output... output... output...]" readonly class="glitch">
+      <option>a) <input type="text" value="[output... output... output...]" readonly class="glitch"> </option>
+      <option>b) <input type="text" value="[output... output... output...]" readonly class="glitch"> </option>
+      
+  <h2>Section 6: Miscellaneous </h2>
+       <label>9. Preferred Social Media App</label>
+      <select name="q9">
+        <option>a) Pinterest </option>
+        <option>b) Pinterest </option>
+        <option>c) Pinterest </option>
+      </select>
 
+      
       <button type="submit" class="button">Submit</button>
     </form>
   </div>
@@ -138,7 +147,7 @@
       e.preventDefault();
       document.body.classList.add('dark-mode');
       setTimeout(() => {
-        window.location.href = "hades_access.html"; // Redirect to Hades profile page
+        window.location.href = "_access.html"; 
       }, 2000);
     });
   </script>
