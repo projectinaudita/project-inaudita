@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Thread Access - Hymns to the Gods</title>
+<title>Laudate Dominum, Et nos tuemur.</title>
 <style>
   
   body {
@@ -112,6 +112,8 @@ body.betrayal-theme::before {
   border-color: rgba(255, 255, 255, 0.1);
   cursor: pointer;
 }
+
+
 
 </style>
 </head>
@@ -238,9 +240,32 @@ body.betrayal-theme::before {
     window.addEventListener('scroll', revealHymn2);
   });
 </script>
-<a href="test.html" class="secret-button" title="thread-β">β</a>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const secretButton = document.querySelector('.secret-button');
+    const altheonSection = document.getElementById('loneliness');
+    const mirexSection = document.getElementById('betrayal');
 
+    function updateButtonState() {
+      const mirexTop = mirexSection.getBoundingClientRect().top;
+      const altheonBottom = altheonSection.getBoundingClientRect().bottom;
+
+      if (mirexTop < window.innerHeight * 0.6) {
+        secretButton.textContent = 'β';
+        secretButton.title = 'thread-β';
+        secretButton.href = 'thread-b.html';
+      } else {
+        secretButton.textContent = 'α';
+        secretButton.title = 'thread-α';
+        secretButton.href = 'thread-a.html';
+      }
+    }
+    
+    window.addEventListener('scroll', updateButtonState);
+    updateButtonState(); // Initial call
+  });
+</script>
+<a href="thread-a.html" class="secret-button" title="thread-α">α</a>
 </body>
 </html>
-
 
