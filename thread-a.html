@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>The Sane 7 - Group Chat</title>
+  <style>
+    body {
+      background: #f0f2f5;
+      margin: 0;
+      padding: 2rem 0;
+    }
+
+    .chat-container {
+      max-width: 360px;
+      margin: 0 auto;
+      background: #f9f9f9;
+      border-radius: 12px;
+      padding: 1rem;
+      font-family: "Segoe UI", sans-serif;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+      color: #333;
+      font-size: 14px;
+    }
+
+    .chat-header {
+      font-weight: bold;
+      color: #888;
+      margin-bottom: 1rem;
+      font-size: 12px;
+      text-align: center;
+    }
+
+    .message-group {
+      margin-bottom: 0.8rem;
+    }
+
+    .username {
+      font-weight: 600;
+      font-size: 12px;
+      margin-bottom: 0.2rem;
+      display: block;
+    }
+
+    .username.elio {
+      color: #ff7675;
+    }
+
+    .username.redacted {
+      color: #b2bec3;
+      filter: blur(1.2px);
+    }
+
+    .message {
+      background: #eaeaea;
+      padding: 0.5rem 0.75rem;
+      border-radius: 14px;
+      display: inline-block;
+      max-width: 80%;
+    }
+
+    .timestamp {
+      font-size: 11px;
+      color: #aaa;
+      margin-top: 2px;
+      margin-left: 4px;
+    }
+
+    .divider {
+      text-align: center;
+      font-size: 11px;
+      color: #bbb;
+      margin: 1.2rem 0;
+      font-style: italic;
+    }
+
+    .faded {
+      opacity: 0.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">🎭 group name: "The Sane 7"</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">hey, does saturday still work for everyone?</div>
+      <div class="timestamp">Mar 14, 2:13 PM</div>
+    </div>
+
+    <div class="message-group">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">maybe. might have family stuff</div>
+      <div class="timestamp">Mar 14, 2:47 PM</div>
+    </div>
+
+    <div class="message-group">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">can we push to next weekend?</div>
+      <div class="timestamp">Mar 14, 3:10 PM</div>
+    </div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">yeah no problem. just let me know 💛</div>
+      <div class="timestamp">Mar 14, 3:14 PM</div>
+    </div>
+
+    <div class="divider">— a week later —</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">hey just checking in — sunday maybe?</div>
+      <div class="timestamp">Mar 21, 10:02 AM</div>
+    </div>
+
+    <div class="message-group faded">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">oh shoot i totally forgot 😭</div>
+      <div class="timestamp">Mar 21, 1:30 PM</div>
+    </div>
+
+    <div class="message-group faded">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">lol same, my bad</div>
+      <div class="timestamp">Mar 21, 1:34 PM</div>
+    </div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">all good. we can plan something next month maybe?</div>
+      <div class="timestamp">Mar 21, 1:40 PM</div>
+    </div>
+
+
+    <div class="divider">— 10 days later —</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">any chance people are free this friday?</div>
+      <div class="timestamp">Mar 31, 5:22 PM</div>
+    </div>
+
+    <div class="message-group faded">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">might be... i'll check</div>
+      <div class="timestamp">Mar 31, 7:01 PM</div>
+    </div>
+
+    <div class="divider">— 3 days later —</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">just wondering if friday is still on?</div>
+      <div class="timestamp">Apr 3, 10:18 AM</div>
+    </div>
+
+    <div class="message-group faded">
+      <span class="username redacted">[blurred name]</span>
+      <div class="message">ugh sorry something came up 😩</div>
+      <div class="timestamp">Apr 3, 11:02 AM</div>
+    </div>
+
+    <div class="divider">— Apr 12 —</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">we haven’t all hung out in forever. miss u guys</div>
+      <div class="timestamp">Apr 12, 6:45 PM</div>
+    </div>
+
+
+    <div class="divider">— Apr 20 —</div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">guess this chat's kinda dead huh</div>
+      <div class="timestamp">Apr 20, 8:12 PM</div>
+    </div>
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">still love u all. just miss when we talked more.</div>
+      <div class="timestamp">Apr 20, 8:13 PM</div>
+    </div>
+
+
+    <div class="message-group">
+      <span class="username elio">Elio</span>
+      <div class="message">nm. ignore me. bad day lol</div>
+      <div class="timestamp">Apr 20, 8:14 PM</div>
+    </div>
+
+    <div class="divider">— seen by all —</div>
+  </div>
+</body>
+</html>
