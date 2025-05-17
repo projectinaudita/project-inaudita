@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Thread Access - Hymns to the Gods</title>
+<style>
+  
+  body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #e8f0f7; 
+    color: #333840;
+    line-height: 1.6;
+    padding: 4rem 2rem;
+    transition: background 1.5s ease, color 1.5s ease;
+  }
+
+
+  .poem-section {
+    max-width: 700px;
+    margin: 0 auto 5rem auto;
+    opacity: 1;
+  }
+
+  h2 {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    letter-spacing: 0.04em;
+  }
+
+  p {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, rgba(232, 240, 247, 0.3) 40%, rgba(232, 240, 247, 0) 80%);
+    transition: opacity 1.5s ease;
+    opacity: 1;
+    z-index: 9999;
+  }
+
+body.betrayal-theme {
+  background: #3b262b; 
+  color: #f0e3df;       
+  transition: background 1.5s ease, color 1.5s ease;
+}
+
+body.betrayal-theme::before {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(59, 38, 43, 0.1) 30%,
+    rgba(59, 38, 43, 0.02) 100%
+  );
+  opacity: 0.9;
+}
+
+
+#betrayal {
+  margin-top: 10vh;
+  opacity: 0.96;
+}
+
+#betrayal h2 {
+  color: #e5b3ac;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+#betrayal p {
+  color: #f0d8d5;   font-size: 1.125rem;
+  line-height: 1.75;
+  letter-spacing: 0.015em;
+} 
+
+#betrayal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: opacity 1.2s ease-out, transform 1.2s ease-out;
+  pointer-events: none; 
+}
+
+#betrayal.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+.secret-button {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  padding: 6px 10px;
+  font-size: 0.75rem;
+  background: rgba(255, 255, 255, 0.04); /* nearly invisible */
+  color: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  text-decoration: none;
+  z-index: 10000;
+  transition: all 0.3s ease;
+}
+
+.secret-button:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.4);
+  border-color: rgba(255, 255, 255, 0.1);
+  cursor: pointer;
+}
+
+</style>
+</head>
+<body>
+  <section class="poem-section" id="loneliness">
+    <h2>Laudate Altheon, Deus Solitudinis</h2>
+    <p>In sacred voice, for the one who watches where we forget to look…</p>
+    <p>Before the world named its gods with trumpets and flame,<br />
+    There was Altheon —<br />
+    Born not of fire, but of absence,<br />
+    Shaped in the space between a child's cry and the echo that did not return.</p>
+
+    <p>They say he was once the god of solace,<br />
+    Sent to sit beside the broken,<br />
+    To hold the hand no one else would touch,<br />
+    To be the warmth mistaken for coincidence.</p>
+
+    <p>But no one called his name with triumph.<br />
+    No temples were built for the quiet grief.<br />
+    He lingered in doorways where no one knocked,<br />
+    And they forgot him — slowly, completely, cruelly.</p>
+
+    <p>So he became what they made him:<br />
+    God not of comfort, but of solitude.<br />
+    He took up his crown of silence,<br />
+    Wrapped himself in the wind behind slammed doors,<br />
+    And walked into the night without footsteps.</p>
+
+    <p>We praise you, Altheon —<br />
+    Watcher of the Unspoken, Sleeper in forsaken rooms,<br />
+    Your kingdom is the second place at the table,<br />
+    The letter unsent, the question never asked aloud.</p>
+
+    <p>You dwell beneath the bridge of might-have-been,<br />
+    You cradle heads bowed in the dusk of unseen sorrow,<br />
+    You kiss the brow of those who smile so none will see.</p>
+
+    <p>O Altheon, patron of the unchosen,<br />
+    We do not beg you to save us —<br />
+    Only to see us,<br />
+    As you have always seen the forgotten.</p>
+
+    <p>And if we must vanish,<br />
+    Let it be into your arms.</p>
+  </section>
+
+  <section class="poem-section" id="betrayal">
+    <h2>Laudate Mirex, Deus Proditionis</h2>
+    <p>Spoken only behind locked doors, where secrets rot sweetly…</p>
+    <p>He once wore white, they say.<br />
+    Mirex, first of the oathbinders,<br />
+    Trusted by kings, adored by gods —<br />
+    Keeper of secrets, lover of truth,<br />
+    The golden mouth that sealed a thousand pacts.</p>
+
+    <p>But truth, he learned, is heavier than desire.<br />
+    And loyalty? A leash dressed in silk.<br />
+    So when the gods lied — just once, just enough —<br />
+    He smiled, and never believed again.</p>
+
+    <p>He drank the blood of the first broken promise.<br />
+    He kissed the lips that whispered “forever,” then left.<br />
+    He crowned himself with the thorns of confession,<br />
+    And bathed in the tears of the betrayed.</p>
+
+    <p>Thus was Mirex remade —<br />
+    No longer the herald of oaths,<br />
+    But their devourer.</p>
+
+    <p>We praise you, Mirex —<br />
+    Whose tongue is the serpent’s lullaby,<br />
+    Whose eyes gleam behind every friendly smile,<br />
+    Whose dagger wears the fingerprints of the beloved.</p>
+
+    <p>You taught us that masks are truer than faces.<br />
+    You taught us that trust is a weapon when wielded well.<br />
+    You gave us armor made of lies,<br />
+    And called it love.</p>
+
+    <p>Thy altar raised from broken bands once sworn,<br />
+    From sacred seals undone, and secrets torn;<br />
+    From vows unmade and words that fade like breath. <br>
+    Your prayer is the whisper:<br />
+    “I never meant to hurt you.”<br />
+    (And the echo that replies: “Yes, you did.”)</p>
+
+    <p>O Mirex, king of false dawns —<br />
+    We do not ask for mercy.<br />
+    We ask for precision.</p>
+
+    <p>Teach us how to smile while we bleed them.<br />
+    Teach us how to be the knife they thank.</p>
+  </section>
+
+<script>
+  const betrayalSection = document.getElementById('betrayal');
+  const body = document.body;
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        body.classList.add('betrayal-theme');
+      } else {
+        body.classList.remove('betrayal-theme');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  observer.observe(betrayalSection);
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const hymn1 = document.querySelector('.poem-section');
+    const hymn2 = document.getElementById('betrayal');
+
+    function revealHymn2() {
+      const triggerPoint = hymn1.getBoundingClientRect().bottom;
+      if (triggerPoint < window.innerHeight * 0.75) {
+        hymn2.classList.add('visible');
+        window.removeEventListener('scroll', revealHymn2);
+      }
+    }
+
+    window.addEventListener('scroll', revealHymn2);
+  });
+</script>
+<a href="test.html" class="secret-button" title="thread-β">β</a>
+
+</body>
+</html>
+
+
