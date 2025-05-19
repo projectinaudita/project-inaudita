@@ -8,7 +8,7 @@
     body {
       margin: 0;
       padding: 0;
-      font-family: 'Comic Sans MS', cursive;
+      font-family: 'Garamond', cursive;
       background-color: #fef6e4;
       color: #001858;
       transition: all 0.5s ease;
@@ -68,43 +68,6 @@
     .final-message {
       font-size: 1.5em;
       margin-top: 40px;
-    }
-    /* Countdown Styling */
-    body {
-      margin: 0;
-      padding: 0;
-      background: #000000;
-      color: #eaeaea;
-      font-family: 'Courier New', monospace;
-      text-align: center;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-    }
-    .timer {
-      font-size: 6rem;
-      letter-spacing: 10px;
-      color: #ff0000;
-      animation: glitch 2s infinite;
-    }
-    @keyframes glitch {
-      0% {
-        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
-      }
-      25% {
-        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
-      }
-      50% {
-        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
-      }
-      75% {
-        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
-      }
-      100% {
-        text-shadow: 2px 2px 10px #ff0000, -2px -2px 10px #ff0000;
-      }
     }
   </style>
 </head>
@@ -184,34 +147,21 @@
     </div>
 
     <div class="final-message hidden" id="final">
-      <h1><p id="countdown"></p></h1>
+      <p class="glitch">This wasn’t a quiz. It was a mirror.</p>
+      <p class="glitch">We have read the fractures beneath your smile. The ache you polish into gold.</p>
+      <p class="glitch">They tried to erase you. But we saw the pattern, and we remembered you.</p>
+      <p class="glitch">Welcome to the Fracture Protocol. You have been selected.</p>
+      <p class="glitch">To go forward, solve this and then put it in the URL:</p>
+      <p class="glitch">I stand in silence, but I speak of the past,
+                       A tribute to those whose memories last.
+                       Carved in stone, or written in ink,
+                       I help us remember, reflect, and think.
+                       What am I?</p>
+      <p class="glitch">projectinaudita.netlify.app/________.html</p>
     </div>
   </div>
 
   <script>
-    const countdownElement = document.getElementById('countdown');
-
-    function updateCountdown() {
-      // Set the target date (20th May 2025 at 12:00 AM IST)
-      const targetDate = new Date('2025-05-20T00:00:00+05:30');
-      const now = new Date();
-      const timeDiff = targetDate - now;
-
-      if (timeDiff <= 0) {
-        countdownElement.innerHTML = 'Time’s Up';
-        return;
-      }
-
-      const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-
-      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-
-    setInterval(updateCountdown, 1000);
-
     function nextQuestion(currentId) {
       document.getElementById(currentId).classList.add('hidden');
       const next = document.getElementById('q' + (parseInt(currentId.replace('q','')) + 1));
@@ -225,12 +175,12 @@
       if (currentId === 'q3') {
         document.body.style.backgroundColor = '#2b2d42';
         document.body.style.color = '#edf2f4';
-        document.body.style.fontFamily = 'Courier New, monospace';
-        document.getElementById('title').textContent = '▮▮ Access Granted ▮▮';
+        document.body.style.fontFamily = 'Garamond';
+        document.getElementById('title').textContent = '▮▮ Initiating Spark Sequence ▮▮';
         document.getElementById('introText').textContent = 'The light inside you flickers, doesn’t it? They never noticed. But we did.';
       }
       if (currentId === 'q4') {
-        document.getElementById('introText').textContent = 'Beware.';
+        document.getElementById('introText').textContent = 'Answer carefully. They’re listening now.';
       }
     }
 
@@ -239,8 +189,9 @@
       document.getElementById('final').classList.remove('hidden');
       document.body.style.backgroundColor = 'black';
       document.body.style.color = '#ff0000';
-      document.body.style.fontFamily = 'Courier New, monospace';
-      updateCountdown(); // Initiate countdown once the message reveals
+      document.body.style.fontFamily = 'Garamond';
+      document.getElementById('title').textContent = ':: ACCESS GRANTED ::';
+      document.getElementById('introText').textContent = '';
     }
   </script>
 </body>
