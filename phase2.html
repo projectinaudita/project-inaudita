@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AICW ACCESS TERMINATED</title>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: #333;
+      font-family: 'Share Tech Mono', monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    .aicw-header, .talon-takeover {
+      text-align: center;
+      padding: 30px;
+      border: 2px solid #333;
+      background-color: #fff;
+      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      max-width: 90%;
+    }
+
+    .aicw-header h1 {
+      font-size: 2.5rem;
+      color: #b30000;
+      text-shadow: 0 0 4px #b30000aa;
+      margin-bottom: 15px;
+    }
+
+    .aicw-header p {
+      font-size: 1rem;
+      color: #444;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .countdown {
+      font-size: 1.5rem;
+      color: #333;
+      margin-top: 20px;
+      animation: glitchText 0.3s infinite;
+    }
+
+    .talon-takeover {
+      display: none;
+      background: #000;
+      color: #ff4444;
+      border: 2px solid #ff4444;
+      animation: glitch 2.5s infinite;
+    }
+
+    .talon-takeover h1 {
+      font-size: 2.5rem;
+      letter-spacing: 4px;
+      color: #ff4444;
+      text-shadow: 0 0 10px #ff4444;
+    }
+
+    .talon-takeover p {
+      color: #ff9999;
+      font-size: 1rem;
+    }
+
+    @keyframes glitch {
+      0% { opacity: 1; transform: translate(0, 0); }
+      15% { opacity: 0.4; transform: translate(-1px, 1px); }
+      30% { opacity: 1; transform: translate(1px, -1px); }
+      45% { opacity: 0.3; transform: translate(-2px, 2px); }
+      60% { opacity: 1; transform: translate(0, 0); }
+      75% { opacity: 0.2; transform: translate(1px, 1px); }
+      90% { opacity: 1; transform: translate(0, -1px); }
+      100% { opacity: 0.6; transform: translate(-1px, 0); }
+    }
+
+    @keyframes glitchText {
+      0%, 100% { text-shadow: 1px 0 red, -1px 0 blue; }
+      20% { text-shadow: -1px 0 green, 1px 0 purple; }
+      40% { text-shadow: 1px 1px cyan, -1px -1px magenta; }
+      60% { text-shadow: -1px -1px yellow, 1px 1px black; }
+      80% { text-shadow: 2px 0 orange, -2px 0 lime; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="aicw-header" id="aicw-block">
+    <h1>ACCESS REVOKED</h1>
+    <p>AICW PROTOCOL 401.B :: UNAUTHORIZED INTEL BREACH</p>
+    <p>External interference detected. Terminal link severed. Access sealed.</p>
+    <div class="countdown" id="timer"></div>
+  </div>
+
+  <div class="talon-takeover" id="talon-block">
+    <h1>PHASE 2 LAUNCH SOON</h1>
+    <p>they sealed the breach.<br>but not for long.<br>eyes open. watch the clock.</p>
+  </div>
+
+  <script>
+    const timer = document.getElementById("timer");
+    const symbols = ["@", "#", "$", "%", "&", "*", "=", "+", "~", "¿", "✖", "∂", "Ω", "Δ", "Ξ", "☍", "⚠", "???"];
+    let index = 0;
+    function updateFakeCountdown() {
+      timer.innerHTML = symbols[index % symbols.length];
+      index++;
+    }
+    setInterval(updateFakeCountdown, 100);
+    updateFakeCountdown();
+
+    setTimeout(() => {
+      document.getElementById("aicw-block").style.display = "none";
+      document.getElementById("talon-block").style.display = "block";
+    }, 5000);
+  </script>
+
+</body>
+</html>
