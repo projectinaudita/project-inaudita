@@ -3,276 +3,392 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Impact - Project Inaudita</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Our Impact | Project Inaudita</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* Global Styles */
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #121212;
-            color: #f0f0f0;
+        :root {
+            --dark-bg: #0a0a0e;
+            --accent: #9772fb;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            line-height: 1.6;
+            box-sizing: border-box;
         }
-
-        .container {
-            width: 90%;
-            margin: 0 auto;
-            max-width: 1200px;
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg), #131320);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
         }
-
-        /* Header Section */
-        header {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(34, 193, 195, 0.7)), url('your-image-url.jpg') center/cover no-repeat;
-            height: 80vh;
-            color: #fff;
-            text-align: center;
-            padding-top: 150px;
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #9772fb, #c4a8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
-
-        header h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
         }
-
-        header p {
-            font-size: 1.5rem;
-            margin-top: 10px;
-            opacity: 0.8;
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
-
-        /* Milestones Section */
-        .milestones {
-            background-color: #1a1a1a;
-            padding: 60px 0;
+        
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
         }
-
-        .milestones h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            color: #f0f0f0;
-            margin-bottom: 40px;
-            font-weight: lighter;
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
         }
-
-        .milestone-list {
-            display: flex;
-            justify-content: space-around;
-            text-align: center;
+        
+        .btn:hover:before {
+            left: 100%;
         }
-
-        .milestone {
-            background: #333;
-            border-radius: 8px;
-            padding: 40px;
-            width: 250px;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s ease-in-out;
+        
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 100;
         }
-
-        .milestone:hover {
-            transform: scale(1.05);
+        
+        .glitch {
+            position: relative;
+            display: inline-block;
         }
-
-        .milestone h3 {
-            font-size: 3rem;
-            color: #f28c28;
-            font-weight: bold;
+        
+        .glitch:hover:before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 1px 0 #ff00ff;
+            top: 0;
+            color: var(--text-primary);
+            overflow: hidden;
+            animation: noise-anim-2 0.3s infinite linear alternate-reverse;
         }
-
-        .milestone p {
-            color: #ccc;
-            font-size: 1.1rem;
-            margin-top: 15px;
+        
+        .glitch:hover:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 #00ffff;
+            top: 0;
+            color: var(--text-primary);
+            overflow: hidden;
+            animation: noise-anim 0.3s infinite linear alternate-reverse;
         }
-
-        /* Impact Stories Section */
-        .impact-stories {
-            padding: 60px 0;
-            background-color: #1f1f1f;
+        
+        .stat-card {
+            background: rgba(151, 114, 251, 0.08);
+            border: 1px solid rgba(151, 114, 251, 0.2);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease;
         }
-
-        .impact-stories h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            color: #f0f0f0;
-            margin-bottom: 30px;
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -5px rgba(151, 114, 251, 0.3);
         }
-
-        .story {
-            background: #333;
-            border-radius: 8px;
-            padding: 30px;
-            margin: 20px 0;
-            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.25);
+        
+        .testimonial {
+            position: relative;
+            background: linear-gradient(135deg, rgba(151, 114, 251, 0.1), rgba(100, 80, 200, 0.05));
+            border-left: 3px solid var(--accent);
+            transition: all 0.3s ease;
         }
-
-        .story blockquote {
-            font-size: 1.2rem;
-            color: #ddd;
-            font-style: italic;
-            line-height: 1.5;
-            border-left: 4px solid #f28c28;
-            padding-left: 20px;
-            margin-bottom: 20px;
+        
+        .testimonial:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
         }
-
-        .story footer {
-            font-style: normal;
-            font-size: 1.1rem;
-            color: #aaa;
+        
+        .testimonial::before {
+            content: """;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            font-size: 5rem;
+            color: rgba(151, 114, 251, 0.2);
+            font-family: serif;
+            line-height: 1;
         }
-
-        /* Support Resources Section */
-        .support-resources {
-            background: #2b2b2b;
-            padding: 60px 0;
+        
+        @keyframes noise-anim {
+            0% {
+                clip-path: inset(29% 0 25% 0);
+            }
+            20% {
+                clip-path: inset(61% 0 36% 0);
+            }
+            40% {
+                clip-path: inset(10% 0 43% 0);
+            }
+            60% {
+                clip-path: inset(83% 0 5% 0);
+            }
+            80% {
+                clip-path: inset(23% 0 55% 0);
+            }
+            100% {
+                clip-path: inset(1% 0 58% 0);
+            }
         }
-
-        .support-resources h2 {
-            font-size: 2.5rem;
-            text-align: center;
-            color: #f0f0f0;
-            margin-bottom: 40px;
+        
+        @keyframes noise-anim-2 {
+            0% {
+                clip-path: inset(70% 0 12% 0);
+            }
+            20% {
+                clip-path: inset(15% 0 62% 0);
+            }
+            40% {
+                clip-path: inset(52% 0 38% 0);
+            }
+            60% {
+                clip-path: inset(31% 0 37% 0);
+            }
+            80% {
+                clip-path: inset(94% 0 3% 0);
+            }
+            100% {
+                clip-path: inset(74% 0 26% 0);
+            }
         }
-
-        .resources-list {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-            justify-items: center;
+        
+        .resource-card {
+            background: rgba(30, 30, 40, 0.5);
+            border: 1px solid rgba(151, 114, 251, 0.2);
+            transition: all 0.3s ease;
         }
-
-        .resources-list a {
-            background-color: #f28c28;
-            color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            font-size: 1.2rem;
-            text-decoration: none;
-            text-align: center;
-            transition: background-color 0.3s ease;
+        
+        .resource-card:hover {
+            border-color: rgba(151, 114, 251, 0.5);
+            transform: translateY(-3px);
         }
-
-        .resources-list a:hover {
-            background-color: #e67e22;
-        }
-
-        .disclaimer {
-            font-size: 1rem;
-            color: #aaa;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      background: rgba(0, 0, 0, 0.4);
-    }
-    .socials {
-      margin-bottom: 1rem;
-    }
-    .socials a {
-      color: #f5f5f5;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 1.3rem;
-      transition: color 0.3s;
-    }
-    .socials a:hover {
-      color: #ff4444;
-    }
-    .socials i {
-      margin-right: 6px;
-    }
-    .logo-footer {
-      margin-top: 1rem;
-    }
-    .logo-footer img {
-      height: 25px;
-      opacity: 0.85;
-    }
     </style>
 </head>
-<body>
-
-    <!-- Header Section -->
-    <header>
-        <div class="container">
-            <h1>The Echo of a Whisper</h1>
-            <p>Impact that Reshapes Lives. Voices Heard, Change Delivered.</p>
+<body class="relative">
+    <div class="noise-overlay"></div>
+    
+    <header class="py-8 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center">
+            <svg class="w-10 h-10 mr-3" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5C11.7157 5 5 11.7157 5 20C5 28.2843 11.7157 35 20 35C28.2843 35 35 28.2843 35 20C35 11.7157 28.2843 5 20 5Z" stroke="#9772FB" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10Z" fill="url(#paint0_linear)"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="10" y1="10" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#9772FB" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#9772FB" stop-opacity="0.05"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1 class="text-xl md:text-2xl font-medium tracking-wider">PROJECT <span class="gradient-text font-bold">INAUDITA</span></h1>
         </div>
+        <nav class="hidden md:block">
+            <ul class="flex space-x-8">
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Home</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">About</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
     </header>
-
-    <!-- Milestones Section -->
-    <section class="milestones">
-        <div class="container">
-            <h2>Real-World Impact</h2>
-            <div class="milestone-list">
-                <div class="milestone">
-                    <h3>300+</h3>
-                    <p> Individuals reached through school sessions, peer discussions, and informal meetups—opening up important conversations around trauma, emotional neglect, and mental health. </p>
-
+    
+    <main class="container mx-auto px-6 md:px-12 py-12 md:py-20">
+        <section class="section mb-24 max-w-4xl mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                <span class="glitch" data-text="The">The</span> <span class="gradient-text">Echo</span> of a Whisper
+            </h2>
+            <p class="text-lg md:text-2xl text-gray-300 leading-relaxed mb-8">
+                Impact that Reshapes Lives. Voices Heard, Change Delivered.
+            </p>
+            <div class="h-px w-full max-w-md mx-auto bg-gradient-to-r from-transparent via-purple-500/30 to-transparent my-12"></div>
+        </section>
+        
+        <section class="section mb-24 max-w-5xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-12 text-center">
+                <span class="gradient-text">Real-World</span> Impact
+            </h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="stat-card p-8 flex flex-col items-center text-center">
+                    <div class="text-5xl md:text-6xl font-bold gradient-text mb-4">300+</div>
+                    <p class="text-gray-300">
+                        Individuals reached through school sessions, peer discussions, and informal meetups—opening up important conversations around trauma, emotional neglect, and mental health.
+                    </p>
                 </div>
-                <div class="milestone">
-                    <h3>35+</h3>
-                    <p>Survivors have engaged with our safe spaces through workshops and group sessions.</p>
+                
+                <div class="stat-card p-8 flex flex-col items-center text-center">
+                    <div class="text-5xl md:text-6xl font-bold gradient-text mb-4">35+</div>
+                    <p class="text-gray-300">
+                        Survivors have engaged with our safe spaces through workshops and group sessions.
+                    </p>
                 </div>
-                <div class="milestone">
-                    <h3>3</h3>
-                    <p>Communities built safe spaces to listen, share, and heal together.</p>
+                
+                <div class="stat-card p-8 flex flex-col items-center text-center">
+                    <div class="text-5xl md:text-6xl font-bold gradient-text mb-4">3</div>
+                    <p class="text-gray-300">
+                        Communities built safe spaces to listen, share, and heal together.
+                    </p>
                 </div>
+            </div>
+        </section>
+        
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-12 text-center">
+                Stories That <span class="gradient-text">Changed Lives</span>
+            </h3>
+            
+            <div class="space-y-8">
+                <div class="testimonial p-8 md:p-10 rounded-lg">
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 pl-4">
+                        "I never thought survival was possible for someone like me. Until I saw someone like me survive. Your project gave me more than hope. It gave me a future I thought I lost."
+                    </p>
+                    <p class="text-right text-gray-400 font-medium">- Anonymous, 16</p>
+                </div>
+                
+                <div class="testimonial p-8 md:p-10 rounded-lg">
+                    <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-6 pl-4">
+                        "I used to fake it through therapy — smiling while drowning. Your project cracked something open in me. Last week, for the first time, I told my therapist the whole truth. It changed everything."
+                    </p>
+                    <p class="text-right text-gray-400 font-medium">- Anonymous, 17</p>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section mb-16 max-w-4xl mx-auto">
+            <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">
+                <span class="gradient-text">Guided</span> Toward Healing
+            </h3>
+            
+            <p class="text-lg text-center text-gray-300 leading-relaxed mb-12">
+                If you've connected with Project Inaudita, we want to ensure you have the resources and support you need.
+            </p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="resource-card p-6 rounded-lg flex flex-col items-center text-center">
+                    <div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-purple-900/20 border border-purple-500/30">
+                        <svg class="w-8 h-8 text-purple-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-medium mb-2">Child Helpline</h4>
+                    <p class="text-gray-400">Help is available</p>
+                </div>
+                
+                <div class="resource-card p-6 rounded-lg flex flex-col items-center text-center">
+                    <div class="w-16 h-16 mb-4 flex items-center justify-center rounded-full bg-purple-900/20 border border-purple-500/30">
+                        <svg class="w-8 h-8 text-purple-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                    </div>
+                    <h4 class="text-xl font-medium mb-2">Online Support Communities</h4>
+                    <p class="text-gray-400">Connect with others who understand</p>
+                </div>
+            </div>
+            
+            <p class="text-sm text-gray-400 text-center mt-8 italic">
+                *We are not mental health professionals but are dedicated to connecting those who need help to trusted services.
+            </p>
+        </section>
+        
+        <section class="section text-center max-w-2xl mx-auto mb-12">
+            <a href="reflection.html" class="btn bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white py-4 px-8 rounded-lg font-medium text-lg shadow-lg shadow-purple-900/30 transition-all duration-300 hover:shadow-xl hover:shadow-purple-900/40 inline-block">
+                Take the Reflection Quiz
+            </a>
+        </section>
+    </main>
+    
+    <footer class="border-t border-white/10 py-8 px-6 md:px-12">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <p class="text-sm text-gray-400">© 2023 Project Inaudita. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
             </div>
         </div>
-    </section>
-
-    <!-- Impact Stories Section -->
-    <section class="impact-stories">
-        <div class="container">
-            <h2>Stories That Changed Lives</h2>
-            <div class="story">
-                <blockquote>
-                    "I never thought survival was possible for someone like me. Until I saw someone like me survive. Your project gave me more than hope. It gave me a future I thought I lost."
-                </blockquote>
-                <footer>- Anonymous, 16</footer>
-            </div>
-            <div class="story">
-                <blockquote>
-                     "I used to fake it through therapy — smiling while drowning. Your project cracked something open in me. Last week, for the first time, I told my therapist the whole truth. It changed everything."
-                </blockquote>
-                <footer>- Anonymous, 17</footer>
-            </div>
-        </div>
-    </section>
-
-    <!-- Support Resources Section -->
-    <section class="support-resources">
-        <div class="container">
-            <h2>Guided Toward Healing</h2>
-            <p>If you’ve connected with Project Inaudita, we want to ensure you have the resources and support you need.</p>
-            <div class="resources-list">
-                <a href="https://childlineindia.org/a/about/childline-india#:~:text=Call%201098%20%E2%80%93%20Any%20child%20or,units%20are%20mobilised%20if%       20necessary.">Child Helpline</a>
-               <a href="https://www.reddit.com/r/mentalhealth/">Help is available</a>
-                <a href="https://www.reddit.com/r/mentalhealth/">Online Support Communities</a>
-            </div>
-            <p class="disclaimer">*We are not mental health professionals but are dedicated to connecting those who need help to trusted services.</p>
-        </div>
-    </section>
-
- <footer>
-    <div class="socials">
-      <a href="https://www.instagram.com/project_inaudita/" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
-      <a href="https://www.youtube.com/@hear.the.unheard" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
-    </div>
-    <div class="logo-footer">
-      <img src="logo.png" alt="Project Inaudita Logo">
-    </div>
-    <p>&copy; 2025 Project Inaudita. All rights reserved.</p>
-  </footer>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for fade-in animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Mobile menu toggle
+            const menuButton = document.querySelector('button');
+            const nav = document.querySelector('nav');
+            
+            menuButton.addEventListener('click', () => {
+                nav.classList.toggle('hidden');
+                nav.classList.toggle('block');
+                nav.classList.toggle('absolute');
+                nav.classList.toggle('top-16');
+                nav.classList.toggle('right-6');
+                nav.classList.toggle('bg-gray-900/95');
+                nav.classList.toggle('p-6');
+                nav.classList.toggle('rounded-lg');
+                nav.classList.toggle('shadow-xl');
+                nav.classList.toggle('z-50');
+            });
+        });
+    </script>
 </body>
 </html>
