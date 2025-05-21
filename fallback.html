@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fallback Access</title>
+  <style>
+    body {
+      background: black;
+      color: #e0e0e0;
+      font-family: 'Courier New', monospace;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+      min-height: 100vh;
+      box-sizing: border-box;
+    }
+
+    .typewriter-wrapper {
+      margin-top: 60px;
+      max-width: 700px;
+    }
+
+    .typewriter {
+      font-size: 18px;
+      white-space: pre-wrap;
+      border-right: 2px solid #e0e0e0;
+      overflow: hidden;
+      animation: caretBlink 0.8s infinite;
+    }
+
+    @keyframes caretBlink {
+      0%, 100% { border-color: #e0e0e0; }
+      50% { border-color: transparent; }
+    }
+
+    .riddle {
+      margin-top: 60px;
+      font-size: 18px;
+      opacity: 0;
+      transition: opacity 1s ease-in;
+      max-width: 600px;
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .riddle.show {
+      opacity: 1;
+    }
+
+    input, button {
+      margin-top: 20px;
+      background: transparent;
+      border: 1px solid #777;
+      color: #fff;
+      padding: 8px 12px;
+      font-family: inherit;
+      font-size: 16px;
+      border-radius: 4px;
+      outline: none;
+    }
+
+    button {
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .links {
+      margin-top: 30px;
+      opacity: 0;
+      transition: opacity 1.5s ease-in;
+    }
+
+    .links.show {
+      opacity: 1;
+    }
+
+    .links a {
+      display: block;
+      color: #b6f0ff;
+      margin: 8px 0;
+      text-decoration: none;
+    }
+
+    .links a:hover {
+      text-decoration: underline;
+    }
+   .signature {
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+  font-family: 'Courier New', monospace;
+  color: #5f9ea0; /* a subtle teal-ish */
+  font-size: 14px;
+  opacity: 0.6;
+  user-select: none;
+  pointer-events: none;
+}
+
+  </style>
+</head>
+<body>
+  <div class="typewriter-wrapper">
+    <div class="typewriter" id="typewriter"></div>
+  </div>
+
+  <div class="riddle" id="riddle">
+    Answer this to proceed:<br><br>
+    <em>“What burns but leaves no ash,<br>
+    speaks in silence, and vanishes with time?”</em><br>
+    <input type="text" id="answer" placeholder="your answer here" />
+    <button onclick="checkAnswer()">submit</button>
+  </div>
+
+  <div class="links" id="links">
+    <a href="/clue_riv.html">Riv</a>
+    <a href="/clue_mira.html">Mira</a>
+    <a href="/clue_kian.html">Kian</a>
+    <a href="/clue_elio.html">Elio</a>
+  </div>
+
+  <script>
+    const text = `I see you’re using a mobile device, or perhaps...
+Something has gone wrong in the screen dimensions and ratio — from both ends.
+That’s alright. I understand.
+I am providing you with the links that were hidden in the original page.
+
+But wait…
+wait...
+wait...
+
+I can’t spoon-feed it. Can I now?
+
+So — to access them, answer the following:`;
+
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById('typewriter').textContent += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 40);
+      } else {
+        document.getElementById('riddle').classList.add('show');
+      }
+    }
+    typeWriter();
+
+    function checkAnswer() {
+      const input = document.getElementById('answer').value.trim().toLowerCase();
+      const acceptedAnswers = ['memory', 'time', 'light', 'hope','candle','candles','suvan is the best'];
+      if (acceptedAnswers.includes(input)) {
+        document.getElementById('links').classList.add('show');
+      } else {
+        alert('That’s not quite right. Try again.');
+      }
+    }
+  </script>
+  <div class="signature">~Ghostieee</div>
+
+</body>
+</html>
