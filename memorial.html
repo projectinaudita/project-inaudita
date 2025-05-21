@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>In Memoriam</title>
   <style>
-      body {
+    body {
       margin: 0;
       padding: 0;
       background: url('candle_bg.png') no-repeat center center fixed;
@@ -18,7 +18,8 @@
       flex-direction: column;
       color: white;
     }
-  h1 {
+
+    h1 {
       margin-top: 30px;
       font-size: 48px;
       text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
@@ -80,7 +81,8 @@
       opacity: 0;
       text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
     }
-  .riddle {
+
+    .riddle {
       position: absolute;
       bottom: 40px;
       font-size: 20px;
@@ -95,9 +97,42 @@
       opacity: 1;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
-    }
+.top-right-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-family: 'Courier New', monospace;
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 999;
+  opacity: 0;
+  animation: fadeInSoft 3s forwards 2s;
+  backdrop-filter: blur(3px);
+  letter-spacing: 0.5px;
+}
+
+.top-right-button:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.25);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes fadeInSoft {
+  to {
+    opacity: 1;
+  }
+}
+
+
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
@@ -105,25 +140,28 @@
 </head>
 <body>
   <h1>in memoriam</h1>
+
   <div class="candle-buttons">
     <button class="candle-button btn-riv" onclick="goToClue('riv')"></button>
     <button class="candle-button btn-mira" onclick="goToClue('mira')"></button>
     <button class="candle-button btn-kian" onclick="goToClue('kian')"></button>
     <button class="candle-button btn-elio" onclick="goToClue('elio')"></button>
   </div>
-  <div class="message">remember.</div>
-  <script>
-    function goToClue(name) {
-      window.location.href = `/clue_${name}.html`;
-    }
-  </script>
-<div class="message">remember.</div>
+
+<button class="top-right-button" onclick="window.location.href='/fallback.html'">
+  Click if using phone or there aren't 4 candles visible
+</button>
+
+
+  <div class="message">remember.<br> remember.</div>
+
   <div class="riddle" id="riddle">
     Four stood silent, shadows cold, </br>
     Where light once danced in hands of gold. </br>
     Touch the quiet. Break the spell— </br>
     The ones who left have more to tell. </br>
   </div>
+
   <script>
     function goToClue(name) {
       window.location.href = `/clue_${name}.html`;
