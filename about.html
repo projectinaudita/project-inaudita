@@ -1,162 +1,387 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Inside Project Inaudita</title>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet" />
-  <script src="https://kit.fontawesome.com/a54d2cbf95.js" crossorigin="anonymous"></script>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Crimson Text', serif;
-      background: linear-gradient(180deg, #0b0b0d, #1a1a1d);
-      color: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-    header {
-      padding: 2rem;
-      text-align: center;
-      background-color: rgba(0, 0, 0, 0.5);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 0.5rem;
-    }
-    header p {
-      font-size: 1.2rem;
-      color: #ccc;
-      max-width: 700px;
-      margin: auto;
-    }
-    .reflection-button {
-      display: inline-block;
-      margin-top: 2rem;
-      padding: 0.8rem 1.6rem;
-      font-size: 1.1rem;
-      color: #fff;
-      background: linear-gradient(90deg, #ff4e50, #f9d423);
-      border: none;
-      border-radius: 8px;
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 0 15px rgba(255, 78, 80, 0.6);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .reflection-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px rgba(255, 78, 80, 0.8);
-    }
-    main {
-      flex: 1;
-      padding: 3rem 2rem;
-      max-width: 800px;
-      margin: auto;
-    }
-    section {
-      margin-bottom: 3rem;
-    }
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      color: #f0a5a5;
-    }
-    p {
-      font-size: 1.1rem;
-      line-height: 1.8;
-      color: #c0c0c0;
-    }
-    footer {
-      text-align: center;
-      padding: 2rem;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      background: rgba(0, 0, 0, 0.4);
-    }
-    .socials {
-      margin-bottom: 1rem;
-    }
-    .socials a {
-      color: #f5f5f5;
-      margin: 0 10px;
-      text-decoration: none;
-      font-size: 1.3rem;
-      transition: color 0.3s;
-    }
-    .socials a:hover {
-      color: #ff4444;
-    }
-    .socials i {
-      margin-right: 6px;
-    }
-    .logo-footer {
-      margin-top: 1rem;
-    }
-    .logo-footer img {
-      height: 25px;
-      opacity: 0.85;
-    } 
-    .impact-heading a {
-  color: #f0a5a5;
-  text-decoration: none;
-  font-size: 2rem;
-  transition: color 0.3s;
-}
-
-.impact-heading a:hover {
-  color: #f5f5f5;
-}
-
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Project Inaudita</title>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --dark-bg: #0a0a0e;
+            --accent: #9772fb;
+            --text-primary: #e6e6e6;
+            --text-secondary: #a0a0a0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: linear-gradient(135deg, var(--dark-bg), #131320);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #9772fb, #c4a8ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .btn {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            z-index: 1;
+        }
+        
+        .btn:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
+            z-index: -1;
+        }
+        
+        .btn:hover:before {
+            left: 100%;
+        }
+        
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.035;
+            pointer-events: none;
+            z-index: 100;
+        }
+        
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .glitch:hover:before {
+            content: attr(data-text);
+            position: absolute;
+            left: -2px;
+            text-shadow: 1px 0 #ff00ff;
+            top: 0;
+            color: var(--text-primary);
+            overflow: hidden;
+            animation: noise-anim-2 0.3s infinite linear alternate-reverse;
+        }
+        
+        .glitch:hover:after {
+            content: attr(data-text);
+            position: absolute;
+            left: 2px;
+            text-shadow: -1px 0 #00ffff;
+            top: 0;
+            color: var(--text-primary);
+            overflow: hidden;
+            animation: noise-anim 0.3s infinite linear alternate-reverse;
+        }
+        
+        @keyframes noise-anim {
+            0% {
+                clip-path: inset(29% 0 25% 0);
+            }
+            20% {
+                clip-path: inset(61% 0 36% 0);
+            }
+            40% {
+                clip-path: inset(10% 0 43% 0);
+            }
+            60% {
+                clip-path: inset(83% 0 5% 0);
+            }
+            80% {
+                clip-path: inset(23% 0 55% 0);
+            }
+            100% {
+                clip-path: inset(1% 0 58% 0);
+            }
+        }
+        
+        @keyframes noise-anim-2 {
+            0% {
+                clip-path: inset(70% 0 12% 0);
+            }
+            20% {
+                clip-path: inset(15% 0 62% 0);
+            }
+            40% {
+                clip-path: inset(52% 0 38% 0);
+            }
+            60% {
+                clip-path: inset(31% 0 37% 0);
+            }
+            80% {
+                clip-path: inset(94% 0 3% 0);
+            }
+            100% {
+                clip-path: inset(74% 0 26% 0);
+            }
+        }
+    </style>
 </head>
-<body>
-  <header>
-    <h1>Inside Project Inaudita</h1>
-    <p>Where silence breaks, stories unfold, and society is forced to confront what it ignores.</p>
-    <a href="reflection.html" class="reflection-button">Take the Reflection Test</a>
-  </header>
-
-  <main>
-    <section>
-      <h2>Our Essence</h2>
-      <p>
-        Project Inaudita is a cinematic experience, an interactive exploration, and a social wake-up call. We craft haunting short films and immersive ARGs that challenge societal apathy toward mental health and trauma. Our narrative-driven approach unveils the unspoken, the suppressed, and the forgotten — bringing light to the shadows where real lives suffer in silence.
-      </p>
-    </section>
-
-    <section>
-      <h2>Our Mission</h2>
-      <p>
-        We aim to dismantle the illusion that acknowledging mental health is enough. Through storytelling and alternative reality engagement, we reveal how societal structures praise awareness but fail in support. Inaudita is a voice for those whose cries were dismissed, and a mirror held to a world that too often looks away.
-      </p>
-    </section>
-
-    <section>
-      <h2>Why It Matters</h2>
-      <p>
-        Every piece of content, every coded message, every eerie interaction is part of a larger truth — that invisible scars are real. Our project is not just art; it's advocacy. It's not just entertainment; it's exposure. We want our audience to feel disturbed, awakened, and responsible.
-      </p>
-    </section>
-  <section>
-  <h2 class="impact-heading">
-    <a href="https://projectinaudita.netlify.app/impact.html" class="button">Our Impact</a>
-  </h2>
-<p> Project Inaudita has made a significant local impact, reaching over 300 students through school sessions, peer discussions, and informal meetups, sparking vital conversations about trauma, emotional neglect, and mental health. Many individuals, particularly teens, have shared their personal stories for the first time and were connected to trusted support systems. Feedback from early testers of our interactive ARG has been overwhelmingly positive, with participants finding it both eerily personal and emotionally eye-opening. Our upcoming short film series has garnered interest from teachers, classmates, and local creatives, with some offering to contribute real-life experiences. We’ve also seen a noticeable shift in behavior, with more empathy, check-ins, and a growing willingness to challenge the stigma surrounding mental health. Having focused on real, face-to-face impact, we now have the opportunity to expand globally through digital storytelling, and we believe this is the perfect moment to take Project Inaudita to the world. </p>
-</section>  
-</main>
-
-  <footer>
-    <div class="socials">
-      <a href="https://www.instagram.com/project_inaudita/" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
-      <a href="https://www.youtube.com/@hear.the.unheard" target="_blank"><i class="fab fa-youtube"></i>YouTube</a>
-    </div>
-    <div class="logo-footer">
-      <img src="logo.png" alt="Project Inaudita Logo">
-    </div>
-    <p>&copy; 2025 Project Inaudita. All rights reserved.</p>
-  </footer>
+<body class="relative">
+    <div class="noise-overlay"></div>
+    
+    <header class="py-8 px-6 md:px-12 flex justify-between items-center">
+        <div class="flex items-center">
+            <svg class="w-10 h-10 mr-3" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 5C11.7157 5 5 11.7157 5 20C5 28.2843 11.7157 35 20 35C28.2843 35 35 28.2843 35 20C35 11.7157 28.2843 5 20 5Z" stroke="#9772FB" stroke-width="2" stroke-dasharray="4 4"/>
+                <path d="M20 10C14.4772 10 10 14.4772 10 20C10 25.5228 14.4772 30 20 30C25.5228 30 30 25.5228 30 20C30 14.4772 25.5228 10 20 10Z" fill="url(#paint0_linear)"/>
+                <defs>
+                    <linearGradient id="paint0_linear" x1="10" y1="10" x2="30" y2="30" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#9772FB" stop-opacity="0.2"/>
+                        <stop offset="1" stop-color="#9772FB" stop-opacity="0.05"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+            <h1 class="text-xl md:text-2xl font-medium tracking-wider">PROJECT <span class="gradient-text font-bold">INAUDITA</span></h1>
+        </div>
+        <nav class="hidden md:block">
+            <ul class="flex space-x-8">
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Home</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">About</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
+                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
+            </ul>
+        </nav>
+        <button class="md:hidden">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+        </button>
+    </header>
+    
+    <main class="container mx-auto px-6 md:px-12 py-12 md:py-20">
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-6xl font-bold mb-8 leading-tight">
+                <span class="glitch" data-text="About">About</span> the <span class="gradient-text">Unheard</span>
+            </h2>
+            <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-12">
+                In the spaces between whispers and screams lies a truth society has chosen to ignore. 
+                Project Inaudita exists in this liminal space—where the unheard becomes impossible to ignore, 
+                where digital echoes amplify silenced voices, and where the aesthetics of pain give way to authentic resonance.
+            </p>
+            <div class="h-px w-full bg-gradient-to-r from-transparent via-purple-500/30 to-transparent my-12"></div>
+        </section>
+        
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 gradient-text">Who We Are</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        We are the ones who survived to tell the stories. A collective of wounded healers, digital 
+                        storytellers, and creative disruptors bound by a singular urgency: to make the unheard 
+                        impossible to ignore.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Our voices emerge from the margins—from psychiatric wards and therapy rooms, from midnight 
+                        journal entries and unsent letters. We are the architects of a new narrative framework, 
+                        where vulnerability becomes strength and isolation transforms into connection.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex items-center justify-center">
+                    <div class="w-full h-64 md:h-80 relative overflow-hidden rounded-lg shadow-xl bg-gradient-to-br from-purple-900/20 to-blue-900/20 border border-white/5 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-purple-500/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <p class="text-sm text-white/80 italic">"We are not just storytellers. We are story-breakers and story-rebuilders."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row-reverse gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 gradient-text">Our Mission</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        We exist to dismantle the architecture of performative empathy. In a world where mental health 
+                        narratives are filtered through sanitized lenses, we introduce the glitch—the uncomfortable 
+                        truth that refuses algorithmic categorization.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Through narrative immersion and digital artistry, we expose the societal apathy that lurks 
+                        beneath surface-level awareness campaigns. Our mission is not comfort but confrontation—not 
+                        passive consumption but active witnessing of the stories society has deemed too disruptive to hear.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex items-center justify-center">
+                    <div class="w-full h-64 md:h-80 relative overflow-hidden rounded-lg shadow-xl bg-gradient-to-br from-indigo-900/20 to-purple-900/20 border border-white/5 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-purple-500/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <p class="text-sm text-white/80 italic">"We don't create content. We create confrontations with truth."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 gradient-text">Why It Matters</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        The modern mental health narrative has become commodified—packaged in pastel infographics 
+                        and reduced to shareable quotes. Pain becomes aesthetic; trauma becomes content; 
+                        healing becomes a product to be purchased rather than a process to be lived.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Project Inaudita exists as rebellion against this trend. We refuse the commodification 
+                        of our wounds. We reject the algorithms that determine which stories of suffering are 
+                        palatable enough for mass consumption. In a digital landscape that rewards performance, 
+                        we offer something dangerously authentic.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex items-center justify-center">
+                    <div class="w-full h-64 md:h-80 relative overflow-hidden rounded-lg shadow-xl bg-gradient-to-br from-blue-900/20 to-indigo-900/20 border border-white/5 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-purple-500/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <p class="text-sm text-white/80 italic">"When suffering becomes aesthetic, authenticity becomes revolutionary."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section mb-24 max-w-4xl mx-auto">
+            <div class="flex flex-col md:flex-row-reverse gap-12">
+                <div class="md:w-1/2">
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6 gradient-text">Our Impact</h3>
+                    <p class="text-gray-300 leading-relaxed mb-6">
+                        Through digital storytelling that blurs the line between witness and participant, 
+                        we create spaces where passive consumption becomes impossible. Our work employs ARG mechanics 
+                        not as entertainment but as vehicles for embodied understanding.
+                    </p>
+                    <p class="text-gray-300 leading-relaxed">
+                        Each narrative immersion we craft serves as both mirror and window—reflecting the viewer's 
+                        own relationship to suffering while opening vistas to experiences beyond their own. 
+                        The transformation we seek is not measured in views or shares, but in the quiet 
+                        revolutions that occur when a person can no longer look away from what they've been trained to ignore.
+                    </p>
+                </div>
+                <div class="md:w-1/2 flex items-center justify-center">
+                    <div class="w-full h-64 md:h-80 relative overflow-hidden rounded-lg shadow-xl bg-gradient-to-br from-violet-900/20 to-blue-900/20 border border-white/5 flex items-center justify-center">
+                        <svg class="w-24 h-24 text-purple-500/30" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                            <p class="text-sm text-white/80 italic">"We don't measure impact in metrics, but in moments of uncomfortable recognition."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="section text-center max-w-2xl mx-auto mb-12">
+            <p class="text-lg md:text-xl text-gray-300 leading-relaxed mb-12">
+                Project Inaudita invites you not to consume our stories, but to be consumed by them—to allow yourself 
+                to be changed by what you witness. The journey begins not with understanding, but with the courage to listen.
+            </p>
+            
+            <div class="flex flex-col md:flex-row gap-6 justify-center">
+                <a href="reflection.html" class="btn bg-gradient-to-r from-purple-700 to-indigo-700 hover:from-purple-600 hover:to-indigo-600 text-white py-4 px-8 rounded-lg font-medium text-lg shadow-lg shadow-purple-900/30 transition-all duration-300 hover:shadow-xl hover:shadow-purple-900/40">
+                    Take the Reflection Quiz
+                </a>
+                <a href="impact.html" class="btn bg-transparent border border-purple-500/50 hover:border-purple-500 text-white py-4 px-8 rounded-lg font-medium text-lg shadow-lg shadow-purple-900/10 transition-all duration-300 hover:shadow-xl hover:shadow-purple-900/20">
+                    Explore Our Impact
+                </a>
+            </div>
+        </section>
+    </main>
+    
+    <footer class="border-t border-white/10 py-8 px-6 md:px-12">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <p class="text-sm text-gray-400">© 2023 Project Inaudita. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                        <path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.45 2.525c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" clip-rule="evenodd"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Intersection Observer for fade-in animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            // Observe all sections
+            document.querySelectorAll('.section').forEach(section => {
+                observer.observe(section);
+            });
+            
+            // Mobile menu toggle
+            const menuButton = document.querySelector('button');
+            const nav = document.querySelector('nav');
+            
+            menuButton.addEventListener('click', () => {
+                nav.classList.toggle('hidden');
+                nav.classList.toggle('block');
+                nav.classList.toggle('absolute');
+                nav.classList.toggle('top-16');
+                nav.classList.toggle('right-6');
+                nav.classList.toggle('bg-gray-900/95');
+                nav.classList.toggle('p-6');
+                nav.classList.toggle('rounded-lg');
+                nav.classList.toggle('shadow-xl');
+                nav.classList.toggle('z-50');
+            });
+        });
+    </script>
 </body>
 </html>
