@@ -97,64 +97,70 @@
       opacity: 1;
     }
 
-.top-right-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 13px;
-  font-family: 'Courier New', monospace;
-  padding: 10px 16px;
-  border-radius: 6px;
-  text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 999;
-  opacity: 0;
-  animation: fadeInSoft 3s forwards 2s;
-  backdrop-filter: blur(3px);
-  letter-spacing: 0.5px;
-}
+    .top-right-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 13px;
+      font-family: 'Courier New', monospace;
+      padding: 10px 16px;
+      border-radius: 6px;
+      text-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 8px rgba(255, 255, 255, 0.05);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      z-index: 999;
+      opacity: 0;
+      animation: fadeInSoft 3s forwards 2s;
+      backdrop-filter: blur(3px);
+      letter-spacing: 0.5px;
+    }
 
-.top-right-button:hover {
-  background: rgba(255, 255, 255, 0.07);
-  border-color: rgba(255, 255, 255, 0.25);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-}
+    .top-right-button:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.25);
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+    }
 
-@keyframes fadeInSoft {
-  to {
-    opacity: 1;
-  }
-}
+    #help-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(10, 10, 10, 0.85);
+      color: #8ff7ff;
+      font-family: 'Courier New', monospace;
+      border: 1px solid #0ff;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      text-shadow: 0 0 5px #0ff;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      z-index: 9999;
+      opacity: 0;
+      animation: fadeInHelp 3s forwards 4s;
+    }
+
+    #help-button:hover {
+      background: rgba(0, 255, 255, 0.15);
+      box-shadow: 0 0 8px #0ff;
+    }
+
     @keyframes fadeIn {
       to { opacity: 1; }
     }
-<style>
-  #help-button {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: rgba(10, 10, 10, 0.85);
-    color: #8ff7ff;
-    font-family: 'Courier New', monospace;
-    border: 1px solid #0ff;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 14px;
-    text-shadow: 0 0 5px #0ff;
-    transition: background-color 0.3s, box-shadow 0.3s;
-    z-index: 9999;
-  }
-  #help-button:hover {
-    background: rgba(0, 255, 255, 0.15);
-    box-shadow: 0 0 8px #0ff;
-  }
-</style>
+
+    @keyframes fadeInSoft {
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInHelp {
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
   <h1>in memoriam</h1>
@@ -166,13 +172,13 @@
     <button class="candle-button btn-elio" onclick="goToClue('elio')"></button>
   </div>
 
-<button class="top-right-button" onclick="window.location.href='/fallback.html'">
-  Click if using phone or there aren't 4 candles visible
-</button>
-  
-<button id="help-button" onclick="window.location.href='/guide.html'">
-  Feelin' Stuck? Click me.
-</button>
+  <button class="top-right-button" onclick="window.location.href='/fallback.html'">
+    Click if using phone or there aren't 4 candles visible
+  </button>
+
+  <button id="help-button" onclick="window.location.href='/guide.html'">
+    Feelin' Stuck? Click me.
+  </button>
 
   <div class="message">remember.<br> remember.</div>
 
