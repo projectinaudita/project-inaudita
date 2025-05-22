@@ -80,15 +80,6 @@
       </ul>
     </nav>
   </header>
-
- <!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- ... your existing head content ... -->
-</head>
-<body>
-  <!-- ... header and main content unchanged ... -->
-
   <main class="container mx-auto px-6 md:px-12 py-12 md:py-20">
     <section class="section text-center max-w-3xl mx-auto mb-16">
       <h2 class="text-4xl md:text-5xl font-bold mb-4 leading-tight">
@@ -221,6 +212,21 @@ const fakeStories = [
         document.getElementById("load-more").textContent = "No more stories";
       }
     }
+if (sessionStorage.getItem("storySubmitted") === "true") {
+  alert("You can only submit one story per session.");
+  return;
+}
+
+// Handle story submission
+firebase.firestore().collection("stories").add({
+  text: storyText,
+  timestamp: firebase.firestore.FieldValue.serverTimestamp()
+}).then(() => {
+  sessionStorage.setItem("storySubmitted", "true");
+  alert("Story submitted!");
+}).catch(error => {
+  console.error("Error adding story: ", error);
+});
 
     // Handle new story submission
     document.getElementById("story-form").addEventListener("submit", async (e) => {
