@@ -149,6 +149,43 @@
                 clip-path: inset(74% 0 26% 0);
             }
         }
+#hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-line {
+  display: block;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Hover and focus styles */
+#hamburger-btn:hover .hamburger-line,
+#hamburger-btn:focus .hamburger-line {
+  background: #c4a8ff;
+}
+
     </style>
 </head>
 <body class="relative">
@@ -161,12 +198,17 @@
         </div>
         <nav class="hidden md:block">
             <ul class="flex space-x-8">
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Home</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">About</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
+                <li><a href="https://projectinaudita.netlify.app/reflection" class="text-white/80 hover:text-white transition-colors">Quiz</a></li>
+                <li><a href="https://projectinaudita.netlify.app/about" class="text-white/80 hover:text-white transition-colors">About</a></li>
+                <li><a href="https://projectinaudita.netlify.app/stories" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
+                <li><a href="https://projectinaudita.netlify.app/contact" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
             </ul>
         </nav>
+      <button id="hamburger-btn" aria-label="Toggle menu" class="md:hidden p-3 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600"> 
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
         <button class="md:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
