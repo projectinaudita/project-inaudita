@@ -195,6 +195,43 @@
             border-color: rgba(151, 114, 251, 0.5);
             transform: translateY(-3px);
         }
+        #hamburger-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 24px;
+  height: 20px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger-line {
+  display: block;
+  height: 3px;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  transform-origin: center;
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(2) {
+  opacity: 0;
+}
+
+#hamburger-btn.active .hamburger-line:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+
+#hamburger-btn:hover .hamburger-line,
+#hamburger-btn:focus .hamburger-line {
+  background: #c4a8ff;
+}
+
     </style>
 </head>
 <body class="relative">
@@ -206,11 +243,11 @@
             <h1 class="text-xl md:text-2xl font-medium tracking-wider">PROJECT <span class="gradient-text font-bold">INAUDITA</span></h1>
         </div>
         <nav class="hidden md:block">
-            <ul class="flex space-x-8">
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Home</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">About</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
-                <li><a href="#" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
+           <ul class="flex space-x-8">
+                <li><a href="https://projectinaudita.netlify.app/reflection" class="text-white/80 hover:text-white transition-colors">Quiz</a></li>
+                <li><a href="https://projectinaudita.netlify.app/impact" class="text-white/80 hover:text-white transition-colors">Impact</a></li>
+                <li><a href="https://projectinaudita.netlify.app/stories" class="text-white/80 hover:text-white transition-colors">Stories</a></li>
+                <li><a href="https://projectinaudita.netlify.app/contact" class="text-white/80 hover:text-white transition-colors">Contact</a></li>
             </ul>
         </nav>
         <button class="md:hidden">
@@ -219,7 +256,16 @@
             </svg>
         </button>
     </header>
-    
+     <button 
+  id="hamburger-btn" 
+  name="menu-toggle" 
+  aria-label="Toggle navigation menu"
+  class="md:hidden flex flex-col justify-center items-center w-8 h-8 space-y-1.5"
+>
+  <span class="block w-6 h-0.5 bg-gray-800 rounded"></span>
+  <span class="block w-6 h-0.5 bg-gray-800 rounded"></span>
+  <span class="block w-6 h-0.5 bg-gray-800 rounded"></span>
+</button>
     <main class="container mx-auto px-6 md:px-12 py-12 md:py-20">
         <section class="section mb-24 max-w-4xl mx-auto text-center">
             <h2 class="text-4xl md:text-6xl font-bold mb-4 leading-tight">
