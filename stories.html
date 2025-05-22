@@ -212,21 +212,6 @@ const fakeStories = [
         document.getElementById("load-more").textContent = "No more stories";
       }
     }
-if (sessionStorage.getItem("storySubmitted") === "true") {
-  alert("You can only submit one story per session.");
-  return;
-}
-
-// Handle story submission
-firebase.firestore().collection("stories").add({
-  text: storyText,
-  timestamp: firebase.firestore.FieldValue.serverTimestamp()
-}).then(() => {
-  sessionStorage.setItem("storySubmitted", "true");
-  alert("Story submitted!");
-}).catch(error => {
-  console.error("Error adding story: ", error);
-});
 
     // Handle new story submission
     document.getElementById("story-form").addEventListener("submit", async (e) => {
