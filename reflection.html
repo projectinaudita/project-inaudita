@@ -1,194 +1,815 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Find Your Spark!</title>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: 'Garamond', cursive;
-      background-color: #fef6e4;
-      color: #001858;
-      transition: all 0.5s ease;
-    }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 40px;
-      text-align: center;
-    }
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 10px;
-    }
-    p.intro {
-      font-size: 1.2em;
-      margin-bottom: 40px;
-      transition: all 1s ease;
-    }
-    .question {
-      margin-bottom: 30px;
-    }
-    .question h2 {
-      font-size: 1.3em;
-    }
-    .options button {
-      display: block;
-      margin: 10px auto;
-      padding: 10px 20px;
-      font-size: 1em;
-      border: none;
-      border-radius: 10px;
-      background-color: #f582ae;
-      color: white;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .options button:hover {
-      background-color: #ff8fab;
-    }
-    .glitch {
-      color: red;
-      font-weight: bold;
-    }
-    @keyframes glitch {
-      0% { transform: translate(0); }
-      20% { transform: translate(-2px, 2px); }
-      40% { transform: translate(2px, -2px); }
-      60% { transform: translate(-2px, -2px); }
-      80% { transform: translate(2px, 2px); }
-      100% { transform: translate(0); }
-    }
-    .hidden {
-      display: none;
-    }
-    .final-message {
-      font-size: 1.5em;
-      margin-top: 40px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Inaudita | Personality Assessment</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4a89dc;
+            --primary-light: #6aa2f8;
+            --primary-dark: #3b6fc5;
+            --secondary-color: #5cb85c;
+            --accent-color: #f0ad4e;
+            --text-color: #333;
+            --text-light: #777;
+            --background-color: #f9f9f9;
+            --card-color: #ffffff;
+            --border-color: #e0e0e0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 1rem;
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--card-color);
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .header h1 {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+        }
+
+        .header p {
+            font-weight: 300;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .content {
+            padding: 2rem;
+        }
+
+        .question-container {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .question-container.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .question {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: var(--text-color);
+        }
+
+        .question-number {
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .option {
+            padding: 1rem 1.5rem;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .option:hover {
+            background-color: rgba(74, 137, 220, 0.05);
+            border-color: var(--primary-light);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .option.selected {
+            background-color: rgba(74, 137, 220, 0.1);
+            border-color: var(--primary-color);
+        }
+
+        .option-text {
+            position: relative;
+            z-index: 1;
+        }
+
+        .progress-container {
+            padding: 0 2rem 1.5rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background-color: #e9ecef;
+            border-radius: 4px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0;
+            transition: width 0.5s ease;
+            border-radius: 4px;
+        }
+
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .result-container {
+            display: none;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 1s ease, transform 1s ease;
+            padding: 2rem;
+        }
+
+        .result-container.active {
+            display: block;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-title {
+            font-size: 2rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .result-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-codename {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        .result-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            color: white;
+            font-weight: bold;
+        }
+
+        .result-content {
+            line-height: 1.8;
+            color: var(--text-color);
+            margin-bottom: 1.5rem;
+        }
+
+        .result-traits {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .trait {
+            background-color: rgba(74, 137, 220, 0.1);
+            color: var(--primary-color);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .result-riddle {
+            background-color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent-color);
+            margin: 1.5rem 0;
+            position: relative;
+        }
+
+        .result-riddle-title {
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            background-color: white;
+            padding: 0 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-light);
+            font-weight: 500;
+        }
+
+        .hidden-url {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-secondary {
+            background-color: white;
+            color: var(--primary-color);
+            border: 1px solid var(--primary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: rgba(74, 137, 220, 0.05);
+        }
+
+        .intro-screen {
+            text-align: center;
+            padding: 2rem;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .intro-screen.hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .intro-icon {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+
+        .intro-title {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+
+        .intro-description {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .personality-types {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .type-badge {
+            background-color: rgba(74, 137, 220, 0.1);
+            color: var(--primary-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+        }
+
+        .type-badge span {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            margin-right: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 1rem;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 95%;
+            }
+            
+            .header, .content, .intro-screen {
+                padding: 1.5rem;
+            }
+            
+            .question {
+                font-size: 1.1rem;
+            }
+            
+            .result-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1 id="title">🌈 Find Your Spark! 🌈</h1>
-    <p class="intro" id="introText">Welcome to our super-fun self-discovery quiz! ✨ Just a few simple questions to help you discover your inner light. Ready?</p>
-
-    <div class="question" id="q1">
-      <h2>How do you usually handle stress?</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q1')">I bury it and move on.</button>
-        <button onclick="nextQuestion('q1')">I try to talk to someone about it.</button>
-        <button onclick="nextQuestion('q1')">I distract myself with activities.</button>
-        <button onclick="nextQuestion('q1')">I pretend it doesn’t exist.</button>
-      </div>
+    <div class="container">
+        <div class="header">
+            <h1>Project Inaudita</h1>
+            <p>Discover your psychological archetype through our scientifically designed assessment</p>
+        </div>
+        
+        <div class="intro-screen" id="intro-screen">
+            <div class="intro-icon">🧠</div>
+            <h2 class="intro-title">Personality Assessment</h2>
+            <p class="intro-description">This assessment will help you understand your psychological patterns and reveal your core archetype. Answer honestly for the most accurate results.</p>
+            
+            <div class="personality-types">
+                <div class="type-badge"><span></span>Mira</div>
+                <div class="type-badge"><span></span>Elio</div>
+                <div class="type-badge"><span></span>Kian</div>
+                <div class="type-badge"><span></span>Riv</div>
+            </div>
+            
+            <button class="btn" id="start-btn">Begin Assessment</button>
+        </div>
+        
+        <div id="quiz-container" style="display: none;">
+            <div class="content">
+                <div class="question-container" id="question-container">
+                    <div class="question" id="question"></div>
+                    <div class="options" id="options"></div>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress" id="progress"></div>
+                </div>
+                <div class="progress-text">
+                    <span id="question-counter">Question 1 of 15</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="result-container" id="result-container">
+            <div class="result-header">
+                <div class="result-title">Your Assessment Results</div>
+                <div class="result-subtitle">Based on your responses, we've identified your archetype</div>
+            </div>
+            
+            <div class="result-card">
+                <div class="result-codename" id="result-codename">
+                    <div class="result-icon" id="result-icon">M</div>
+                    <span id="result-name">Mira</span>
+                </div>
+                
+                <div class="result-content" id="result-content"></div>
+                
+                <div class="result-traits" id="result-traits">
+                    <!-- Traits will be added dynamically -->
+                </div>
+                
+                <div class="result-riddle">
+                    <div class="result-riddle-title">NEXT STEPS</div>
+                    <div id="result-riddle"></div>
+                </div>
+            </div>
+            
+            <div class="buttons">
+                <button class="btn" id="restart-btn">Retake Assessment</button>
+                <button class="btn btn-secondary" id="share-btn">Share Results</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            © 2025 Project Inaudita • All rights not reserved
+        </div>
     </div>
 
-    <div class="question hidden" id="q2">
-      <h2>When something goes wrong, your first instinct is to:</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q2')">Blame yourself.</button>
-        <button onclick="nextQuestion('q2')">Try to fix it for everyone.</button>
-        <button onclick="nextQuestion('q2')">Shut down completely.</button>
-        <button onclick="nextQuestion('q2')">Laugh it off like nothing happened.</button>
-      </div>
-    </div>
-
-    <div class="question hidden" id="q3">
-      <h2>What best describes your childhood role?</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q3')">The responsible one.</button>
-        <button onclick="nextQuestion('q3')">The peacemaker.</button>
-        <button onclick="nextQuestion('q3')">The performer.</button>
-        <button onclick="nextQuestion('q3')">The invisible one.</button>
-      </div>
-    </div>
-
-    <div class="question hidden" id="q4">
-      <h2>Do you ever feel like people only see what you let them see?</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q4')">Yes, always.</button>
-        <button onclick="nextQuestion('q4')">Sometimes.</button>
-        <button onclick="nextQuestion('q4')">No, I’m transparent.</button>
-        <button onclick="nextQuestion('q4')">I don’t know anymore.</button>
-      </div>
-    </div>
-
-    <div class="question hidden" id="q5">
-      <h2>If you could change one thing about the world, what would it be?</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q5')">Make it fair.</button>
-        <button onclick="nextQuestion('q5')">Make people listen.</button>
-        <button onclick="nextQuestion('q5')">Erase all pain.</button>
-        <button onclick="nextQuestion('q5')">Uncover the truth.</button>
-      </div>
-    </div>
-
-    <div class="question hidden" id="q6">
-      <h2>Do you believe systems can be trusted?</h2>
-      <div class="options">
-        <button onclick="nextQuestion('q6')">Not at all.</button>
-        <button onclick="nextQuestion('q6')">Only when watched.</button>
-        <button onclick="nextQuestion('q6')">I want to believe, but no.</button>
-        <button onclick="nextQuestion('q6')">Trust is a myth.</button>
-      </div>
-    </div>
-
-    <div class="question hidden" id="q7">
-      <h2>What do you hide best?</h2>
-      <div class="options">
-        <button onclick="revealMessage()">Fear.</button>
-        <button onclick="revealMessage()">Pain.</button>
-        <button onclick="revealMessage()">Anger.</button>
-        <button onclick="revealMessage()">Who I really am.</button>
-      </div>
-    </div>
-
-    <div class="final-message hidden" id="final">
-      <p class="glitch">Welcome to the Fracture Protocol. You have been selected.</p>
-      <p class="glitch">To go forward, solve this and then put it in the URL:</p>
-      <p class="glitch">I stand in silence, but I speak of the past,
-                       A tribute to those whose memories last.
-                       Carved in stone, or written in ink,
-                       I help us remember, reflect, and think.
-                       What am I?</p>
-      <p class="glitch">projectinaudita.netlify.app/________.html</p>
-    </div>
-  </div>
-
-  <script>
-    function nextQuestion(currentId) {
-      document.getElementById(currentId).classList.add('hidden');
-      const next = document.getElementById('q' + (parseInt(currentId.replace('q','')) + 1));
-      if (next) next.classList.remove('hidden');
-
-      if (currentId === 'q2') {
-        document.body.style.backgroundColor = '#fcd5ce';
-        document.body.style.color = '#720026';
-        document.getElementById('introText').textContent = 'Just keep going. It gets brighter. Right?';
-      }
-      if (currentId === 'q3') {
-        document.body.style.backgroundColor = '#2b2d42';
-        document.body.style.color = '#edf2f4';
-        document.body.style.fontFamily = 'Garamond';
-        document.getElementById('title').textContent = '▮ Initiating Spark Sequence ▮';
-        document.getElementById('introText').textContent = 'The light inside you flickers, doesn’t it? They never noticed. But we did.';
-      }
-      if (currentId === 'q4') {
-        document.getElementById('introText').textContent = 'Answer carefully. They’re listening now.';
-      }
+    <script>
+           const questions = [
+    {
+        question: "When faced with a locked door, your first instinct is to:",
+        options: [
+            { text: "Search methodically for the key", archetype: "Mira" },
+            { text: "Analyze the lock mechanism to bypass it", archetype: "Elio" },
+            { text: "Break it down with force", archetype: "Kian" },
+            { text: "Find an alternative entrance", archetype: "Riv" }
+        ]
+    },
+    {
+        question: "Your recurring dreams often feature:",
+        options: [
+            { text: "Being watched by unseen entities", archetype: "Riv" },
+            { text: "Falling through endless darkness", archetype: "Kian" },
+            { text: "Complex puzzles you can't solve", archetype: "Elio" },
+            { text: "Familiar places that become distorted", archetype: "Mira" }
+        ]
+    },
+    {
+        question: "When you hear unexpected sounds in an empty room, you:",
+        options: [
+            { text: "Document the phenomenon for later analysis", archetype: "Elio" },
+            { text: "Trust your instincts and leave immediately", archetype: "Kian" },
+            { text: "Listen carefully to identify the source", archetype: "Mira" },
+            { text: "Speak out, attempting to communicate", archetype: "Riv" }
+        ]
+    },
+    {
+        question: "The sight of your own reflection sometimes makes you:",
+        options: [
+            { text: "Notice details about yourself others miss", archetype: "Mira" },
+            { text: "Wonder about perception and reality", archetype: "Riv" },
+            { text: "Analyze your appearance objectively", archetype: "Elio" },
+            { text: "Focus on areas you want to improve", archetype: "Kian" }
+        ]
+    },
+    {
+        question: "You find an unmarked door in a familiar building. You:",
+        options: [
+            { text: "Walk away, respecting boundaries", archetype: "Kian" },
+            { text: "Open it without hesitation", archetype: "Riv" },
+            { text: "Observe it for patterns or clues first", archetype: "Elio" },
+            { text: "Feel drawn to it by curiosity", archetype: "Mira" }
+        ]
+    },
+    {
+        question: "When you dream of water, it usually appears as:",
+        options: [
+            { text: "A vast, open ocean", archetype: "Riv" },
+            { text: "A clear, frozen lake", archetype: "Mira" },
+            { text: "A flowing river or stream", archetype: "Kian" },
+            { text: "Rain falling in patterns", archetype: "Elio" }
+        ]
+    },
+    {
+        question: "The sound that most captures your attention is:",
+        options: [
+            { text: "Subtle patterns in ambient noise", archetype: "Elio" },
+            { text: "Someone calling your name", archetype: "Mira" },
+            { text: "Unexpected silence", archetype: "Riv" },
+            { text: "A familiar melody", archetype: "Kian" }
+        ]
+    },
+    {
+        question: "When you feel you're being watched, you typically:",
+        options: [
+            { text: "Trust the feeling and seek to confirm it", archetype: "Mira" },
+            { text: "Dismiss it as imagination", archetype: "Kian" },
+            { text: "Look for evidence of someone watching", archetype: "Riv" },
+            { text: "Analyze environmental factors triggering the sensation", archetype: "Elio" }
+        ]
+    },
+    {
+        question: "Your relationship with memory is best described as:",
+        options: [
+            { text: "Remembering events differently than others", archetype: "Mira" },
+            { text: "Having occasional gaps in your timeline", archetype: "Riv" },
+            { text: "Recalling details with clarity", archetype: "Elio" },
+            { text: "Focusing on meaningful moments", archetype: "Kian" }
+        ]
+    },
+    {
+        question: "When making difficult decisions, you rely most on:",
+        options: [
+            { text: "Intuition and gut feelings", archetype: "Mira" },
+            { text: "Logical analysis of all variables", archetype: "Elio" },
+            { text: "Quick instinctual responses", archetype: "Kian" },
+            { text: "Patterns observed in similar situations", archetype: "Riv" }
+        ]
+    },
+    {
+        question: "The concept of 'home' makes you think of:",
+        options: [
+            { text: "A place that evolves over time", archetype: "Riv" },
+            { text: "Somewhere that feels right intuitively", archetype: "Mira" },
+            { text: "A space you've created yourself", archetype: "Kian" },
+            { text: "A collection of specific memories", archetype: "Elio" }
+        ]
+    },
+    {
+        question: "When you encounter something you can't explain, you:",
+        options: [
+            { text: "Document it methodically", archetype: "Elio" },
+            { text: "Feel a sense of wonder and curiosity", archetype: "Mira" },
+            { text: "Seek a rational explanation", archetype: "Kian" },
+            { text: "Accept it as part of life's mysteries", archetype: "Riv" }
+        ]
+    },
+    {
+        question: "Your greatest concern might be described as:",
+        options: [
+            { text: "Missing important patterns or connections", archetype: "Mira" },
+            { text: "Losing control of your circumstances", archetype: "Kian" },
+            { text: "Being unable to solve complex problems", archetype: "Elio" },
+            { text: "Not discovering your true potential", archetype: "Riv" }
+        ]
+    },
+    {
+        question: "If you could access hidden knowledge, you would want to know:",
+        options: [
+            { text: "What exists beyond our current understanding", archetype: "Riv" },
+            { text: "The nature of consciousness and perception", archetype: "Elio" },
+            { text: "Insights about yourself and others", archetype: "Mira" },
+            { text: "How to overcome future challenges", archetype: "Kian" }
+        ]
+    },
+    {
+        question: "When unexpected changes occur, you typically:",
+        options: [
+            { text: "Look for meaningful patterns in the change", archetype: "Mira" },
+            { text: "Analyze the logical implications", archetype: "Elio" },
+            { text: "Prepare for potential outcomes", archetype: "Kian" },
+            { text: "Embrace the new possibilities", archetype: "Riv" }
+        ]
     }
+];
 
-    function revealMessage() {
-      document.querySelectorAll('.question').forEach(q => q.classList.add('hidden'));
-      document.getElementById('final').classList.remove('hidden');
-      document.body.style.backgroundColor = 'black';
-      document.body.style.color = '#ff0000';
-      document.body.style.fontFamily = 'Garamond';
-      document.getElementById('title').textContent = ':: ACCESS GRANTED ::';
-      document.getElementById('introText').textContent = '';
-    }
-  </script>
-</body>
+        const results = {
+            "Mira": {
+                description: "You are a Luminary. Your pursuit of excellence and dedication fuels a relentless drive to improve both yourself and those around you. This commitment empowers you to inspire others with your discipline and resilience. You possess a remarkable ability to focus through chaos, using structure as a beacon to navigate uncertainty. Your thoughtful preparation and high standards create pathways for success, even when the weight of expectation feels overwhelming.",
+                traits: ["Disciplined", "Resilient", "High-achieving", "Detail-oriented", "Inspiring"],
+                riddle: "Where forgotten echoes linger in static walls, seek the chamber where silence falls. Your path continues at /quest.html",
+                url: "quest.html",
+                color: "#4a89dc"
+            },
+            "Elio": {
+                description: "You are a Connector. Your generous heart and unwavering loyalty build bridges even in fractured relationships. You possess an innate ability to nurture and support, making others feel seen and valued despite your own struggles. Your emotional intelligence allows you to navigate complex feelings and foster moments of trust. This gift to give unconditionally, even when overlooked, speaks to your profound strength and enduring hope.",
+                traits: ["Loyal", "Nurturing", "Emotionally intelligent", "Self-sacrificing", "Hopeful"],
+                riddle: "Numbers speak in code when properly aligned. Find the sequence where logic and madness intertwined. Your path continues at /quest.html",
+                url: "quest.html",
+                color: "#5cb85c"
+            },
+            "Kian": {
+                description: "You are a Catalyst. Your charisma and presence naturally draw others toward you, creating opportunities for connection and change. Beneath your polished exterior lies a resilient spirit that thrives on breaking boundaries and challenging expectations. You have an intuitive grasp of social dynamics and a creative mind that transforms adversity into expression. Your courage to confront loneliness quietly fuels your journey toward authentic belonging.",
+                traits: ["Charismatic", "Restless", "Expressive", "Lone Wolf", "Bold"],
+
+                riddle: "Behind walls of strength lies vulnerability exposed. Seek the breach where your defenses are transposed. Your path continues at /quest.html",
+                url: "quest.html",
+                color: "#f0ad4e"
+            },
+            "Riv": {
+                description: "You are a Seeker. Your acute awareness and sensitivity allow you to perceive truths others often miss. This deep insight fuels                        your empathy and authenticity, helping you connect with the hidden layers beneath surface interactions. You excel at adapting to complex               social landscapes, using your intuition to protect yourself while remaining open to growth. Your quiet strength and self-reflection guide                       you through vulnerability toward genuine understanding.",
+                traits: ["Perceptive", "Empathetic", "Adaptable", "Guarded", "Introspective"],
+                riddle: "Between realms where boundaries blur and fold, find the doorway neither new nor old. Your path continues at /quest.html",
+                url: "quest.html",
+                color: "#d9534f"
+            }
+        };
+
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let archetypeCounts = {
+            "Mira": 0,
+            "Elio": 0,
+            "Riv": 0,
+            "Kian": 0
+        };
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const startBtn = document.getElementById('start-btn');
+            const restartBtn = document.getElementById('restart-btn');
+            const shareBtn = document.getElementById('share-btn');
+            
+            startBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', restartQuiz);
+            shareBtn.addEventListener('click', shareResults);
+        });
+
+        function startQuiz() {
+            document.getElementById('intro-screen').classList.add('hidden');
+            document.getElementById('quiz-container').style.display = 'block';
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const questionContainer = document.getElementById('question-container');
+            const questionElement = document.getElementById('question');
+            const optionsElement = document.getElementById('options');
+            const progressElement = document.getElementById('progress');
+            const questionCounter = document.getElementById('question-counter');
+            const progressPercent = document.getElementById('progress-percent');
+            
+            // Update progress bar
+            const progress = (currentQuestion / questions.length) * 100;
+            progressElement.style.width = `${progress}%`;
+            questionCounter.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+            progressPercent.textContent = `${Math.round(progress)}%`;
+            
+            // Clear previous question
+            questionElement.textContent = '';
+            optionsElement.innerHTML = '';
+            
+            // Add new question
+            const question = questions[currentQuestion];
+            questionElement.innerHTML = `<span class="question-number">${currentQuestion + 1}.</span> ${question.question}`;
+            
+            // Add options
+            question.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.classList.add('option');
+                
+                const optionText = document.createElement('div');
+                optionText.classList.add('option-text');
+                optionText.textContent = option.text;
+                
+                optionElement.appendChild(optionText);
+                optionElement.addEventListener('click', () => {
+                    // Remove selected class from all options
+                    document.querySelectorAll('.option').forEach(opt => {
+                        opt.classList.remove('selected');
+                    });
+                    
+                    // Add selected class to clicked option
+                    optionElement.classList.add('selected');
+                    
+                    // Wait a moment before moving to next question
+                    setTimeout(() => {
+                        selectOption(option.archetype);
+                    }, 500);
+                });
+                
+                optionsElement.appendChild(optionElement);
+            });
+            
+            // Show question with animation
+            questionContainer.classList.add('active');
+        }
+
+        function selectOption(archetype) {
+            // Record answer
+            userAnswers.push(archetype);
+            archetypeCounts[archetype]++;
+            
+            // Hide current question
+            const questionContainer = document.getElementById('question-container');
+            questionContainer.classList.remove('active');
+            
+            // Move to next question or show results
+            setTimeout(() => {
+                currentQuestion++;
+                
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showResults();
+                }
+            }, 300);
+        }
+
+        function showResults() {
+            document.getElementById('quiz-container').style.display = 'none';
+            const resultContainer = document.getElementById('result-container');
+            resultContainer.classList.add('active');
+            
+            // Determine dominant archetype
+            let dominantArchetype = "Mira";
+            let maxCount = 0;
+            
+            for (const archetype in archetypeCounts) {
+                if (archetypeCounts[archetype] > maxCount) {
+                    maxCount = archetypeCounts[archetype];
+                    dominantArchetype = archetype;
+                }
+            }
+            
+            // Display result
+            const resultContent = document.getElementById('result-content');
+            const resultCodename = document.getElementById('result-name');
+            const resultIcon = document.getElementById('result-icon');
+            const resultRiddle = document.getElementById('result-riddle');
+            const resultTraits = document.getElementById('result-traits');
+            
+            resultContent.textContent = results[dominantArchetype].description;
+            resultCodename.textContent = dominantArchetype;
+            resultIcon.textContent = dominantArchetype.charAt(0);
+            resultIcon.style.backgroundColor = results[dominantArchetype].color;
+            
+            // Clear previous traits
+            resultTraits.innerHTML = '';
+            
+            // Add traits
+            results[dominantArchetype].traits.forEach(trait => {
+                const traitElement = document.createElement('div');
+                traitElement.classList.add('trait');
+                traitElement.textContent = trait;
+                resultTraits.appendChild(traitElement);
+            });
+            
+            // Add riddle with hidden URL
+            const riddleText = results[dominantArchetype].riddle;
+            const urlPart = riddleText.split('/')[1];
+            
+            const riddleHtml = riddleText.replace(
+                `/${urlPart}`,
+                `/<span class="hidden-url">${urlPart}</span>`
+            );
+            
+            resultRiddle.innerHTML = riddleHtml;
+        }
+
+        function restartQuiz() {
+            // Reset variables
+            currentQuestion = 0;
+            userAnswers = [];
+            archetypeCounts = {
+                "Mira": 0,
+                "Elio": 0,
+                "Riv": 0,
+                "Kian": 0
+            };
+            
+            // Reset UI
+            document.getElementById('result-container').classList.remove('active');
+            document.getElementById('intro-screen').classList.remove('hidden');
+        }
+        
+        function shareResults() {
+            alert("Why do you want to share this? I mean great you have taken that enthusiasm. But frankly its too much work to make this button work, so kindly please copy the results yourself. :)");
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'944ca09387ecff6d',t:'MTc0ODA4Nzk3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
