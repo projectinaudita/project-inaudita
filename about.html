@@ -427,4 +427,130 @@
         });
     </script>
 </body>
+
+
+<script>
+  const messages = [
+    "You haven't taken the quiz yet?",
+    "Reminder: Your progress awaits.",
+    "Don’t forget to finish the quiz.",
+    "Your choices shape the story.",
+    "Secrets are waiting to be found.",
+    "Silence won’t save you.",
+    "This is normal. The Quiz is normal. :)",
+    "Be Happy :). Take the Quiz.",
+    "Follow us on Instagram and Youtube.",
+    "HES COMING! SAVE YOURSELF. TAKE THE QUIZ.",
+    "QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ. QUIZ.",
+  ];
+
+  // Create message element
+  const msgEl = document.createElement('div');
+  document.body.appendChild(msgEl);
+
+  Object.assign(msgEl.style, {
+    position: 'fixed',
+    color: 'red',
+    fontFamily: "'Courier New', monospace",
+    fontWeight: 'bold',
+    fontSize: '18px',
+    pointerEvents: 'none',
+    whiteSpace: 'nowrap',
+    opacity: '0',
+    transition: 'opacity 0.5s ease',
+    zIndex: 9999,
+    userSelect: 'none',
+  });
+
+  const margin = 10;
+
+  const excludeBRWidth = 200;
+  const excludeBRHeight = 100;
+
+   function getRandomEdgePosition(msgWidth, msgHeight) {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+  
+    const edges = ['top', 'left', 'right', 'bottom'];
+    let tries = 0;
+
+    while (tries < 100) {
+      const edge = edges[Math.floor(Math.random() * edges.length)];
+      let x, y;
+
+      switch(edge) {
+        case 'top':
+          x = Math.random() * (vw - msgWidth - 2*margin) + margin;
+          y = margin;
+          break;
+        case 'left':
+          x = margin;
+          y = Math.random() * (vh - msgHeight - 2*margin) + margin;
+          break;
+        case 'right':
+          x = vw - msgWidth - margin;
+          y = Math.random() * (vh - msgHeight - excludeBRHeight - 2*margin) + margin;
+          break;
+        case 'bottom':
+          x = Math.random() * (vw - msgWidth - excludeBRWidth - 2*margin) + margin;
+          y = vh - msgHeight - margin;
+          break;
+      }
+
+        if (x + msgWidth < vw - excludeBRWidth || y + msgHeight < vh - excludeBRHeight) {
+        return { x, y };
+      }
+
+      tries++;
+    }
+
+    return { x: margin, y: margin };
+  }
+
+  let currentIndex = 0;
+
+  function showMessage() {
+    const message = messages[currentIndex];
+    msgEl.textContent = message;
+
+    
+    msgEl.style.opacity = '1';
+    const msgWidth = msgEl.offsetWidth;
+    const msgHeight = msgEl.offsetHeight;
+
+    const { x, y } = getRandomEdgePosition(msgWidth, msgHeight);
+
+    msgEl.style.left = `${x}px`;
+    msgEl.style.top = `${y}px`;
+
+    // Show for 6 seconds then fade out
+    setTimeout(() => {
+      msgEl.style.opacity = '0';
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % messages.length;
+        showMessage();
+      }, 500);
+    }, 6000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      showMessage();
+    }, 9000);
+  });
+
+  window.addEventListener('resize', () => {
+    if (msgEl.style.opacity === '1') {
+      // Recalculate position on resize to keep it in periphery
+      const msgWidth = msgEl.offsetWidth;
+      const msgHeight = msgEl.offsetHeight;
+      const { x, y } = getRandomEdgePosition(msgWidth, msgHeight);
+      msgEl.style.left = `${x}px`;
+      msgEl.style.top = `${y}px`;
+    }
+  });
+</script>
+
+
 </html>
