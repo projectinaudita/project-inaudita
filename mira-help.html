@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Guide | Project Inaudita</title>
+    <link rel="icon" type="image/x-icon" href="logo.png-modified.png">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: #0a0a0e;
+      color: #e6e6e6;
+      line-height: 1.7;
+    }
+    .gradient-text {
+      background: linear-gradient(90deg, #9772fb, #c4a8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 700;
+    }
+    .glitch {
+      position: relative;
+      display: inline-block;
+      color: #e6e6e6;
+    }
+    .glitch:hover::before,
+    .glitch:hover::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    .glitch:hover::before {
+      color: #ff00ff;
+      animation: glitchTop 0.3s infinite linear alternate-reverse;
+      z-index: -1;
+    }
+    .glitch:hover::after {
+      color: #00ffff;
+      animation: glitchBottom 0.3s infinite linear alternate-reverse;
+      z-index: -1;
+    }
+    @keyframes glitchTop {
+      0% { clip-path: inset(0 0 90% 0); }
+      100% { clip-path: inset(0 0 10% 0); }
+    }
+    @keyframes glitchBottom {
+      0% { clip-path: inset(90% 0 0 0); }
+      100% { clip-path: inset(10% 0 0 0); }
+    }
+  </style>
+</head>
+<body class="min-h-screen overflow-x-hidden">
+  <div class="py-8 px-6 md:px-12 flex justify-between items-center border-b border-purple-800">
+    <div class="flex items-center">
+      <img src="logo.png.PNG" alt="Project Inaudita Logo" class="w-10 h-10 mr-3 rounded-full" />
+      <h1 class="text-2xl font-bold tracking-wide">
+        PROJECT <span class="gradient-text">INAUDITA</span>
+      </h1>
+    </div>
+    <nav class="hidden md:block">
+      <ul class="flex space-x-6 text-sm text-gray-300">
+        <li><a href="/reflection" class="hover:text-white">Quiz</a></li>
+        <li><a href="/impact" class="hover:text-white">Impact</a></li>
+        <li><a href="/stories" class="hover:text-white">Stories</a></li>
+        <li><a href="/contact" class="hover:text-white">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main class="max-w-4xl mx-auto px-6 py-16">
+    <h2 class="text-4xl md:text-5xl font-bold mb-8">
+      <span class="glitch relative" data-text="How to Begin">How to Begin</span>
+    </h2>
+
+    <p class="mb-6 text-lg text-gray-300">
+      You’re not lost. Not really. Confused? Probably. But you’re exactly where you need to be.
+    </p>
+
+    <p class="mb-6 text-lg text-gray-300">
+      This is not a puzzle to be <q>solved.</q> It’s a story you’ve already stepped into. A truth that’s been buried, waiting for you to listen. To notice. To remember.
+    </p>
+
+    <p class="mb-12 italic text-lg text-purple-300">
+      “Some scars aren’t visible... but they never really fade.”
+    </p>
+
+    <h3 class="text-2xl font-semibold mb-6 gradient-text">Need a Nudge?</h3>
+    <ol class="list-decimal list-inside space-y-4 text-gray-400 text-base mb-12">
+      <li><strong>Every glitch is intentional.</strong><br />If something breaks, stutters, or warps — that’s the point. Lean into it.</li>
+      <li><strong>Page names matter.</strong><br />Some paths are hidden in plain sight. Try broken links, strange URLs, misspelled words.</li>
+      <li><strong>Listen to the silence.</strong><br />If a page feels empty, try waiting. Refresh. Something always watches.</li>
+      <li><strong>Stories are keys.</strong><br />What others share on the Wall might unlock new paths. Pay attention to patterns and repeated phrases.</li>
+      <li><strong>You're not alone.</strong><br />If the messages feel personal, it’s because they are. Someone’s trying to reach you. Maybe it’s… you.</li>
+      <li><strong>When in doubt, break things.</strong><br />Highlight the text. Click what shouldn’t be clickable. </li>
+      <li><strong>Every phase has a heart.</strong><br />What is this part of the story <em>really</em> about? Guilt? Betrayal? Loneliness? Follow the feelings.</li>
+      <li><strong>Patience is the key to success. </strong><br />A wise person in my life once told me that.</li>
+      <li><strong>When can't find anything.</strong><br />Look closer. It's like a convex mirror in cars.</li>
+      <li><strong>Its a story. </strong><br />Sit back and enjoy until you can. ;)</li>
+
+    </ol>
+
+    <h3 class="text-3xl font-bold mb-6 text-gray-300">But Really, Where Do I Start?</h3>
+
+    <p class="mb-6 text-lg text-gray-300">
+      Some began with a quiz.
+    </p>
+    <p class="mb-6 text-lg text-gray-300">
+      Some stumbled into a memorial.
+    </p>
+    <p class="mb-12 text-lg text-gray-300">
+      Some just listened… until something whispered back.
+    </p>
+
+    <p class="mb-12 italic text-lg text-purple-300">
+      “You aren’t solving a mystery. You’re recovering a memory.”
+    </p>
+
+    <h3 class="text-3xl font-bold mb-6 text-gray-300">Still Stuck?</h3>
+
+    <p class="mb-6 text-lg text-gray-300">
+      This world rewards curiosity and empathy more than speed. If you’re truly stuck, take a break. Come back. The story waits.
+    </p>
+
+     <p class="mb-6 text-lg text-gray-300">
+      And if you still need help, then, you gotta pay a price. </p> 
+     <p class="mb-6 text-lg text-gray-300">     
+      Tell us something about you that no one else knows, a secret if you might call it, and voila the hint is yours.
+     <br> (Along with the part you are stuck at) </p>
+
+     <h3 class="mb-12 italic text-lg text-purple-300"> The payment may be sent over on Instagram or Email. <br>
+      @project_inaudita and projectinaudita@gmail.com</h3>
+     </p>
+    <br>
+    <p class="text-sm text-gray-500 italic">
+      Built for the forgotten, by those who remember.
+    </p>
+  </main>
+</body>
+</html>
