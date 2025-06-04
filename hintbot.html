@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Talon - The Hint Chatbot</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Cinzel:wght@400;500;600&family=Montserrat:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap');
+
+        :root {
+            --primary-color: #8a0000;
+            --primary-glow: rgba(138, 0, 0, 0.5);
+            --accent-color: #c8a060;
+            --text-color: #e6e6e8;
+            --bg-color: #0f0f11;
+            --console-bg: #161619;
+            --border-color: rgba(40, 40, 45, 0.8);
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background-color: var(--bg-color);
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(40, 40, 50, 0.2) 0%, transparent 60%),
+                radial-gradient(circle at 85% 85%, rgba(40, 40, 50, 0.2) 0%, transparent 60%);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .console-container {
+            background-color: var(--console-bg);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .console-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+        }
+
+        .chatbox::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .chatbox::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 3px;
+        }
+
+        .chatbox::-webkit-scrollbar-thumb {
+            background: rgba(120, 0, 0, 0.3);
+            border-radius: 3px;
+        }
+
+        .chatbox::-webkit-scrollbar-thumb:hover {
+            background: rgba(120, 0, 0, 0.5);
+        }
+
+        .option-btn {
+            background: rgba(30, 30, 35, 0.7);
+            border: 1px solid rgba(80, 0, 0, 0.2);
+            color: var(--text-color);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .option-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.05), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .option-btn:hover {
+            background: rgba(50, 30, 35, 0.9);
+            border-color: rgba(120, 0, 0, 0.4);
+            transform: translateY(-1px);
+        }
+
+        .option-btn:hover::before {
+            opacity: 1;
+        }
+
+        .option-btn:active {
+            transform: translateY(1px);
+        }
+
+        .alastor-text {
+            font-family: 'Cormorant', serif;
+            color: var(--accent-color);
+            font-weight: 500;
+            line-height: 1.6;
+            position: relative;
+            padding-left: 20px;
+            border-left: 2px solid rgba(200, 160, 96, 0.3);
+        }
+
+        .ghostieee-text {
+            font-family: 'Montserrat', sans-serif;
+            color: #9c64ff;
+            font-weight: 300;
+            font-style: italic;
+            text-shadow: 0 0 5px rgba(156, 100, 255, 0.3);
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            color: var(--primary-color);
+            letter-spacing: 8px;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+
+        .logo::after {
+            content: "";
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--primary-glow), transparent);
+        }
+
+        .back-btn {
+            background: rgba(30, 30, 35, 0.5);
+            border: 1px solid rgba(80, 0, 0, 0.2);
+            color: #a0a0a5;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .back-btn:hover {
+            background: rgba(50, 30, 35, 0.7);
+            border-color: rgba(120, 0, 0, 0.3);
+            color: var(--text-color);
+        }
+
+        .subtitle {
+            font-family: 'Montserrat', sans-serif;
+            color: #a0a0a5;
+            letter-spacing: 2px;
+            font-weight: 300;
+            text-transform: uppercase;
+            font-size: 0.8rem;
+        }
+
+        .chatbox {
+            background: rgba(15, 15, 18, 0.7);
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23333333' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+        }
+
+        .fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .fade-out {
+            animation: fadeOut 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(5px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(5px); }
+        }
+
+        .header-bar {
+            height: 30px;
+            background: rgba(20, 20, 25, 0.8);
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .header-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+
+        .header-dot.red {
+            background: var(--primary-color);
+            box-shadow: 0 0 5px var(--primary-glow);
+        }
+
+        .header-dot.yellow {
+            background: var(--accent-color);
+            box-shadow: 0 0 5px rgba(200, 160, 96, 0.5);
+        }
+
+        .header-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            color: #a0a0a5;
+            letter-spacing: 1px;
+            margin-left: 10px;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        .message-enter {
+            animation: messageEnter 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        @keyframes messageEnter {
+            from { 
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .options-container {
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .console-footer {
+            height: 15px;
+            background: rgba(20, 20, 25, 0.8);
+            border-top: 1px solid var(--border-color);
+        }
+
+        .cursor-blink {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background-color: var(--accent-color);
+            margin-left: 4px;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .talon-emblem {
+            width: 40px;
+            height: 40px;
+            margin: 0 auto 15px;
+            position: relative;
+        }
+
+        .talon-emblem svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 3px var(--primary-glow));
+        }
+
+        .talon-emblem path {
+            fill: var(--primary-color);
+        }
+
+        .option-btn {
+            position: relative;
+            z-index: 1;
+        }
+
+        .option-btn::after {
+            content: '';
+            position: absolute;
+            left: -100%;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(138, 0, 0, 0.1) 50%, 
+                transparent 100%);
+            z-index: -1;
+            transition: left 0.7s ease;
+        }
+
+        .option-btn:hover::after {
+            left: 100%;
+        }
+
+        .message-timestamp {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(160, 160, 165, 0.5);
+            margin-bottom: 2px;
+        }
+
+        .message-content {
+            position: relative;
+        }
+
+        .message-content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--accent-color), transparent);
+            opacity: 0.3;
+        }
+
+        .ghostieee-text::before {
+            background: linear-gradient(to bottom, #9c64ff, transparent);
+        }
+
+        .connection-status {
+            position: absolute;
+            top: 8px;
+            right: 15px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            color: rgba(160, 160, 165, 0.7);
+            display: flex;
+            align-items: center;
+        }
+
+        .status-indicator {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            margin-right: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .watermark {
+            position: absolute;
+            bottom: 10px;
+            right: 15px;
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: rgba(138, 0, 0, 0.3);
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4 md:p-8">
+    <div class="w-full max-w-3xl mx-auto">
+        <div class="text-center mb-8">
+            <div class="talon-emblem">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12,2L1,21H23L12,2M12,6L19.5,19H4.5L12,6Z" />
+                </svg>
+            </div>
+            <h1 class="logo text-3xl md:text-4xl mb-3">TALON</h1>
+            <p class="subtitle">Illuminating the shadows</p>
+        </div>
+        
+        <div class="console-container w-full relative overflow-hidden">
+            <!-- Header Bar -->
+            <div class="header-bar">
+                <div class="header-dot red"></div>
+                <div class="header-dot yellow"></div>
+                <div class="header-title">Terminal Session: Encrypted</div>
+                <div class="connection-status">
+                    <div class="status-indicator"></div>
+                    <span>Secure Connection</span>
+                </div>
+            </div>
+            
+            <!-- Chatbox -->
+            <div class="chatbox h-64 md:h-80 overflow-y-auto p-5 relative">
+                <div id="chat-content" class="relative"></div>
+                <div class="watermark">TALON (and Ghostieee)</div>
+            </div>
+            
+            <!-- Options Panel -->
+            <div id="options-container" class="options-container p-5 bg-opacity-30 bg-black border-t border-gray-800">
+                <div id="options-panel"></div>
+            </div>
+            
+            <!-- Footer -->
+            <div class="console-footer"></div>
+        </div>
+        
+        <div class="text-xs text-gray-500 mt-4 text-center">
+            <p class="font-light tracking-wide">Secure connection established • All inquiries are confidential </div>
+
+    <script>
+        // Data structure for hints	
+const hintData = {
+  "Mira": {
+    intro: "Ah, Mira... The crown of perfection polished so hard, it’s cracking. Step carefully, deer—perfection bleeds.",
+    subOptions: {
+      "Scholarship Quiz": {
+        intro: "AHAHAHAHA—You’re stuck *here*? You sweet little overachiever!",
+        hints: [
+          "Only one app is offered. That wasn’t an accident—it’s a funnel.",
+          "Pinterest. She lived on it. Built a version of herself there—one you’re meant to see.",
+          "Three usernames. One is a mask, one is a mirror, one is hers.",
+          "Kian left her name out loud in a place where likes outnumber love. Instagram is your confession booth."
+        ]
+      },
+      "Study Mode": {
+        intro: "Her schedule? A shrine. Her timer? A ticking scream.",
+        hints: [
+          "Sticky notes aren't reminders. They’re echoes.",
+          "The tasks look harmless… until you try to breathe between them.",
+          "Watch the timer. It doesn’t just count minutes. It counts how long she can pretend.",
+          "Ah, a gift. Wrapped in authority. Smells like... compliance."
+        ]
+      },
+      "I am just checking the ARG out. How are you?": {
+        intro: "Charming. You wandered in like a child in a war zone and asked if it’s raining.",
+        hints: [
+          "Nice to meet you. We’ve all been waiting.",
+          "Where are you? The question you should’ve asked sooner.",
+          "You didn’t get here by accident. They don’t *allow* accidents.",
+          "BORED already? Tsk. Then you're not paying attention."
+        ]
+      }
+    }
+  },
+
+  "Elio": {
+    intro: "Ah, Elio... the one who gave everything and got nothing but silence. Let’s trace the wounds no one saw.",
+    subOptions: {
+      "Class Collaboration Portal": {
+        intro: "He submitted brilliance. They gave him abandonment. Tap the wound.",
+        hints: [
+          "Rejected? Curious word for something no one else helped build.",
+          "Click the project. It isn’t shy.",
+          "The rejection isn’t about work. It’s about betrayal with a deadline.",
+          "His silence says everything you need to hear—if you *listen*."
+        ]
+      },
+      "Project Comments (Internal Communications)": {
+        intro: "The digital trail never really forgets—especially pain.",
+        hints: [
+          "Read the comments. Does this *feel* like a group project?",
+          "He didn’t volunteer. He was volunteered. Big difference.",
+          "His pain leaked into the system—unintended, unfiltered, unhealed.",
+          "'SEE' isn’t just a word. It's an invitation. Accept it."
+        ]
+      },
+      "Laudate Altheon, Deus Solitudinis": {
+        intro: "Two gods. Two sins. One boy caught in the middle.",
+        hints: [
+          "Loneliness and Betrayal… divine names for very human crimes.",
+          "Their faith? A mask. His offering? A cry.",
+          "There’s a button tucked in both corners. He left them behind like breadcrumbs.",
+          "Endings hide at the edge of worship. What will you find in reverence?"
+        ]
+      }
+    }
+  },
+
+  "Kian": {
+    intro: "Kian. The golden boy. Rich in everything—except what mattered.",
+    subOptions: {
+      "Entry Passcode": {
+        intro: "Ah, a riddle. Finally, someone dares speak in poetry again.",
+        hints: [
+          "Gold. Glory. Guilt. The trinity that ruined him.",
+          "Who turned life to treasure and love to stone?",
+          "The myth isn’t just history. It’s diagnosis.",
+          "Say his name, and the door opens. Mourn him later."
+        ]
+      },
+      "Invitation": {
+        intro: "An invitation, sealed in charm and soaked in secrecy.",
+        hints: [
+          "The username is there, plain as pain—but only if you follow it *out* of this place.",
+          "No puzzle here. Just direction. Instagram is the mirror.",
+          "That handle? It's not a signature. It's a scar.",
+          "Kian never spoke it. But he wanted someone to find it."
+        ]
+      },
+      "NEVER GONNA GIVE YOU UP": {
+        intro: "Hah! Even here, he leaves jokes to numb the truth.",
+        hints: [
+          "The logs show his ID entered late… but didn’t exit.",
+          "What happened at 3:42 AM wasn’t research.",
+          "Another used his name that night. Like they used everything else.",
+          "Contamination isn’t science. It’s sabotage."
+        ]
+      }
+    }
+  },
+
+  "Riv": {
+    intro: "Riv… too quiet to be noticed, too observant to be spared. Let’s find what their silence preserved.",
+    subOptions: {
+      "Password Protected Page": {
+        intro: "This is your trial by fire. No shortcuts. No hand-holding.",
+        hints: [
+          "The answer lives in the others. Especially Mira and Kian.",
+          "Every candle you’ve lit adds to the key.",
+          "Count the objects. Follow the folders. Obey the order.",
+          "You can’t force this. You *earn* it."
+        ]
+      },
+      "Case File": {
+        intro: "You opened it? You *shouldn’t* have. And now they know.",
+        hints: [
+          "This file was never meant for your eyes.",
+          "The antagonists left you a message… and a warning.",
+          "This isn’t closure. It’s surveillance.",
+          "You reached too far, and now they’re reaching back."
+        ]
+      },
+      "Insta Post": {
+        intro: "Did you see it? The mirror, in plain sight?",
+        hints: [
+          "Check Riv’s latest post. Look harder.",
+          "The handle isn’t tagged. It’s embedded.",
+          "`msperfectonpurpose`. One of them. Or maybe all of them.",
+          "Riv knew you’d look. That's why they hid it where the light hits just right."
+        ]
+      }
+    }
+  },
+
+ "Memorial": {
+    intro: "The memorial... not just for the forgotten, but for those *made* to be forgotten. This is where your descent begins.",
+    hints: [
+        "Four candles. Four wounds dressed as tributes.",
+        "Each one holds a story clawing to be heard.",
+        "Click them. Let their voices burn through you.",
+        "Stuck? Top right. There’s always a back door. *Even into hell.*"
+    ]
+}
+
+
+         // Ghostieee's random hints that might appear
+        const ghostieeeHints = [ 
+            "Ghostieee: aaj ka mausam accha hai, the humidity is perfect.",
+            "Ghostieee: Sometimes I wonder if pigeons are just undercover agents for a secret squirrel society.",
+            "Ghostieee: Reminder: Your cat probably judges your playlist. Mine definitely does. I DONT EVEN HAVE A CAT. HAHA!",
+            "Ghostieee: I have a dog- Richie. She's cool.",
+            "Ghostieee: Ever thought about how socks just disappear? I’m convinced they’re starting a new civilization somewhere.",
+            "Ghostieee: Random thought: If I were a sandwich, what kind would I be? Asking for a friend.",
+            "Ghostieee: Question: Do fish get thirsty? Asking for my goldfish, Steve. I DONT EVEN HAVE A FISH. HOW WOULD I HAVE GOLD. HAH GOTCHA!",
+            "Ghostieee: If life gives you lemons, throw them back and demand chocolate.",
+            "Ghostieee: I accidentally swallowed some food coloring. The doctor says I’m okay but I feel like I’ve dyed a little inside.",
+            "Ghostieee: I was walking my fish, then the Sun drowned, blue is food."
+        ];
+
+        // DOM elements
+        const chatContent = document.getElementById('chat-content');
+        const optionsPanel = document.getElementById('options-panel');
+        const optionsContainer = document.getElementById('options-container');
+
+        // State variables
+        let currentState = 'main'; // 'main', 'sub', 'hints'
+        let currentTopic = null;
+        let currentSubOption = null;
+        let isTyping = false;
+        let typewriterQueue = [];
+// Initialize the chatbot with Alastor-style taunting messages
+function init() {
+    const intros = [
+          "Oh, you again. I hoped you'd choke on curiosity. But here you are, gasping for truth. Speak.",
+          "Click. Twitch. Beg. You really are quite the performer — shame there's no audience left. Tell me where you need help.",
+          "Knock, knock… It’s your conscience. Wait. No. It’s me — worse.",
+          "Another child of chaos arrives. Shall we peel back the pretty layers of delusion together?",
+          "Ah! The scent of confusion. Like perfume. Let's bottle it and sell it to the naive.",
+          "Welcome to your favorite nightmare. Let’s scratch at the scars you buried.",
+          "I’ve watched smarter ones spiral. So do try to impress me. Please. I’m starved for amusement.",
+          "You must be exhausted… carrying all that denial. Let’s unpack it together, violently.",
+          "Curiosity didn’t kill the cat. It just made it scream louder.",
+          "Did that 'Ghostieee' say anything yet? No? Good. Don't listen to him.",
+          "Did you think the puzzle was unfair? Adorable. Shall I bring you your pacifier?",
+          "No one forced you here. That’s the horror, isn’t it? You clicked. You *chose* this spiral.",
+          "I built this place from the bones of forgotten questions. You’ll fit right in.",
+          "Truth is a mirror shattered by guilt. Pick a shard. Bleed a little.",
+          "Oh, look at you, clinging to reason like it’s a life raft. Darling… we’re in the undertow now.",
+          "What’s more tragic — that you're lost, or that you *keep coming back* to me to be found?",
+          "You want help? HAH! I'm the architect of your confusion. But let’s pretend I care, shall we?",
+          "Have you tried screaming into the void? It usually echoes back with my laughter.",
+          "Even the brave get bent. Let's see what you’re made of under pressure.",
+          "Every click is consent. Remember that, when this starts to hurt."
+    ];
+    
+    // Pick a random intro
+    const intro = intros[Math.floor(Math.random() * intros.length)];
+
+    // Display the message with the typewriter effect
+    typeMessage(intro, 'alastor');
+
+    // Show the main hint topic options
+    showMainOptions();
+}
+
+
+        // Show main topic options with transition
+        function showMainOptions() {
+            currentState = 'main';
+            
+            // Fade out current options
+            optionsContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                optionsPanel.innerHTML = '';
+                
+                // Create a grid for the buttons
+                const buttonGrid = document.createElement('div');
+                buttonGrid.className = 'grid grid-cols-2 md:grid-cols-3 gap-4';
+                
+                Object.keys(hintData).forEach((topic, index) => {
+                    const button = createButton(topic, () => selectTopic(topic));
+                    // Add staggered animation delay
+                    button.style.animationDelay = `${index * 0.08}s`;
+                    button.classList.add('fade-in');
+                    buttonGrid.appendChild(button);
+                });
+                
+                optionsPanel.appendChild(buttonGrid);
+                
+                // Fade in new options
+                optionsContainer.classList.remove('fade-out');
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('.fade-in');
+                    buttons.forEach(btn => btn.classList.remove('fade-in'));
+                }, 600);
+            }, 300);
+        }
+
+        // Show sub-options for a topic with transition
+        function showSubOptions(topic) {
+            currentState = 'sub';
+            
+            // Fade out current options
+            optionsContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                optionsPanel.innerHTML = '';
+                
+                const topicData = hintData[topic];
+                
+                if (topicData.subOptions) {
+                    const buttonGrid = document.createElement('div');
+                    buttonGrid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4 mb-4';
+                    
+                    Object.keys(topicData.subOptions).forEach((subOption, index) => {
+                        const button = createButton(subOption, () => selectSubOption(topic, subOption));
+                        // Add staggered animation delay
+                        button.style.animationDelay = `${index * 0.08}s`;
+                        button.classList.add('fade-in');
+                        buttonGrid.appendChild(button);
+                    });
+                    
+                    optionsPanel.appendChild(buttonGrid);
+                }
+                
+                // Add back button
+                const backButtonContainer = document.createElement('div');
+                backButtonContainer.className = 'mt-4 text-right';
+                
+                const backButton = createButton('Return', showMainOptions, 'back-btn');
+                backButton.style.animationDelay = '0.24s';
+                backButton.classList.add('fade-in');
+                backButtonContainer.appendChild(backButton);
+                
+                optionsPanel.appendChild(backButtonContainer);
+                
+                // Fade in new options
+                optionsContainer.classList.remove('fade-out');
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('.fade-in');
+                    buttons.forEach(btn => btn.classList.remove('fade-in'));
+                }, 600);
+            }, 300);
+        }
+
+        // Handle topic selection
+        function selectTopic(topic) {
+            currentTopic = topic;
+            const topicData = hintData[topic];
+            
+            // Clear any ongoing typing
+            clearTypewriterQueue();
+            
+            // Type the topic introduction
+            typeMessage(topicData.intro, 'alastor');
+            
+            // If the topic has sub-options, show them
+            if (topicData.subOptions) {
+                setTimeout(() => {
+                    showSubOptions(topic);
+                }, calculateTypingTime(topicData.intro) + 500);
+            } else {
+                // If no sub-options, show hints directly
+                setTimeout(() => {
+                    showHints(topic);
+                }, calculateTypingTime(topicData.intro) + 500);
+            }
+        }
+
+        // Handle sub-option selection
+        function selectSubOption(topic, subOption) {
+            currentSubOption = subOption;
+            const subOptionData = hintData[topic].subOptions[subOption];
+            
+            // Clear any ongoing typing
+            clearTypewriterQueue();
+            
+            // Type the sub-option introduction
+            typeMessage(subOptionData.intro, 'alastor');
+            
+            // Show hints after the intro is typed
+            setTimeout(() => {
+                showHints(topic, subOption);
+            }, calculateTypingTime(subOptionData.intro) + 500);
+        }
+
+        // Show hints for a topic or sub-option
+        function showHints(topic, subOption = null) {
+            currentState = 'hints';
+            
+            // Fade out current options
+            optionsContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                optionsPanel.innerHTML = '';
+                
+                let hints;
+                if (subOption) {
+                    hints = hintData[topic].subOptions[subOption].hints;
+                } else {
+                    hints = hintData[topic].hints;
+                }
+                
+                // Type each hint with a delay between them
+                let totalDelay = 0;
+                hints.forEach((hint, index) => {
+                    totalDelay += (index > 0 ? 800 : 0); // Delay between hints
+                    
+                    setTimeout(() => {
+                        typeMessage(hint, 'alastor');
+                        
+                        // If this is the last hint, add back button and maybe show Ghostieee hint
+                        if (index === hints.length - 1) {
+                            const typingTime = calculateTypingTime(hint);
+                            
+                            setTimeout(() => {
+                                // Random chance for Ghostieee hint
+                                if (Math.random() < 0.10) { // 5% chance
+                                    const ghostHint = ghostieeeHints[Math.floor(Math.random() * ghostieeeHints.length)];
+                                    typeMessage(ghostHint, 'ghostieee');
+                                    
+                                    setTimeout(() => {
+                                        addBackButton();
+                                    }, calculateTypingTime(ghostHint) + 500);
+                                } else {
+                                    addBackButton();
+                                }
+                            }, typingTime + 500);
+                        }
+                    }, totalDelay);
+                    
+                    totalDelay += calculateTypingTime(hint);
+                });
+                
+                // Fade in new options (which will be empty until back button appears)
+                optionsContainer.classList.remove('fade-out');
+            }, 300);
+        }
+
+        // Add back button after hints
+        function addBackButton() {
+            // Fade out current options
+            optionsContainer.classList.add('fade-out');
+            
+            setTimeout(() => {
+                optionsPanel.innerHTML = '';
+                
+                const backButtonContainer = document.createElement('div');
+                backButtonContainer.className = 'text-right';
+                
+                const backButton = createButton('Return', () => {
+                    if (currentSubOption) {
+                        showSubOptions(currentTopic);
+                    } else {
+                        showMainOptions();
+                    }
+                }, 'back-btn');
+                
+                backButton.classList.add('fade-in');
+                backButtonContainer.appendChild(backButton);
+                
+                optionsPanel.appendChild(backButtonContainer);
+                
+                // Fade in new options
+                optionsContainer.classList.remove('fade-out');
+                
+                // Remove animation class after animation completes
+                setTimeout(() => {
+                    const buttons = document.querySelectorAll('.fade-in');
+                    buttons.forEach(btn => btn.classList.remove('fade-in'));
+                }, 600);
+            }, 300);
+        }
+
+        // Create a button element with enhanced styling
+        function createButton(text, onClick, className = 'option-btn') {
+            const button = document.createElement('button');
+            button.textContent = text;
+            button.className = `${className} py-3 px-4 rounded text-sm md:text-base w-full`;
+            
+            button.addEventListener('click', function() {
+                onClick();
+            });
+            
+            return button;
+        }
+
+        // Get current timestamp
+        function getCurrentTimestamp() {
+            const now = new Date();
+            const hours = now.getHours().toString().padStart(2, '0');
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            const seconds = now.getSeconds().toString().padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
+        }
+
+        // Type a message with typewriter effect
+        function typeMessage(message, style) {
+            // Add to queue
+            typewriterQueue.push({ message, style });
+            
+            // If not currently typing, start the process
+            if (!isTyping) {
+                processTypewriterQueue();
+            }
+        }
+
+        // Process the typewriter queue
+        function processTypewriterQueue() {
+            if (typewriterQueue.length === 0) {
+                isTyping = false;
+                return;
+            }
+            
+            isTyping = true;
+            const { message, style } = typewriterQueue.shift();
+            
+            // Create message container
+            const messageContainer = document.createElement('div');
+            messageContainer.className = 'mb-5 message-enter';
+            
+            // Create timestamp
+            const timestamp = document.createElement('div');
+            timestamp.className = 'message-timestamp';
+            timestamp.textContent = getCurrentTimestamp();
+            messageContainer.appendChild(timestamp);
+            
+            // Create message element
+            const messageElement = document.createElement('div');
+            messageElement.className = `message-content pl-3 ${style === 'alastor' ? 'alastor-text' : 'ghostieee-text'}`;
+            messageContainer.appendChild(messageElement);
+            
+            chatContent.appendChild(messageContainer);
+            
+            // Type the message
+            let charIndex = 0;
+            const typeChar = () => {
+                if (charIndex < message.length) {
+                    // Variable typing speed
+                    const speed = Math.floor(Math.random() * 30) + 30; // 30-60ms
+                    
+                    messageElement.textContent = message.substring(0, charIndex + 1);
+                    
+                    // Add blinking cursor at the end
+                    const cursor = document.createElement('span');
+                    cursor.className = 'cursor-blink';
+                    messageElement.appendChild(cursor);
+                    
+                    charIndex++;
+                    
+                    // Auto-scroll
+                    const chatbox = document.querySelector('.chatbox');
+                    chatbox.scrollTop = chatbox.scrollHeight;
+                    
+                    setTimeout(typeChar, speed);
+                } else {
+                    // Remove cursor when done typing
+                    const cursor = messageElement.querySelector('.cursor-blink');
+                    if (cursor) {
+                        cursor.remove();
+                    }
+                    
+                    // Message complete, process next in queue
+                    setTimeout(processTypewriterQueue, 100);
+                }
+            };
+
+    typeChar();
+}
+
+
+        // Clear the typewriter queue
+        function clearTypewriterQueue() {
+            typewriterQueue = [];
+            isTyping = false;
+        }
+
+        // Calculate approximate typing time for a message
+        function calculateTypingTime(message) {
+            // Average typing speed (40ms per character)
+            return message.length * 40;
+        }
+
+        // Start the chatbot
+        init();
+    </script>
+</body>
+</html>
