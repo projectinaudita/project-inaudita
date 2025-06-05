@@ -417,139 +417,7 @@
     <script>
         // Data structure for hints	
 const hintData = {
-  "Mira": {
-    intro: "Ah, Mira... The crown of perfection polished so hard, it’s cracking. Step carefully, deer—perfection bleeds.",
-    subOptions: {
-      "Scholarship Quiz": {
-        intro: "AHAHAHAHA—You’re stuck *here*? You sweet little overachiever!",
-        hints: [
-          "Only one app is offered. That wasn’t an accident—it’s a funnel.",
-          "Pinterest. She lived on it. Built a version of herself there—one you’re meant to see.",
-          "Three usernames. One is a mask, one is a mirror, one is hers.",
-          "Kian left her name out loud in a place where likes outnumber love. Instagram is your confession booth."
-        ]
-      },
-      "Study Mode": {
-        intro: "Her schedule? A shrine. Her timer? A ticking scream.",
-        hints: [
-          "Sticky notes aren't reminders. They’re echoes.",
-          "The tasks look harmless… until you try to breathe between them.",
-          "Watch the timer. It doesn’t just count minutes. It counts how long she can pretend.",
-          "Ah, a gift. Wrapped in authority. Smells like... compliance."
-        ]
-      },
-      "I am just checking the ARG out. How are you?": {
-        intro: "Charming. You wandered in like a child in a war zone and asked if it’s raining.",
-        hints: [
-          "Curiosity kills the cat.",
-          "What about humans though?",
-          "You might be the perfect subject for it",
-          "HAH!"
-        ]
-      }
-    }
-  },
-
-  "Elio": {
-    intro: "Ah, Elio... the one who gave everything and got nothing but silence. Let’s trace the wounds no one saw.",
-    subOptions: {
-      "Class Collaboration Portal": {
-        intro: "He submitted brilliance. They gave him abandonment. Tap the wound.",
-        hints: [
-          "Rejected? Curious word for something no one else helped build.",
-          "Click the project. It isn’t shy.",
-          "The rejection isn’t about work. It’s about betrayal with a deadline.",
-          "His silence says everything you need to hear—if you *listen*."
-        ]
-      },
-      "Project Comments (Internal Communications)": {
-        intro: "The digital trail never really forgets—especially pain.",
-        hints: [
-          "Read the comments. Does this *feel* like a group project?",
-          "He didn’t volunteer. He was volunteered. Big difference.",
-          "His pain leaked into the system—unintended, unfiltered, unhealed.",
-          "'SEE' isn’t just a word. It's an invitation. Accept it."
-        ]
-      },
-      "Laudate Altheon, Deus Solitudinis": {
-        intro: "Two gods. Two sins. One boy caught in the middle.",
-        hints: [
-          "Loneliness and Betrayal… divine names for very human crimes.",
-          "Their faith? A mask. His offering? A cry.",
-          "There’s a button tucked in bottom left corners in each segment. He left them behind like breadcrumbs.",
-          "Endings hide at the edge of worship. What will you find in reverence?"
-        ]
-      }
-    }
-  },
-
-  "Kian": {
-    intro: "Kian. The golden boy. Rich in everything—except what mattered.",
-    subOptions: {
-      "Entry Passcode": {
-        intro: "Ah, a riddle. Finally, someone dares speak in poetry again.",
-        hints: [
-          "Gold. Glory. Guilt. The trinity that ruined him.",
-          "Who turned life to treasure and love to stone?",
-          "The myth isn’t just history. It’s diagnosis.",
-          "Say his name, and the door opens. Mourn him later. King Midas."
-        ]
-      },
-      "Invitation": {
-        intro: "An invitation, sealed in charm and soaked in secrecy.",
-        hints: [
-          "The username is there, plain as pain—but only if you follow it *out* of this place.",
-          "No puzzle here. Just direction. Instagram is the mirror.",
-          "That handle? It's not a signature. It's a scar.",
-          "Kian never spoke it. But he wanted someone to find it."
-        ]
-      },
- "Insta Post": {
-        intro: "Did you see it? The mirror, in plain sight?",
-        hints: [
-          "Check Riv’s latest post. Look harder.",
-          "The handle isn’t tagged. It’s embedded.",
-          "`msperfectonpurpose`. One of them. Or maybe all of them.",
-          "Riv knew you’d look. That's why they hid it where the light hits just right."
-        ]
-      }
-    }
-  },
-
-  "Riv": {
-    intro: "Riv… too quiet to be noticed, too observant to be spared. Let’s find what their silence preserved.",
-    subOptions: {
-      "Password Protected Page": {
-        intro: "This is your trial by fire. No shortcuts. No hand-holding.",
-        hints: [
-          "The answer lives in the others. Especially Mira and Kian.",
-          "Every candle you’ve lit adds to the key.",
-          "Count the objects. Follow the folders. Obey the order.",
-          "You can’t force this. You *earn* it."
-        ]
-      },
-      "Case File": {
-        intro: "You opened it? You *shouldn’t* have. And now they know.",
-        hints: [
-          "This file was never meant for your eyes.",
-          "The antagonists left you a message… and a warning. Click the Gift.",
-          "This isn’t closure. It’s surveillance.",
-          "You reached too far, and now they’re reaching back."
-          "Phase 2. Coming Soon."
-        ]
-      },
-     "Tell me why?": {
-        intro: "AINT NOTHING BUT A HEARTACHE",
-        hints: [
-          "TELL ME WHY AINT NOTHING BUT A MISTAKE",
-          "NOW NUMBER FIVE",
-          "I NEVER WANNA HEAR YOU SAYYYY",
-          "I WANT IT THAAAAT WAYYYY"
-        ]
-      }
-    }
-  },
-  "Quest": {
+      "Quest": {
     intro: "You're stuck at the first riddle of the ARG. Ah-hah Wonderful!",
     subOptions: {
       "Please help me.": {
@@ -582,7 +450,7 @@ const hintData = {
     }
   },
   "Fallback": {
-    intro: "You're stuck at the second riddle of the ARG. This is the easiet. Ah-hah Wonderful!",
+    intro: "You're stuck at the second riddle of the ARG. This is the easiest. Ah-hah Wonderful!",
     subOptions: {
       "Please help me.": {
         intro: "Ugh, I'm obliged to, so yeah.",
@@ -622,9 +490,139 @@ const hintData = {
         "Click them. Let their voices burn through you.",
         "Stuck? Top right. There’s always a back door. *Even into hell.*"
     ]
-}
-};
+  }
+ },
+ "Riv": {
+    intro: "Riv… too quiet to be noticed, too observant to be spared. Let’s find what their silence preserved.",
+    subOptions: {
+      "Password Protected Page": {
+        intro: "This is your trial by fire. No shortcuts. No hand-holding.",
+        hints: [
+          "The answer lives in the others. Especially Mira and Kian.",
+          "Every candle you’ve lit adds to the key.",
+          "Count the objects. Follow the folders. Obey the order.",
+          "You can’t force this. You *earn* it."
+        ]
+      },
+      "Case File": {
+        intro: "You opened it? You *shouldn’t* have. And now they know.",
+        hints: [
+          "This file was never meant for your eyes.",
+          "The antagonists left you a message… and a warning. Click the Gift.",
+          "This isn’t closure. It’s surveillance.",
+          "You reached too far, and now they’re reaching back.",
+          "Phase 2. Coming Soon."
+        ]
+      },
+     "Tell me why?": {
+        intro: "AINT NOTHING BUT A HEARTACHE",
+        hints: [
+          "TELL ME WHY AINT NOTHING BUT A MISTAKE",
+          "NOW NUMBER FIVE",
+          "I NEVER WANNA HEAR YOU SAYYYY",
+          "I WANT IT THAAAAT WAYYYY"
+        ]
+      }
+    }
+  },
+    "Mira": {
+    intro: "Ah, Mira... The crown of perfection polished so hard, it’s cracking. Step carefully, deer—perfection bleeds.",
+    subOptions: {
+      "Scholarship Quiz": {
+        intro: "AHAHAHAHA—You’re stuck *here*? You sweet little overachiever!",
+        hints: [
+          "Only one app is offered. That wasn’t an accident—it’s a funnel.",
+          "Pinterest. She lived on it. Built a version of herself there—one you’re meant to see.",
+          "Three usernames. One is a mask, one is a mirror, one is hers.",
+          "Kian left her name out loud in a place where likes outnumber love. Instagram is your confession booth."
+        ]
+      },
+      "Study Mode": {
+        intro: "Her schedule? A shrine. Her timer? A ticking scream.",
+        hints: [
+          "Sticky notes aren't reminders. They’re echoes.",
+          "The tasks look harmless… until you try to breathe between them.",
+          "Watch the timer. It doesn’t just count minutes. It counts how long she can pretend.",
+          "Ah, a gift. Wrapped in authority. Smells like... compliance."
+        ]
+      },
+      "I am just checking the ARG out. How are you?": {
+        intro: "Charming. You wandered in like a child in a war zone and asked if it’s raining.",
+        hints: [
+          "Curiosity kills the cat.",
+          "What about humans though?",
+          "You might be the perfect subject for it",
+          "HAH!"
+        ]
+      }
+    }
+  },
 
+  "Kian": {
+    intro: "Kian. The golden boy. Rich in everything—except what mattered.",
+    subOptions: {
+          "Entry Passcode": {
+        intro: "Ah, a riddle. Finally, someone dares speak in poetry again.",
+        hints: [
+          "Gold. Glory. Guilt. The trinity that ruined him.",
+          "Who turned life to treasure and love to stone?",
+          "The myth isn’t just history. It’s diagnosis.",
+          "Say his name, and the door opens. Mourn him later. King Midas."
+        ]
+      },
+           "Invitation": {
+        intro: "An invitation, sealed in charm and soaked in secrecy.",
+        hints: [
+          "The username is there, plain as pain—but only if you follow it *out* of this place.",
+          "No puzzle here. Just direction. Instagram is the mirror.",
+          "That handle? It's not a signature. It's a scar.",
+          "Kian never spoke it. But he wanted someone to find it."
+        ]
+      },
+          "Insta Post": {
+        intro: "Did you see it? The mirror, in plain sight?",
+        hints: [
+          "Check Riv’s latest post. Look harder.",
+          "The handle isn’t tagged. It’s embedded.",
+          "`msperfectonpurpose`. One of them. Or maybe all of them.",
+          "Riv knew you’d look. That's why they hid it where the light hits just right."
+        ]
+      }
+    }
+  },
+
+  "Elio": {
+    intro: "Ah, Elio... the one who gave everything and got nothing but silence. Let’s trace the wounds no one saw.",
+    subOptions: {
+      "Class Collaboration Portal": {
+        intro: "He submitted brilliance. They gave him abandonment. Tap the wound.",
+        hints: [
+          "Rejected? Curious word for something no one else helped build.",
+          "Click the project. It isn’t shy.",
+          "The rejection isn’t about work. It’s about betrayal with a deadline.",
+          "His silence says everything you need to hear—if you *listen*."
+        ]
+      },
+      "Project Comments (Internal Communications)": {
+        intro: "The digital trail never really forgets—especially pain.",
+        hints: [
+          "Read the comments. Does this *feel* like a group project?",
+          "He didn’t volunteer. He was volunteered. Big difference.",
+          "His pain leaked into the system—unintended, unfiltered, unhealed.",
+          "'SEE' isn’t just a word. It's an invitation. Accept it."
+        ]
+      },
+      "Laudate Altheon, Deus Solitudinis": {
+        intro: "Two gods. Two sins. One boy caught in the middle.",
+        hints: [
+          "Loneliness and Betrayal… divine names for very human crimes.",
+          "Their faith? A mask. His offering? A cry.",
+          "There’s a button tucked in bottom left corners in each segment. He left them behind like breadcrumbs.",
+          "Endings hide at the edge of worship. What will you find in reverence?"
+        ]
+      }
+    }
+  };
 
          // Ghostieee's random hints that might appear
         const ghostieeeHints = [ 
