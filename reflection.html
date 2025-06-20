@@ -808,9 +808,59 @@
             document.getElementById('intro-screen').classList.remove('hidden');
         }
         
-        function shareResults() {
-            alert("Why do you want to share this? I mean great you have taken that enthusiasm. But frankly its too much work to make this button work, so kindly please copy the results yourself. :)");
+       let finalArchetype = "Mira"; // store result globally for sharing
+
+function showResults() {
+    document.getElementById('quiz-container').style.display = 'none';
+    const resultContainer = document.getElementById('result-container');
+    resultContainer.classList.add('active');
+
+    // Determine dominant archetype
+    finalArchetype = "Mira"; // updated to global
+    let maxCount = 0;
+
+    for (const archetype in archetypeCounts) {
+        if (archetypeCounts[archetype] > maxCount) {
+            maxCount = archetypeCounts[archetype];
+            finalArchetype = archetype;
         }
+    }
+
+    // Display result
+    const resultContent = document.getElementById('result-content');
+    const resultCodename = document.getElementById('result-name');
+    const resultIcon = document.getElementById('result-icon');
+    const resultRiddle = document.getElementById('result-riddle');
+    const resultTraits = document.getElementById('result-traits');
+
+    resultContent.textContent = results[finalArchetype].description;
+    resultCodename.textContent = finalArchetype;
+    resultIcon.textContent = finalArchetype.charAt(0);
+    resultIcon.style.backgroundColor = results[finalArchetype].color;
+
+    resultTraits.innerHTML = '';
+    results[finalArchetype].traits.forEach(trait => {
+        const traitElement = document.createElement('div');
+        traitElement.classList.add('trait');
+        traitElement.textContent = trait;
+        resultTraits.appendChild(traitElement);
+    });
+
+    const riddleText = results[finalArchetype].riddle;
+    const urlPart = riddleText.split('/')[1];
+    const riddleHtml = riddleText.replace(
+        `/${urlPart}`,
+        `/<span class="hidden-url">${urlPart}</span>`
+    );
+    resultRiddle.innerHTML = riddleHtml;
+}
+
+function shareResults() {
+    const lowerName = finalArchetype.toLowerCase();
+    const shareUrl = `share-${lowerName}.html`;
+    window.location.href = shareUrl;
+}
+
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'944ca09387ecff6d',t:'MTc0ODA4Nzk3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
