@@ -1,13 +1,13 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>About Project Inaudita</title>
-<link rel="icon" type="image/png" href="/logo.png-modified.png">
-<link rel="shortcut icon" href="/logo.png-modified.png" type="image/x-icon">
-<link rel="manifest" href="/site.webmanifest">
-  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@600&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <title>Project Inaudita</title>
+  <link rel="icon" type="image/png" href="/logo.png-modified.png">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&family=Playfair+Display:wght@400;700;900&family=Cormorant+Garamond:wght@300;400;500;700&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -17,112 +17,566 @@
 
     body, html {
       height: 100%;
-      font-family: 'Crimson Text', serif;
-      color: #f5f5f5;
-      background: linear-gradient(180deg, #0b0b0d, #1a1a1d);
+      font-family: 'Cormorant Garamond', serif;
+      background: #000;
       overflow: hidden;
+      cursor: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
 
-    .hero {
+    .stage {
       height: 100vh;
+      position: relative;
+      background: 
+        radial-gradient(ellipse 150% 100% at 50% 0%, rgba(40, 20, 60, 0.3) 0%, transparent 40%),
+        radial-gradient(ellipse 120% 80% at 20% 100%, rgba(60, 30, 20, 0.25) 0%, transparent 50%),
+        radial-gradient(ellipse 100% 120% at 80% 20%, rgba(20, 40, 60, 0.2) 0%, transparent 60%),
+        conic-gradient(from 45deg at 50% 50%, 
+          rgba(10, 5, 20, 0.8) 0deg, 
+          rgba(20, 10, 30, 0.9) 90deg, 
+          rgba(15, 8, 25, 0.85) 180deg, 
+          rgba(25, 15, 35, 0.9) 270deg, 
+          rgba(10, 5, 20, 0.8) 360deg),
+        linear-gradient(135deg, #000000 0%, #0a0510 30%, #050a15 70%, #000000 100%);
+      will-change: transform;
+    }
+
+    .atmospheric-layer {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 1000px 400px at 25% 30%, rgba(255, 255, 255, 0.03) 0%, transparent 60%),
+        radial-gradient(ellipse 800px 300px at 75% 70%, rgba(200, 180, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(ellipse 600px 200px at 50% 90%, rgba(255, 200, 180, 0.015) 0%, transparent 40%),
+        linear-gradient(45deg, 
+          rgba(255, 255, 255, 0.005) 0%, 
+          transparent 30%, 
+          rgba(255, 255, 255, 0.008) 70%, 
+          transparent 100%);
+      animation: atmosphereFlow 35s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes atmosphereFlow {
+      0%, 100% { 
+        transform: translate(0, 0) scale(1) rotate(0deg); 
+        opacity: 1; 
+        filter: hue-rotate(0deg);
+      }
+      25% { 
+        transform: translate(30px, -20px) scale(1.03) rotate(0.5deg); 
+        opacity: 0.8; 
+        filter: hue-rotate(10deg);
+      }
+      50% { 
+        transform: translate(-20px, 25px) scale(0.97) rotate(-0.3deg); 
+        opacity: 1.2; 
+        filter: hue-rotate(-5deg);
+      }
+      75% { 
+        transform: translate(25px, -10px) scale(1.01) rotate(0.2deg); 
+        opacity: 0.9; 
+        filter: hue-rotate(15deg);
+      }
+    }
+
+    .spotlight-beam {
+      position: absolute;
+      top: -10%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150%;
+      height: 150%;
+      background: 
+        radial-gradient(ellipse 35% 70% at 50% 25%, 
+          rgba(255, 255, 255, 0.06) 0%, 
+          rgba(255, 255, 255, 0.02) 40%, 
+          transparent 70%);
+      animation: spotlightBreathing 20s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes spotlightBreathing {
+      0%, 100% { transform: translateX(-50%) scale(1); opacity: 1; }
+      50% { transform: translateX(-50%) scale(1.05); opacity: 0.8; }
+    }
+
+    .elegant-particles {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 50%;
+      will-change: transform;
+    }
+
+    .main-stage {
+      position: absolute;
+      inset: 0;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      padding: 2rem;
-      background: url('https://images.unsplash.com/photo-1611508315729-685a9f462d7a?auto=format&fit=crop&w=1950&q=80') center center / cover no-repeat;
-      position: relative;
-    }
-
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.75);
-      backdrop-filter: blur(2px);
-    }
-
-    .content {
-      position: relative;
       text-align: center;
-      z-index: 1;
+      z-index: 10;
+      padding: 2rem;
+      will-change: transform;
     }
 
-    h1 {
-      font-family: 'Crimson Text', serif;
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      letter-spacing: 2px;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-    }
-
-    p {
-      font-size: 1.1rem;
-      color: #c0c0c0;
+    .title-masterpiece {
+      font-family: 'Libre Baskerville', serif;
+      font-size: 7rem;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: 0.05em;
+      line-height: 0.9;
       margin-bottom: 2rem;
-      max-width: 600px;
-      line-height: 1.6;
+      text-shadow: 
+        0 0 50px rgba(255, 255, 255, 0.4),
+        0 0 100px rgba(255, 255, 255, 0.15),
+        0 0 150px rgba(200, 180, 255, 0.1);
+      background: linear-gradient(135deg, 
+        #ffffff 0%, 
+        #f5f0ff 20%,
+        #ffffff 40%, 
+        #fff8f0 60%,
+        #ffffff 80%,
+        #f0f8ff 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: 
+        titleReveal 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.5s forwards,
+        titlePulse 8s ease-in-out 3s infinite;
+      opacity: 0;
+      transform: translateY(60px);
+      will-change: transform, opacity;
     }
 
-    .btn {
-      padding: 1rem 2rem;
-      border: 1px solid #c0c0c0;
-      color: #f5f5f5;
-      background: transparent;
+    @keyframes titleReveal {
+      0% {
+        opacity: 0;
+        transform: translateY(60px) scale(0.9);
+        filter: blur(10px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes titlePulse {
+      0%, 100% { 
+        text-shadow: 
+          0 0 40px rgba(255, 255, 255, 0.2),
+          0 0 80px rgba(255, 255, 255, 0.08);
+      }
+      50% { 
+        text-shadow: 
+          0 0 50px rgba(255, 255, 255, 0.4),
+          0 0 100px rgba(255, 255, 255, 0.15);
+      }
+    }
+
+    .elegant-subtitle {
+      font-family: 'Crimson Text', serif;
       font-size: 1rem;
-      cursor: pointer;
+      color: rgba(255, 255, 255, 0.75);
+      letter-spacing: 0.4em;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      transition: all 0.3s ease;
-      position: relative;
+      font-weight: 600;
+      margin-bottom: 3rem;
+      opacity: 0;
+      animation: subtitleFadeIn 2s ease 1.5s forwards;
+      will-change: transform, opacity;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
     }
 
-    .btn:hover {
-      background: #f5f5f5;
-      color: #0b0b0d;
-      border-color: #f5f5f5;
-      box-shadow: 0 0 10px #f5f5f5;
-    }
-
-    .fade {
-      animation: fadeIn 2s ease forwards;
-    }
-
-    @keyframes fadeIn {
-      from {
+    @keyframes subtitleFadeIn {
+      0% {
         opacity: 0;
         transform: translateY(30px);
+        letter-spacing: 1em;
       }
-      to {
+      100% {
         opacity: 1;
         transform: translateY(0);
+        letter-spacing: 0.5em;
       }
     }
 
-    .branding {
-      position: absolute;
-      top: 20px;
-      left: 20px;
+    .poetic-quote {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 1.5rem;
-      color: #f5f5f5;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      font-family: 'Roboto Mono', monospace;
+      color: rgba(255, 255, 255, 0.85);
+      font-style: italic;
+      font-weight: 400;
+      max-width: 800px;
+      line-height: 1.5;
+      margin-bottom: 4rem;
+      opacity: 0;
+      animation: quoteMaterialize 2s ease 2.5s forwards;
+      position: relative;
+      will-change: transform, opacity;
     }
 
-    @media (max-width: 600px) {
-      h1 { font-size: 2rem; }
-      p { font-size: 1rem; }
+    .poetic-quote::before,
+    .poetic-quote::after {
+      content: '';
+      position: absolute;
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    }
+
+    .poetic-quote::before {
+      top: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .poetic-quote::after {
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes quoteMaterialize {
+      0% {
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        filter: blur(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+.masterful-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 4rem;
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.08) 0%, 
+      rgba(255, 255, 255, 0.03) 50%, 
+      rgba(255, 255, 255, 0.08) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  cursor: none;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(20px);
+  transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  opacity: 0;
+  animation: buttonEmerge 2s ease 3.5s forwards;
+  will-change: transform, opacity;
+  box-shadow: 
+    0 8px 32px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+@keyframes buttonEmerge {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.masterful-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent);
+  transition: left 0.8s ease;
+}
+
+.masterful-button:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(255, 255, 255, 0.5);
+  background: 
+    linear-gradient(135deg, 
+      rgba(255, 255, 255, 0.12) 0%, 
+      rgba(255, 255, 255, 0.06) 50%, 
+      rgba(255, 255, 255, 0.12) 100%);
+  box-shadow: 
+    0 15px 50px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.masterful-button:hover::before {
+  left: 100%;
+}
+
+
+    .sophisticated-cursor {
+      position: fixed;
+      width: 32px;
+      height: 32px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transition: all 0.2s cubic-bezier(0.23, 1, 0.32, 1);
+      backdrop-filter: blur(3px);
+      will-change: transform;
+    }
+
+    .cursor-dot {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 10000;
+      transition: all 0.1s ease;
+      will-change: transform;
+    }
+
+    .cinematic-vignette {
+      position: absolute;
+      inset: 0;
+      background: 
+        radial-gradient(ellipse 60% 40% at center, 
+          transparent 0%, 
+          rgba(0, 0, 0, 0.4) 70%, 
+          rgba(0, 0, 0, 0.8) 100%);
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .film-texture {
+      position: absolute;
+      inset: 0;
+      background: 
+        repeating-linear-gradient(
+          0deg,
+          transparent,
+          transparent 2px,
+          rgba(255, 255, 255, 0.003) 2px,
+          rgba(255, 255, 255, 0.003) 4px
+        );
+      pointer-events: none;
+      z-index: 8;
+      opacity: 0.4;
+    }
+
+    @media (max-width: 1200px) {
+      .title-masterpiece { font-size: 5.5rem; }
+      .poetic-quote { font-size: 1.8rem; }
+    }
+
+    @media (max-width: 768px) {
+      .title-masterpiece { font-size: 4rem; }
+      .elegant-subtitle { font-size: 1.1rem; }
+      .poetic-quote { font-size: 1.5rem; }
+      .masterful-button { padding: 1.5rem 3rem; font-size: 0.9rem; }
+    }
+
+    @media (max-width: 480px) {
+      .title-masterpiece { font-size: 3rem; }
+      .elegant-subtitle { font-size: 1rem; }
+      .poetic-quote { font-size: 1.3rem; }
+      .masterful-button { padding: 1.2rem 2.5rem; }
+    }
+
+    /* Performance optimizations */
+    .stage * {
+      transform-style: preserve-3d;
+      backface-visibility: hidden;
     }
   </style>
 </head>
 <body>
-  <div class="hero">
-    <div class="overlay"></div>
-    <div class="branding">Project Inaudita</div>
-    <div class="content fade">
-      <h1>Not Everything Lost Was Forgotten.</h1>
-      <p>Some stories were never meant to be heard.<br>Some wounds were never meant to heal.</p>
-      <a href="https://projectinaudita.netlify.app/about.html" class="btn">Enter the Silence</a>
+  <div class="sophisticated-cursor"></div>
+  <div class="cursor-dot"></div>
+  
+  <div class="stage">
+    <div class="spotlight-beam"></div>
+    <div class="atmospheric-layer"></div>
+    <div class="elegant-particles"></div>
+    <div class="film-texture"></div>
+    <div class="cinematic-vignette"></div>
+    
+    <div class="main-stage">
+      <h1 class="title-masterpiece">PROJECT INAUDITA</h1>
+      <div class="elegant-subtitle">The Unheard Symphony</div>
+      <p class="poetic-quote">Where silence becomes the most eloquent voice, and forgotten stories find their eternal stage</p>
+      <button class="masterful-button" onclick="window.location.href='https://projectinaudita.netlify.app/about.html'">
+        Enter the Realm
+      </button>
     </div>
   </div>
-</body>
+
+  <script>
+    // Optimized cursor system
+    const cursor = document.querySelector('.sophisticated-cursor');
+    const cursorDot = document.querySelector('.cursor-dot');
+    let mouseX = 0, mouseY = 0;
+    let cursorX = 0, cursorY = 0;
+    
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animateCursor() {
+      cursorX += (mouseX - cursorX) * 0.1;
+      cursorY += (mouseY - cursorY) * 0.1;
+      
+      cursor.style.transform = `translate(${cursorX - 16}px, ${cursorY - 16}px)`;
+      cursorDot.style.transform = `translate(${mouseX - 2}px, ${mouseY - 2}px)`;
+      
+      requestAnimationFrame(animateCursor);
+    }
+    animateCursor();
+
+    // Sophisticated hover effects
+    const button = document.querySelector('.masterful-button');
+    
+    button.addEventListener('mouseenter', () => {
+      cursor.style.transform += ' scale(1.5)';
+      cursor.style.borderColor = 'rgba(255,255,255,0.6)';
+      cursor.style.backgroundColor = 'rgba(255,255,255,0.05)';
+    });
+
+    button.addEventListener('mouseleave', () => {
+      cursor.style.transform = cursor.style.transform.replace(' scale(1.5)', '');
+      cursor.style.borderColor = 'rgba(255,255,255,0.3)';
+      cursor.style.backgroundColor = 'transparent';
+    });
+
+    // Optimized particle system with floating specks
+    const particleContainer = document.querySelector('.elegant-particles');
+    const particles = [];
+    
+    for (let i = 0; i < 80; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      
+      // Create varied particle sizes for more visual interest
+      const size = Math.random() * 2 + 1;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.background = 'rgba(255, 255, 255, ' + (Math.random() * 0.6 + 0.2) + ')';
+      particle.style.boxShadow = '0 0 ' + (size * 2) + 'px rgba(255, 255, 255, 0.3)';
+      
+      particles.push({
+        element: particle,
+        x: Math.random() * window.innerWidth,
+        y: window.innerHeight + Math.random() * 200,
+        speed: Math.random() * 0.8 + 0.3,
+        drift: Math.random() * 0.02 + 0.01,
+        opacity: Math.random() * 0.6 + 0.2,
+        size: size
+      });
+      
+      particleContainer.appendChild(particle);
+    }
+
+    function animateParticles() {
+      particles.forEach(particle => {
+        particle.y -= particle.speed;
+        particle.x += Math.sin(particle.y * particle.drift) * 1.5;
+        
+        // Add subtle opacity fluctuation
+        const opacityVariation = Math.sin(Date.now() * 0.001 + particle.x * 0.01) * 0.2;
+        const currentOpacity = Math.max(0.1, particle.opacity + opacityVariation);
+        
+        if (particle.y < -20) {
+          particle.y = window.innerHeight + 20;
+          particle.x = Math.random() * window.innerWidth;
+        }
+        
+        particle.element.style.transform = `translate(${particle.x}px, ${particle.y}px)`;
+        particle.element.style.opacity = currentOpacity;
+      });
+      
+      requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // Subtle parallax with performance optimization
+    let ticking = false;
+    
+    function updateParallax(e) {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const x = (e.clientX / window.innerWidth - 0.5) * 20;
+          const y = (e.clientY / window.innerHeight - 0.5) * 20;
+          
+          document.querySelector('.main-stage').style.transform = 
+            `translate(${x * 0.5}px, ${y * 0.5}px)`;
+          
+          document.querySelector('.atmospheric-layer').style.transform += 
+            ` translate(${x}px, ${y}px)`;
+          
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }
+    
+    document.addEventListener('mousemove', updateParallax);
+
+    // Elegant click ripple
+    document.addEventListener('click', (e) => {
+      const ripple = document.createElement('div');
+      ripple.style.cssText = `
+        position: fixed;
+        left: ${e.clientX - 25}px;
+        top: ${e.clientY - 25}px;
+        width: 50px;
+        height: 50px;
+        background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9998;
+        animation: elegantRipple 0.8s ease-out forwards;
+      `;
+      
+      document.body.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 800);
+    });
+
+    // Add ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes elegantRipple {
+        0% { transform: scale(0); opacity: 1; }
+        100% { transform: scale(3); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'95a5e24975d08f9e',t:'MTc1MTcwODI0OS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
