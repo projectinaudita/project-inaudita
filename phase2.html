@@ -3,122 +3,226 @@
 <head>
   <meta charset="UTF-8">
   <title>AICW ACCESS TERMINATED</title>
- <link rel="icon" type="image/x-icon" href="logo.png-modified.png">
-  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@700&display=swap" rel="stylesheet">
   <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      background: #ffffff;
-      color: #333;
+      background: #000;
       font-family: 'Share Tech Mono', monospace;
+      color: #e6e6fa;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
       height: 100vh;
       overflow: hidden;
+      position: relative;
+      flex-direction: column;
+    }
+
+    .starfield, .nebula, .spectral-overlay {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: -2;
+    }
+
+    .starfield {
+      background:
+        radial-gradient(2px 2px at 30px 30px, #ffffffaa, transparent),
+        radial-gradient(1px 1px at 100px 80px, rgba(160, 120, 255, 0.6), transparent),
+        radial-gradient(2px 2px at 50% 50%, rgba(240, 240, 255, 0.5), transparent);
+      background-size: 400px 200px;
+      background-repeat: repeat;
+      animation: moveStars 100s linear infinite;
+      opacity: 0.4;
+    }
+
+    .nebula {
+      background:
+        radial-gradient(circle at 20% 40%, rgba(102, 51, 153, 0.15) 0%, transparent 60%),
+        radial-gradient(circle at 70% 30%, rgba(255, 140, 200, 0.1) 0%, transparent 60%),
+        radial-gradient(circle at 50% 70%, rgba(0, 200, 255, 0.1) 0%, transparent 60%);
+      animation: floatNebula 50s ease-in-out infinite alternate;
+    }
+
+    .spectral-overlay {
+      background:
+        radial-gradient(circle at 30% 40%, rgba(255, 0, 255, 0.12), transparent 70%),
+        radial-gradient(circle at 70% 60%, rgba(0, 255, 255, 0.1), transparent 70%),
+        radial-gradient(circle at 50% 80%, rgba(255, 255, 255, 0.08), transparent 60%);
+      mix-blend-mode: screen;
+      animation: spectralDrift 30s ease-in-out infinite alternate;
+      opacity: 0.6;
+    }
+
+    @keyframes moveStars {
+      from { transform: translateY(0); }
+      to { transform: translateY(-300px); }
+    }
+
+    @keyframes floatNebula {
+      0% { transform: scale(1); }
+      100% { transform: scale(1.06); }
+    }
+
+    @keyframes spectralDrift {
+      0% { transform: translate(0px, 0px) scale(1); }
+      25% { transform: translate(-10px, 5px) scale(1.02); }
+      50% { transform: translate(5px, -10px) scale(1.03); }
+      75% { transform: translate(-5px, 10px) scale(1.01); }
+      100% { transform: translate(0px, 0px) scale(1); }
     }
 
     .aicw-header, .talon-takeover {
       text-align: center;
-      padding: 30px;
-      border: 2px solid #333;
-      background-color: #fff;
-      box-shadow: 0 0 30px rgba(0,0,0,0.1);
+      padding: 40px;
+      border-radius: 10px;
       max-width: 90%;
+      background-color: rgba(18, 0, 32, 0.9);
+      border: 2px solid #6a0dad;
+      box-shadow: 0 0 40px rgba(153, 50, 204, 0.4);
+      animation: ancientPulse 4s infinite;
+      z-index: 2;
+    }
+    @keyframes ancientPulse {
+      0%, 100% { box-shadow: 0 0 20px rgba(153, 50, 204, 0.3); }
+      50% { box-shadow: 0 0 60px rgba(204, 153, 255, 0.5); }
     }
 
-    .aicw-header h1 {
-      font-size: 2.5rem;
-      color: #b30000;
-      text-shadow: 0 0 4px #b30000aa;
-      margin-bottom: 15px;
+    .aicw-header.fight-out {
+      animation: glyphCollapse 1.6s forwards;
+    }
+    .talon-takeover.fight-in {
+      display: block;
+      animation: glyphEmerge 1.6s ease-in-out;
+    }
+    @keyframes glyphCollapse {
+      0% { transform: scale(1); opacity: 1; }
+      40% { transform: scale(1.05) rotate(2deg); opacity: 0.6; filter: hue-rotate(20deg); }
+      70% { transform: scale(0.96) rotate(-2deg); opacity: 0.3; filter: hue-rotate(180deg); }
+      100% { transform: scale(0.88) translateY(-40px); opacity: 0; filter: blur(3px); }
+    }
+    @keyframes glyphEmerge {
+      0% { transform: scale(0.9) translateY(40px); opacity: 0; filter: blur(6px) hue-rotate(180deg); }
+      50% { transform: scale(1.03) rotate(-1deg); opacity: 0.7; filter: hue-rotate(30deg); }
+      100% { transform: scale(1); opacity: 1; filter: none; }
     }
 
-    .aicw-header p {
-      font-size: 1rem;
-      color: #444;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-
-    .countdown {
-      font-size: 1.5rem;
-      color: #333;
-      margin-top: 20px;
-      animation: glitchText 0.3s infinite;
-    }
-
-    .talon-takeover {
-      display: none;
-      background: #000;
-      color: #ff4444;
-      border: 2px solid #ff4444;
-      animation: glitch 2.5s infinite;
-    }
-
-    .talon-takeover h1 {
+    .aicw-header h1, .talon-takeover h1 {
       font-size: 2.5rem;
       letter-spacing: 4px;
+      font-family: 'Orbitron', sans-serif;
+      margin-bottom: 20px;
+      color: #cf9fff;
+      text-shadow: 0 0 12px #8a2be2;
+    }
+    .aicw-header p, .talon-takeover p {
+      color: #c7a8ff;
+      font-size: 1.1rem;
+      margin: 12px 0;
+    }
+    .talon-takeover {
+      display: none;
+      border: 2px solid #ff4444;
+      background-color: rgba(20, 0, 0, 0.95);
+      box-shadow: 0 0 35px rgba(255, 68, 68, 0.25);
+      color: #ffb3b3;
+    }
+    .countdown {
+      margin-top: 25px;
+      font-size: 1.5rem;
       color: #ff4444;
-      text-shadow: 0 0 10px #ff4444;
+      font-weight: bold;
+      text-shadow: 0 0 12px #ff4444;
+      animation: flickerSoft 1.8s infinite alternate;
+    }
+    @keyframes flickerSoft {
+      0%, 19%, 23%, 78%, 100% { opacity: 1; }
+      20%, 22%, 79% { opacity: 0.8; }
     }
 
-    .talon-takeover p {
-      color: #ff9999;
-      font-size: 1rem;
+    @keyframes flashStrike {
+      0%   { opacity: 0; }
+      10%  { opacity: 1; transform: scale(1.05) rotate(1deg); }
+      40%  { opacity: 0.6; filter: hue-rotate(90deg); }
+      70%  { opacity: 0.3; }
+      100% { opacity: 0; transform: scale(1) rotate(0deg); }
     }
-
-    @keyframes glitch {
-      0% { opacity: 1; transform: translate(0, 0); }
-      15% { opacity: 0.4; transform: translate(-1px, 1px); }
-      30% { opacity: 1; transform: translate(1px, -1px); }
-      45% { opacity: 0.3; transform: translate(-2px, 2px); }
-      60% { opacity: 1; transform: translate(0, 0); }
-      75% { opacity: 0.2; transform: translate(1px, 1px); }
-      90% { opacity: 1; transform: translate(0, -1px); }
-      100% { opacity: 0.6; transform: translate(-1px, 0); }
-    }
-
-    @keyframes glitchText {
-      0%, 100% { text-shadow: 1px 0 red, -1px 0 blue; }
-      20% { text-shadow: -1px 0 green, 1px 0 purple; }
-      40% { text-shadow: 1px 1px cyan, -1px -1px magenta; }
-      60% { text-shadow: -1px -1px yellow, 1px 1px black; }
-      80% { text-shadow: 2px 0 orange, -2px 0 lime; }
+    .transition-flash {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: radial-gradient(circle at center, rgba(240, 220, 255, 0.6), transparent 70%),
+                  repeating-linear-gradient(45deg, rgba(160, 80, 255, 0.1) 0px, rgba(160, 80, 255, 0.1) 2px, transparent 2px, transparent 4px);
+      backdrop-filter: blur(3px);
+      z-index: 9999;
+      pointer-events: none;
+      animation: flashStrike 1s ease-in-out forwards;
     }
   </style>
 </head>
 <body>
+  <div class="starfield"></div>
+  <div class="nebula"></div>
+  <div class="spectral-overlay"></div>
 
   <div class="aicw-header" id="aicw-block">
     <h1>ACCESS REVOKED</h1>
     <p>AICW PROTOCOL 401.B :: UNAUTHORIZED INTEL BREACH</p>
     <p>External interference detected. Terminal link severed. Access sealed.</p>
-    <div class="countdown" id="timer"></div>
   </div>
 
   <div class="talon-takeover" id="talon-block">
-    <h1>PHASE 2 LAUNCH SOON</h1>
+    <h1>PHASE 2 LAUNCH</h1>
     <p>they sealed the breach.<br>but not for long.<br>eyes open. watch the clock.</p>
+    <div class="countdown" id="timer">⏳</div>
   </div>
 
   <script>
+    const aicwBlock = document.getElementById("aicw-block");
+    const talonBlock = document.getElementById("talon-block");
     const timer = document.getElementById("timer");
-    const symbols = ["@", "#", "$", "%", "&", "*", "=", "+", "~", "¿", "✖", "∂", "Ω", "Δ", "Ξ", "☍", "⚠", "???"];
-    let index = 0;
-    function updateFakeCountdown() {
-      timer.innerHTML = symbols[index % symbols.length];
-      index++;
-    }
-    setInterval(updateFakeCountdown, 100);
-    updateFakeCountdown();
 
     setTimeout(() => {
-      document.getElementById("aicw-block").style.display = "none";
-      document.getElementById("talon-block").style.display = "block";
-    }, 5000);
-  </script>
+      const flash = document.createElement("div");
+      flash.className = "transition-flash";
+      document.body.appendChild(flash);
+      setTimeout(() => flash.remove(), 1000);
+    }, 3850);
 
+    setTimeout(() => {
+      aicwBlock.classList.add("fight-out");
+    }, 4000);
+
+    setTimeout(() => {
+      aicwBlock.style.display = "none";
+      talonBlock.classList.add("fight-in");
+      startCountdown();
+    }, 5650);
+
+    function startCountdown() {
+      const launchDate = new Date("July 20, 2025 00:00:00").getTime();
+      function updateCountdown() {
+        const now = new Date().getTime();
+        const distance = launchDate - now;
+
+        if (distance <= 0) {
+          timer.innerHTML = "🔥 PHASE 2 ACTIVATED 🔥";
+          return;
+        }
+
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        timer.innerHTML = `⏳ LAUNCH IN: ${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+      updateCountdown();
+      setInterval(updateCountdown, 1000);
+    }
+  </script>
 </body>
 </html>
