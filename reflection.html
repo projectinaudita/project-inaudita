@@ -421,6 +421,7 @@
                 <div class="question-container" id="question-container">
                     <div class="question" id="question"></div>
                     <div class="options" id="options"></div>
+                    <button class="btn btn-secondary" id="back-btn" style="margin-top: 1rem; display: none;">Back</button>
                 </div>
             </div>
             
@@ -862,5 +863,95 @@ function shareResults() {
 }
 
     </script>
+<script>
+// After declaring let userAnswers and archetypeCounts
+let questionHistory = []; // Track which archetype was selected at each index
+
+// Modify selectOption to record history and allow backtracking
+function selectOption(archetype) {
+    // If we are changing an already-answered question
+    if (currentQuestion < userAnswers.length) {
+        const previous = userAnswers[currentQuestion];
+        archetypeCounts[previous]--; // Remove old count
+        userAnswers[currentQuestion] = archetype;
+        archetypeCounts[archetype]++; // Add new count
+    } else {
+        userAnswers.push(archetype);
+        archetypeCounts[archetype]++;
+    }
+
+    const questionContainer = document.getElementById('question-container');
+    questionContainer.classList.remove('active');
+
+    setTimeout(() => {
+        currentQuestion++;
+        if (currentQuestion < questions.length) {
+            loadQuestion();
+        } else {
+            showResults();
+        }
+    }, 300);
+}
+
+// Add functionality to loadQuestion() to preselect previously selected answer
+function loadQuestion() {
+    const questionContainer = document.getElementById('question-container');
+    const questionElement = document.getElementById('question');
+    const optionsElement = document.getElementById('options');
+    const backBtn = document.getElementById('back-btn');
+    const progressElement = document.getElementById('progress');
+    const questionCounter = document.getElementById('question-counter');
+    const progressPercent = document.getElementById('progress-percent');
+
+    const progress = (currentQuestion / questions.length) * 100;
+    progressElement.style.width = `${progress}%`;
+    questionCounter.textContent = `Question ${currentQuestion + 1} of ${questions.length}`;
+    progressPercent.textContent = `${Math.round(progress)}%`;
+
+    questionElement.textContent = '';
+    optionsElement.innerHTML = '';
+
+    const question = questions[currentQuestion];
+    questionElement.innerHTML = `<span class="question-number">${currentQuestion + 1}.</span> ${question.question}`;
+
+    question.options.forEach((option, index) => {
+        const optionElement = document.createElement('div');
+        optionElement.classList.add('option');
+        const optionText = document.createElement('div');
+        optionText.classList.add('option-text');
+        optionText.textContent = option.text;
+        optionElement.appendChild(optionText);
+
+        // Highlight previously selected option
+        if (userAnswers[currentQuestion] === option.archetype) {
+            optionElement.classList.add('selected');
+        }
+
+        optionElement.addEventListener('click', () => {
+            document.querySelectorAll('.option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            optionElement.classList.add('selected');
+            setTimeout(() => {
+                selectOption(option.archetype);
+            }, 500);
+        });
+
+        optionsElement.appendChild(optionElement);
+    });
+
+    // Show or hide back button
+    backBtn.style.display = currentQuestion > 0 ? 'inline-block' : 'none';
+    backBtn.onclick = () => {
+        const previous = userAnswers[currentQuestion];
+        if (previous) archetypeCounts[previous]--; // Revoke current if exists
+        currentQuestion--;
+        loadQuestion();
+    };
+
+    questionContainer.classList.add('active');
+}
+</script>
+
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'944ca09387ecff6d',t:'MTc0ODA4Nzk3MC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
