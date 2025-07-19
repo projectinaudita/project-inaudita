@@ -1,0 +1,418 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Are You Lonely?</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: 
+        radial-gradient(circle at 30% 20%, rgba(218, 165, 32, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 70% 80%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+        linear-gradient(135deg, #0f0a05 0%, #1a1005 30%, #2d1b0a 70%, #1a1005 100%);
+      color: #f4e4bc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Golden particles floating */
+    .golden-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: radial-gradient(circle, #ffd700 0%, #daa520 100%);
+      border-radius: 50%;
+      opacity: 0;
+      animation: goldenFloat 12s linear infinite;
+      box-shadow: 0 0 6px rgba(255, 215, 0, 0.5);
+    }
+
+    @keyframes goldenFloat {
+      0% {
+        opacity: 0;
+        transform: translateY(100vh) translateX(0) rotate(0deg);
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-100px) translateX(50px) rotate(360deg);
+      }
+    }
+
+    /* Luxury container */
+    .container {
+      max-width: 700px;
+      width: 100%;
+      background: 
+        linear-gradient(135deg, rgba(26, 16, 5, 0.95) 0%, rgba(45, 27, 10, 0.9) 100%);
+      border: 2px solid;
+      border-image: linear-gradient(45deg, #daa520, #ffd700, #b8860b, #ffd700) 1;
+      border-radius: 0;
+      padding: 100px 80px;
+      text-align: center;
+      backdrop-filter: blur(10px);
+      box-shadow: 
+        0 0 80px rgba(218, 165, 32, 0.3),
+        0 20px 40px rgba(0, 0, 0, 0.6),
+        inset 0 1px 0 rgba(255, 215, 0, 0.1),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+      animation: containerRise 2s ease-out;
+    }
+
+    @keyframes containerRise {
+      from {
+        opacity: 0;
+        transform: translateY(50px) scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* Golden overlay */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(135deg, 
+          rgba(255, 215, 0, 0.05) 0%, 
+          transparent 30%, 
+          transparent 70%, 
+          rgba(218, 165, 32, 0.03) 100%);
+      pointer-events: none;
+    }
+
+    /* Ornamental corners */
+    .container::after {
+      content: '';
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      right: 20px;
+      bottom: 20px;
+      border: 1px solid rgba(255, 215, 0, 0.2);
+      pointer-events: none;
+    }
+
+    /* Luxury typography */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 4.2rem);
+      font-weight: 400;
+      color: #ffd700;
+      margin-bottom: 80px;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+      text-shadow: 
+        0 0 20px rgba(255, 215, 0, 0.4),
+        0 2px 4px rgba(0, 0, 0, 0.5);
+      position: relative;
+    }
+
+    /* Golden underline effect */
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffd700, transparent);
+      opacity: 0.6;
+    }
+
+    /* Elegant buttons */
+    .buttons {
+      display: flex;
+      gap: 50px;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .btn {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px;
+      font-weight: 400;
+      color: #f4e4bc;
+      background: transparent;
+      border: 1px solid rgba(255, 215, 0, 0.3);
+      padding: 20px 45px;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      min-width: 140px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 215, 0, 0.1), 
+        transparent);
+      transition: left 0.6s ease;
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 1px;
+      background: #ffd700;
+      transform: translateX(-50%);
+      transition: width 0.4s ease;
+    }
+
+    .btn:hover {
+      color: #ffd700;
+      border-color: rgba(255, 215, 0, 0.6);
+      background: rgba(255, 215, 0, 0.05);
+      box-shadow: 
+        0 0 30px rgba(255, 215, 0, 0.2),
+        0 5px 15px rgba(0, 0, 0, 0.3);
+      transform: translateY(-2px);
+    }
+
+    .btn:hover::before {
+      left: 100%;
+    }
+
+    .btn:hover::after {
+      width: 80%;
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    /* Question transition with golden effect */
+    .question-golden-transition {
+      animation: goldenMorph 1.2s ease-in-out;
+    }
+
+    @keyframes goldenMorph {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+        color: #ffd700;
+      }
+      50% {
+        opacity: 0;
+        transform: scale(0.9);
+        color: #daa520;
+        text-shadow: 0 0 40px rgba(255, 215, 0, 0.8);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+        color: #ffd700;
+      }
+    }
+
+    /* Midas exit effect */
+    .midas-exit {
+      animation: midasTransform 2s ease-in-out forwards;
+    }
+
+    @keyframes midasTransform {
+      0% {
+        opacity: 1;
+        transform: scale(1);
+        filter: brightness(1);
+      }
+      50% {
+        transform: scale(1.05);
+        filter: brightness(1.5) saturate(2);
+        box-shadow: 
+          0 0 100px rgba(255, 215, 0, 0.6),
+          0 0 200px rgba(218, 165, 32, 0.4);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(0.9);
+        filter: brightness(2) saturate(3);
+      }
+    }
+
+    /* Responsive design */
+    @media (max-width: 768px) {
+      .container {
+        padding: 80px 50px;
+        margin: 20px;
+      }
+      
+      .buttons {
+        flex-direction: column;
+        gap: 30px;
+      }
+      
+      .btn {
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 60px 30px;
+      }
+      
+      h1 {
+        margin-bottom: 60px;
+      }
+    }
+
+    /* Subtle golden glow animation */
+    .container {
+      animation: containerRise 2s ease-out, goldenGlow 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes goldenGlow {
+      0% {
+        box-shadow: 
+          0 0 80px rgba(218, 165, 32, 0.3),
+          0 20px 40px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(255, 215, 0, 0.1);
+      }
+      100% {
+        box-shadow: 
+          0 0 120px rgba(218, 165, 32, 0.4),
+          0 20px 40px rgba(0, 0, 0, 0.6),
+          inset 0 1px 0 rgba(255, 215, 0, 0.15);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="golden-particles" id="particles"></div>
+  
+  <div class="container">
+    <h1 id="question">Are you lonely?</h1>
+    <div class="buttons" id="buttons">
+      <button class="btn" onclick="answerYes()">Yes</button>
+      <button class="btn" onclick="answerNo()">No</button>
+    </div>
+  </div>
+
+  <script>
+  let step = 0;
+  let isTransitioning = false;
+
+  // Create golden particles
+  function createGoldenParticle() {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.left = Math.random() * 100 + '%';
+    particle.style.animationDelay = Math.random() * 12 + 's';
+    particle.style.animationDuration = (8 + Math.random() * 8) + 's';
+
+    const size = 2 + Math.random() * 3;
+    particle.style.width = size + 'px';
+    particle.style.height = size + 'px';
+
+    document.getElementById('particles').appendChild(particle);
+    setTimeout(() => {
+      if (particle.parentNode) particle.parentNode.removeChild(particle);
+    }, 20000);
+  }
+
+  setInterval(createGoldenParticle, 800);
+
+  function answerYes() {
+    if (isTransitioning) return;
+    isTransitioning = true;
+
+    const container = document.querySelector('.container');
+    container.classList.add('midas-exit');
+
+    for (let i = 0; i < 20; i++) {
+      setTimeout(() => createGoldenParticle(), i * 50);
+    }
+
+    setTimeout(() => {
+      window.location.href = 'voicememo.html';
+    }, 1800);
+  }
+
+ function answerNo() {
+  if (isTransitioning) return;
+  isTransitioning = true;
+
+  const question = document.getElementById('question');
+  question.classList.add('question-golden-transition');
+
+  setTimeout(() => {
+    if (step === 0) {
+      question.textContent = "Or maybe you just have fake friends?";
+      step++;
+      question.classList.remove('question-golden-transition');
+      isTransitioning = false;
+    } else {
+      // Try to close the window
+      window.open('', '_self', '');
+      window.close();
+
+      // Fallback: if tab doesn’t close, redirect to goodbye page
+      setTimeout(() => {
+        window.location.href = 'goodbye.html';  // Optional: make this eerie/fade out
+      }, 2000);
+    }
+  }, 600);
+}
+
+
+  for (let i = 0; i < 10; i++) {
+    setTimeout(() => createGoldenParticle(), i * 200);
+  }
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9619139f21134664',t:'MTc1MjkxNjEzMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
