@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Voice Memo</title>
+  <link rel="icon" href="logo.png-modified.png" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    audio {
+      filter: grayscale(1) brightness(0.7);
+      width: 300px;
+    }
+
+    @media (max-width: 500px) {
+      audio {
+        width: 90vw;
+      }
+    }
+  </style>
+</head>
+<body>
+  <audio controls>
+    <source src="kian_voicememo_glitched.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</body>
+</html>
