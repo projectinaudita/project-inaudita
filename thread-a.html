@@ -77,40 +77,6 @@
     .faded {
       opacity: 0.6;
     }
-     #help-button {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      background: rgba(10, 10, 10, 0.85);
-      color: #8ff7ff;
-      font-family: 'Courier New', monospace;
-      border: 1px solid #0ff;
-      padding: 10px 15px;
-      cursor: pointer;
-      border-radius: 5px;
-      font-size: 14px;
-      text-shadow: 0 0 5px #0ff;
-      transition: background-color 0.3s, box-shadow 0.3s;
-      z-index: 9999;
-      opacity: 0;
-      animation: fadeInHelp 3s forwards 4s;
-    }
-
-    #help-button:hover {
-      background: rgba(0, 255, 255, 0.15);
-      box-shadow: 0 0 8px #0ff;
-    }
-        @keyframes fadeIn {
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInSoft {
-      to { opacity: 1; }
-    }
-
-    @keyframes fadeInHelp {
-      to { opacity: 1; }
-    }
   </style>
 </head>
 <body>
@@ -228,8 +194,89 @@
 
     <div class="divider">— seen by all —</div>
   </div>
-    <button id="help-button" onclick="window.location.href='/guide.html'">
-    Feelin' Stuck? Click me.
-  </button>
+  <a href="https://projectinaudita.netlify.app/hintbot.html" class="alastor-button">Stuck? Oh Deer.</a>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+.alastor-button {
+  font-family: 'Special Elite', monospace;
+  color: #ff2c2c;
+  background-color: black;
+  border: 2px solid #ff2c2c;
+  padding: 8px 22px;
+  text-decoration: none;
+  display: inline-block;
+  position: fixed;
+  bottom: 16px;
+  left: 16px;
+  z-index: 999;
+  overflow: hidden;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 0 #000, 2px 2px 0 #440000;
+  box-shadow: 0 0 8px rgba(255, 0, 0, 0.6);
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  animation: alastorGlitch 2.5s infinite;
+}
+
+.alastor-button::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 0, 0, 0.05),
+    rgba(255, 0, 0, 0.05) 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  z-index: 1;
+  pointer-events: none;
+}
+
+.alastor-button:hover {
+  background-color: #330000;
+  color: #ff9999;
+  box-shadow: 0 0 12px rgba(255, 50, 50, 0.9);
+  text-shadow: 0 0 4px #ff6666;
+}
+
+@keyframes alastorGlitch {
+  0% {
+    transform: none;
+  }
+  10% {
+    transform: skew(-1deg, 1deg);
+  }
+  20% {
+    transform: none;
+  }
+  30% {
+    transform: skew(1deg, -2deg);
+  }
+  40% {
+    transform: none;
+  }
+  50% {
+    transform: translateX(1px);
+  }
+  60% {
+    transform: none;
+  }
+  70% {
+    transform: translateX(-1px);
+  }
+  80% {
+    transform: none;
+  }
+  90% {
+    transform: skew(-1deg, 0deg);
+  }
+  100% {
+    transform: none;
+  }
+}
+</style>
 </body>
 </html>
