@@ -73,6 +73,29 @@
       font-style: italic;
       user-select: none;
     }
+        #help-button {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: rgba(10, 10, 10, 0.85);
+      color: #8ff7ff;
+      font-family: 'Courier New', monospace;
+      border: 1px solid #0ff;
+      padding: 10px 15px;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 14px;
+      text-shadow: 0 0 5px #0ff;
+      transition: background-color 0.3s, box-shadow 0.3s;
+      z-index: 9999;
+      opacity: 0;
+      animation: fadeInHelp 3s forwards 4s;
+    }
+
+    #help-button:hover {
+      background: rgba(0, 255, 255, 0.15);
+      box-shadow: 0 0 8px #0ff;
+    }
   </style>
 </head>
 <body>
@@ -212,5 +235,8 @@
     </div>
 
   </div>
+    <button id="help-button" onclick="window.location.href='/guide.html'">
+    Feelin' Stuck? Click me.
+  </button>
 </body>
 </html>
