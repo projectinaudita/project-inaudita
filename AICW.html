@@ -140,7 +140,7 @@
 
       <div style="margin-top:20px;display:flex;gap:12px;align-items:center">
         <a class="btn" href="#initiatives">Explore Initiatives</a>
-        <button class="btn-ghost" id="ethics-open">Read Ethics Review</button>
+        <a href="tos.html"> <button class="btn-ghost">View Terms Of Service</button> </a>
         <div style="margin-left:12px;color:var(--muted);font-size:13px">Tip: press <kbd>G</kbd> to toggle micro-glitch, <kbd>P</kbd> to play/pause ambient.</div>
       </div>
     </div>
@@ -223,20 +223,20 @@
     <div class="team" role="list">
       <div class="portrait" role="listitem">
         <!-- inline SVG portrait placeholder -->
-        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>E.H.</text></svg>" alt="Dr. E. Halverson">
-        <h4>Dr. Eleanor Halverson</h4>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>S.G.</text></svg>" alt="Dr. E. Halverson">
+        <h4>Dr. Suvan Ghosh</h4>
         <p>Director, Cognitive Studies</p>
       </div>
 
       <div class="portrait" role="listitem">
-        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>A.R.</text></svg>" alt="Dr. A. Rao">
-        <h4>Dr. Anisha Rao</h4>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>A.B.</text></svg>" alt="Dr. A. Rao">
+        <h4>Dr. Anisha Bhattad</h4>
         <p>Head of Ethics & Oversight</p>
       </div>
 
       <div class="portrait uncanny" role="listitem">
-        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>M.K.</text></svg>" alt="M. Kian Varma">
-        <h4>M. Kian Varma</h4>
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><rect width='100%' height='100%' fill='%23eef2f7'/><text x='50%' y='55%' font-size='24' text-anchor='middle' fill='%239aa3b2' font-family='Arial' dy='.3em'>R.G.</text></svg>" alt="M. Kian Varma">
+        <h4>Richie G.</h4>
         <p>Senior Researcher</p>
       </div>
     </div>
@@ -244,16 +244,16 @@
 
   <section style="display:flex;gap:18px;margin-top:26px;flex-wrap:wrap">
     <div style="flex:1" class="panel">
-      <h4 style="margin:0">Initiatives</h4>
+      <h4 style="margin:0" id="initiatives">Initiatives</h4>
       <ul style="margin-top:12px;color:var(--muted);font-size:14px">
-        <li>Scholarship & Outreach — Apply <a href="/apply?program=scholarship" style="color:var(--accent)">here</a></li>
-        <li style="margin-top:8px">The Locus — Program details <a href="/projects/the-locus" style="color:var(--accent)">here</a></li>
+        <li>Scholarship & Outreach — Apply <a href="clue-mira.html" style="color:var(--accent)">here</a></li>
+        <li style="margin-top:8px">The Locus — Program details <a href="locus.html" style="color:var(--accent)">here</a></li>
         <li style="margin-top:8px">Training & Ethics — <button id="ethics-open-2" class="btn-ghost" style="margin-left:6px">View Review</button></li>
       </ul>
     </div>
 
     <div style="width:320px" class="panel">
-      <h4 style="margin:0">Contact</h4>
+      <h4 style="margin:0"id="contact">Contact</h4>
       <p style="margin-top:8px;color:var(--muted);font-size:14px">General: <a href="mailto:info@aicw.org">info@aicw.org</a><br/>Press: <a href="mailto:press@aicw.org">press@aicw.org</a></p>
     </div>
   </section>
@@ -267,26 +267,41 @@
 </div>
 
 <!-- Ethics modal (hidden, opens via JS). Redacted lines are selectable and reveal content when highlighted. -->
+<!-- Ethics modal (hidden, opens via JS). Redacted lines are selectable and reveal content when highlighted. -->
 <div id="ethics-modal" aria-hidden="true" style="position:fixed;inset:0;display:none;align-items:center;justify-content:center;padding:28px;z-index:120">
   <div style="position:absolute;inset:0;background:rgba(2,6,23,0.45)"></div>
   <div style="position:relative;background:white;border-radius:12px;max-width:880px;width:calc(100% - 48px);padding:22px;border:1px solid rgba(2,6,23,0.06);box-shadow:0 30px 80px rgba(2,6,23,0.12);max-height:80vh;overflow:auto">
     <h3 style="margin:0">Ethics Review — Executive Summary</h3>
-    <p style="margin-top:12px;color:var(--muted)">AICW adheres to external oversight and rigorous participant protections. Full records are maintained for governance review.</p>
+    <p style="margin-top:12px;color:var(--muted);font-size:14px">
+      The Aetherbridge Institute for Cognitive Welfare (AICW) conducts all research activities under strict adherence to international ethical standards, including the Declaration of Helsinki, the Belmont Report, and guidelines from authorized Institutional Review Boards (IRB). This review summarizes protocols related to participant welfare, data governance, and oversight mechanisms concerning the flagship research platform, The Locus.
+    </p>
+
     <div style="margin-top:12px" class="panel">
-      <strong>Section 4 — Protocols</strong>
-      <p style="margin-top:8px;color:var(--muted);font-size:14px">Monitoring, adverse events, and oversight processes.</p>
-      <p class="secret" style="margin-top:8px;font-size:13px">REDACTED: internal waiver COHORT-7 — memory protocol approved under governance clause.</p>
+      <strong>Section 4 — Protocols & Safeguards</strong>
+      <p style="margin-top:8px;color:var(--muted);font-size:14px">
+        Participant recruitment is contingent upon documented informed consent, including thorough briefing on study objectives, potential risks, benefits, and voluntary withdrawal rights at any stage without penalty. Continuous monitoring for adverse events is maintained, with immediate response protocols and oversight by an independent safety committee. Regular internal and external audits ensure strict compliance with ethical mandates and participant safety.
+      </p>
+      <p class="secret" style="margin-top:8px;font-size:13px">
+        Internal waiver COHORT-7 applies specific memory protocol exceptions authorized under governance clause 7.3. Details of these protocols are confidential and restricted.
+      </p>
     </div>
 
     <div style="margin-top:12px" class="panel">
-      <strong>Section 9 — Data & Memory</strong>
-      <p style="margin-top:8px;color:var(--muted);font-size:14px">Retention, controlled recall, and audit pathways.</p>
-      <p class="secret" style="margin-top:8px;font-size:13px">REDACTED: reinstatement trials completed 2019 — pilot outcomes archived.</p>
+      <strong>Section 9 — Data Privacy & Memory Management</strong>
+      <p style="margin-top:8px;color:var(--muted);font-size:14px">
+        Participant data is anonymized, encrypted, and handled in full compliance with GDPR, HIPAA, and institutional data protection policies. Controlled recall procedures are conducted under strict audit trails, ensuring participant autonomy and data integrity. Data retention and archival follow institutional mandates and participant consent agreements.
+      </p>
+      <p class="secret" style="margin-top:8px;font-size:13px">
+        Classified archival note: Pilot reinstatement trials concluded in 2019 with participant outcomes securely archived under restricted access.
+      </p>
     </div>
 
-    <div style="margin-top:12px;text-align:right"><button id="ethics-close" class="btn-ghost">Close</button></div>
+    <div style="margin-top:12px;text-align:right">
+      <button id="ethics-close" class="btn-ghost">Close</button>
+    </div>
   </div>
 </div>
+
 
 <script>
   // Responsive year
