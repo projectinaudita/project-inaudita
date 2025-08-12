@@ -110,50 +110,114 @@
 <style>
   .aicw-header {
     display: flex;
-    align-items: center;
     justify-content: space-between;
-    background-color: #f3f0e7;
-    padding: 10px 20px;
-    border-bottom: 3px solid #d4c29c;
+    align-items: center;
+    padding: 15px 40px;
+    background-color: #f4f1e9;
+    border-bottom: 2px solid #d4c29c;
   }
-  .aicw-logo svg {
-    height: 50px;
-    width: 50px;
+  .logo-link svg {
+    height: 55px;
+    width: 55px;
   }
-  .aicw-nav ul {
+  .header-nav ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 25px;
     margin: 0;
     padding: 0;
   }
-  .aicw-nav a {
+  .header-nav a {
     text-decoration: none;
     color: #2f2f2f;
     font-weight: bold;
     font-family: Arial, sans-serif;
+    font-size: 15px;
   }
-  .aicw-nav a:hover {
+  .header-nav a:hover {
     text-decoration: underline;
+  }
+</style>
+<style>
+  :root {
+    --muted: #6b7280;
+    --accent: #0f172a;
+  }
+  header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 18px 0;
+    position: sticky;
+    top: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.65));
+    backdrop-filter: blur(6px);
+    z-index: 40;
+    border-bottom: 1px solid rgba(15,23,42,0.04);
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: inherit;
+  }
+  .logo {
+    width: 64px;
+    height: 64px;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    color: white;
+    font-weight: 700;
+    font-family: Georgia, serif;
+    background: linear-gradient(135deg, var(--accent), #1e293b);
+    box-shadow: 0 8px 30px rgba(2,6,23,0.08);
+  }
+  nav {
+    display: flex;
+    gap: 18px;
+    align-items: center;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 15px;
+    padding: 8px;
+    border-radius: 8px;
+  }
+  nav a:hover {
+    color: var(--accent);
+    background: rgba(15,23,42,0.03);
+  }
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid rgba(2,6,23,0.06);
+    padding: 8px 14px;
+    border-radius: 10px;
+    color: var(--accent);
+    cursor: pointer;
   }
 </style>
 </head>
 <body>
-  <!-- AICW Header HTML -->
-<header class="aicw-header">
-  <div class="aicw-logo">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
-      <circle cx="50" cy="50" r="48" fill="#d4c29c" stroke="#2f2f2f" stroke-width="4"/>
-      <text x="50%" y="55%" text-anchor="middle" fill="#2f2f2f" font-size="28" font-family="Arial" dy=".3em">AICW</text>
-    </svg>
-  </div>
-  <nav class="aicw-nav">
-    <ul>
-      <li><a href="/aicw.html">Home</a></li>
-      <li><a href="/about.html">About</a></li>
-      <li><a href="/quest.html">Your Mission</a></li>
-      <li><a href="/memorial.html">Memorial</a></li>
-    </ul>
+<header>
+  <a class="brand" href="#">
+    <div class="logo" aria-hidden> A </div>
+    <div style="line-height:1">
+      <div style="font-weight:700">The LOCUS</div>
+      <div style="font-size:12px;color:var(--muted)">Aetherbridge Institute for Cognitive Welfare</div>
+    </div>
+  </a>
+
+  <nav aria-label="Primary navigation">
+    <a href="#about">About</a>
+    <a href="#research">Research</a>
+    <a href="#initiatives">Initiatives</a>
+    <a href="#team">Our People</a>
+    <a href="#contact">Contact</a>
+    <button id="audio-toggle" class="btn-ghost" aria-pressed="true" title="Toggle ambient sound">Unmute</button>
   </nav>
 </header>
 
@@ -219,6 +283,7 @@
   </script>
 </body>
 </html>
+
 
 
 
