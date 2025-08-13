@@ -182,7 +182,37 @@
       display: none;
     }
   }
-  
+  .hidden-link {
+  color: inherit;
+  text-decoration: none;
+  position: relative;
+  cursor: default;
+}
+
+.hidden-link::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.2);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.hidden-link:hover::after {
+  transform: scaleX(1);
+}
+
+.hidden-link:visited {
+  color: inherit;
+}
+
+.hidden-link:hover {
+  color: #555;
+}
+
   /* Accessibility improvements */
   @media (prefers-reduced-motion: reduce) {
     .message, .footer, .clearance-notice {
@@ -259,7 +289,7 @@
 
     <div class="clearance-notice" style="animation-delay: 1.1s; animation: fadeIn 0.6s forwards; opacity: 0;">
       End of accessible records. Further access requires clearance.
-      Kindly request <a href="https://instagram.com/mlepnos" target="_blank" class="hidden-link">Mlepnos</a>.
+      Kindly request <a href="https://instagram.com/mlepnos" target="_blank" class="hidden-link">Mlep(clay)nos</a>.
     </div>
     
     <div class="footer" style="animation-delay: 1.2s;">
@@ -269,6 +299,7 @@
   </div>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ced89b10658eeb',t:'MTc1NDgyMjEyMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
 
 
 
