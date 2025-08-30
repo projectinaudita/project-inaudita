@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AICW | Cognitive Welfare Algorithms – Confidential Research Dossier</title>
+  <meta name="description" content="Aetherbridge Institute for Cognitive Welfare – Internal Research Document" />
+  <link rel="icon" type="image/x-icon" href="logo2.png.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --page-bg: #f6f6f5;
+      --paper: #ffffff;
+      --ink: #111217;
+      --muted: #616161;
+      --rule: #d9d6d0;
+      --accent: #114b6b;
+      --danger: #9b1c1c;
+      --redact: #000000;
+      --mono: 'Courier New', monospace;
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--page-bg);font-family:Inter,system-ui,Arial,sans-serif;color:var(--ink);line-height:1.55}
+    .page{max-width:1000px;margin:36px auto;padding:48px;background:var(--paper);border:1px solid var(--rule);box-shadow:0 16px 40px rgba(15,20,30,0.08);position:relative}
+    .watermark{position:absolute;right:28px;bottom:20px;color:#d6d6d6;font-weight:700;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
+
+    header{display:flex;gap:18px;align-items:center;border-bottom:2px solid var(--rule);padding-bottom:18px;margin-bottom:22px}
+    header img{height:56px}
+    .brand h1{font:800 20px/1 Inter, sans-serif;margin:0;text-transform:uppercase;letter-spacing:.06em}
+    .brand p{margin:3px 0 0;color:var(--muted);font-size:12px;text-transform:uppercase}
+
+    h2.title{font-family:Libre Baskerville, Georgia, serif;font-weight:700;font-size:26px;margin:18px 0 6px}
+    .meta{color:var(--muted);font-size:13px;margin-bottom:18px}
+
+    .abstract{background:#fbfbfb;border-left:4px solid var(--accent);padding:14px 18px;margin-bottom:20px}
+    .abstract h3{margin:0 0 8px;font-size:13px;text-transform:uppercase;color:var(--accent)}
+
+    .toc{display:flex;gap:12px;color:var(--muted);font-size:13px;margin-bottom:18px}
+
+    .grid{display:grid;grid-template-columns: 1fr 360px;gap:28px}
+    section{padding-right:6px}
+    aside{padding-left:6px}
+
+    p.lead{margin-top:0;color:#333}
+
+    .figure{background:#fbfbfb;border:1px solid var(--rule);padding:12px;margin-bottom:16px}
+    .figure h4{margin:0 0 10px;font-size:13px;color:var(--muted);text-transform:uppercase}
+    .caption{font-size:12px;color:var(--muted);margin-top:8px}
+
+    /* Inline charts using SVG */
+    .chart{width:100%;height:220px}
+    .smallchart{width:100%;height:140px}
+
+    table{width:100%;border-collapse:collapse;margin:10px 0;font-size:13px}
+    th,td{padding:8px 10px;border:1px solid var(--rule);text-align:left}
+    th{background:#fbfbfb;color:var(--muted);font-weight:600}
+
+    .redact{background:var(--redact);color:transparent;padding:0 .35em;border-radius:2px}
+
+    .eq{font-family:var(--mono);background:#f3f4f5;padding:8px;border-radius:6px;border:1px solid #ececec;margin:8px 0;font-size:13px}
+
+    ol.fn{font-size:12px;color:#555;margin-left:1.05em}
+
+    .access{display:flex;gap:10px;align-items:center;border-top:1px dashed var(--rule);padding-top:14px;margin-top:18px}
+    .access input{padding:8px 10px;border:1px solid var(--rule);border-radius:6px;width:220px}
+    .access button{background:var(--accent);color:#fff;padding:8px 12px;border-radius:6px;border:0;cursor:pointer;font-weight:700}
+    .hint{margin-left:auto;color:var(--muted);font-size:12px}
+
+    footer{margin-top:24px;font-size:12px;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
+
+    @media print{body{background:#fff}.page{box-shadow:none;border:0;padding:36px}}
+  </style>
+</head>
+<body>
+  <main class="page" role="main">
+    <div class="watermark">AICW — INTERNAL</div>
+    <header>
+      <img src="logo2.png.png" alt="AICW">
+      <div class="brand">
+        <h1>Aetherbridge Institute for Cognitive Welfare</h1>
+        <p>Division of Computational Psychiatry & Systems Intervention</p>
+      </div>
+    </header>
+
+    <h2 class="title">Cognitive Welfare Algorithms — Pilot Findings & Dossier</h2>
+    <div class="meta">Confidential Research Dossier · Prepared by Mlepnos (Cognitive Systems Liaison) · Compliance: ABX‑17 · Dossier ID: AICW/D-2025-04</div>
+
+    <div class="abstract">
+      <h3>Executive Abstract</h3>
+      <p class="lead">This dossier summarizes multi-modal pilot outcomes from the Resilience Optimization Protocols (ROP) v1.4, integrating neuroadaptive stimulus-conditioning, passive sentiment capture, and Bayesian hierarchical calibration of subject-level priors. Aggregate resilience indices (RI) improved nominally; however, emergent dissociative artifacts localize to Subject Cluster 07 and correlate with high-frequency Locus exposures. The document contains quantitative analyses, model specifications (GLM/Bayesian HLM), and restricted supplemental links for clearance-only materials.</p>
+    </div>
+
+    <nav class="toc" aria-label="Contents">
+      <div>1. Methods</div>
+      <div>2. Results</div>
+      <div>3. Analysis</div>
+      <div>4. Appendix</div>
+    </nav>
+
+    <div class="grid">
+      <section>
+        <h3>1. Methods (Summary)</h3>
+        <p>Participants (n=64; mean age 15.8 ± 1.3) were recruited across five district cohorts. Interventions deployed neuroadaptive modules with reinforcement schedules parameterized by Thompson sampling. Primary outcomes: Resilience Index (RI), Affective Congruence (AC), Compliance Drift (CD). Secondary telemetry: galvanic variance, eye-tracking dispersion, and passive sentiment capture (PSC) derived from ambient feed analysis.</p>
+
+        <h4>1.1 Model Specification</h4>
+        <p>We modelled RI using a hierarchical Bayesian GLM with logit link for bounded outcomes and random intercepts for cluster and subject-level slopes for exposure dosage:</p>
+        <div class="eq">\[\text{logit}(RI_{ij}) = \beta_0 + \beta_1 Dose_{ij} + \beta_2 AC_{ij} + u_j + \epsilon_{ij},\\ u_j \sim N(0,\sigma^2_u),\, \epsilon_{ij} \sim N(0,\sigma^2)\]</div>
+
+        <p>Prior distributions: weakly informative normals (\(\beta \sim N(0,1)\)), \(\sigma \sim \text{HalfCauchy}(0,1)\). Model fit via NUTS sampling (4 chains, 2000 warm-up, 3000 posterior draws).</p>
+
+        <h4>1.2 Signal Processing & Feature Extraction</h4>
+        <p>Audio & video streams underwent spectrotemporal decomposition (STFT), mel-frequency cepstral coefficient extraction (MFCC), and entropy-based anomaly detection (threshold = 2.9σ). PSC fused via late-stage ensemble stacking (XGBoost meta-learner) to predict compliance drift with AUROC benchmarks reported below.</p>
+
+        <h3>2. Results</h3>
+        <p>Primary outcome: posterior mean \(\Delta RI = +0.114\) (95% CI [0.062, 0.166]). Notable skew in residuals (Shapiro p &lt; 0.01) suggested non-normality in Cluster 07. Predictive AUROC (PSC → CD) = 0.83.</p>
+
+        <div class="figure">
+          <h4>Figure 1. Resilience Index — Group Trajectories (Line + Credible Bands)</h4>
+          <svg class="chart" viewBox="0 0 900 240" preserveAspectRatio="none" aria-hidden="true">
+            <!-- Axes -->
+            <line x1="50" y1="12" x2="50" y2="200" stroke="#ddd"/>
+            <line x1="50" y1="200" x2="860" y2="200" stroke="#ddd"/>
+            <!-- Cluster lines (simplified curves) -->
+            <path d="M50 180 C180 160 320 150 460 140 C600 130 740 120 860 110" stroke="#2b7aa3" stroke-width="3" fill="none" opacity="0.95"/>
+            <path d="M50 185 C180 170 320 160 460 158 C600 156 740 154 860 152" stroke="#7aa36a" stroke-width="3" fill="none" opacity="0.85"/>
+            <!-- Subject 07 anomaly -->
+            <path d="M420 142 C470 100 500 90 540 92" stroke="#b03b3b" stroke-width="2.8" stroke-dasharray="6 3" fill="none"/>
+            <!-- Legends -->
+            <rect x="680" y="18" width="10" height="10" fill="#2b7aa3"/><text x="696" y="26" font-size="11" fill="#333">Cluster Avg</text>
+            <rect x="680" y="36" width="10" height="10" fill="#7aa36a"/><text x="696" y="44" font-size="11" fill="#333">Control Cohort</text>
+            <rect x="680" y="54" width="10" height="10" fill="#b03b3b"/><text x="696" y="62" font-size="11" fill="#333">Subject 07 Anomaly</text>
+          </svg>
+          <div class="caption">Posterior trajectories generated from posterior predictive draws. Anomalous deviation in Subject 07 marked in red.</div>
+        </div>
+
+        <h4>2.1 Cluster-Level Summary</h4>
+        <table>
+          <thead><tr><th>Cluster</th><th>n</th><th>Mean RI</th><th>SD</th><th>Exposure Dose (mean)</th></tr></thead>
+          <tbody>
+            <tr><td>Cluster 05</td><td>12</td><td>0.71</td><td>0.09</td><td>2.1</td></tr>
+            <tr><td>Cluster 06</td><td>15</td><td>0.65</td><td>0.12</td><td>1.8</td></tr>
+            <tr><td>Subject 07*</td><td>8</td><td>0.42</td><td>0.27</td><td>3.6</td></tr>
+            <tr><td>Cluster 08</td><td>29</td><td>0.74</td><td>0.08</td><td>1.9</td></tr>
+          </tbody>
+        </table>
+
+        <h4>2.2 Classification & Predictive Performance</h4>
+        <p>PSC ensemble predicted Compliance Drift with AUROC = 0.83 (95% CI [0.79,0.87]). Feature importance: MFCC entropy (0.24), gaze dispersion (0.19), session engagement index (0.15), ambient sentiment (0.12), dosimetry (0.09).</p>
+
+        <div class="figure">
+          <h4>Figure 2. Scatter — Exposure Dose vs Residualized RI (with robust regression)</h4>
+          <svg class="smallchart" viewBox="0 0 360 140" preserveAspectRatio="none" aria-hidden="true">
+            <!-- axes -->
+            <line x1="36" y1="12" x2="36" y2="120" stroke="#eee"/>
+            <line x1="36" y1="120" x2="340" y2="120" stroke="#eee"/>
+            <!-- scatter points (mocked) -->
+            <g fill="#2b7aa3" opacity="0.9">
+              <circle cx="80" cy="92" r="3"/>
+              <circle cx="120" cy="86" r="3.5"/>
+              <circle cx="160" cy="78" r="3"/>
+              <circle cx="210" cy="60" r="4"/>
+              <circle cx="250" cy="48" r="4.5"/>
+              <!-- Subject07 cluster points in red -->
+              <circle cx="262" cy="28" r="5" fill="#b03b3b"/>
+              <circle cx="268" cy="24" r="5.5" fill="#b03b3b"/>
+            </g>
+            <!-- regression line -->
+            <path d="M44 108 L140 86 L220 64 L320 42" stroke="#333" stroke-width="1.6" stroke-opacity="0.6" fill="none" stroke-dasharray="4 2"/>
+          </svg>
+          <div class="caption">Dose correlates negatively with residual RI; Subject 07 points (red) are high-dose, low-RI outliers.</div>
+        </div>
+
+        <h3>3. Analysis</h3>
+        <p>Residual diagnostics and posterior predictive checks indicate poor fit for Cluster 07 under the current generative assumptions — bimodality and heavy tails (kurtosis &gt; 4). We explored mixture models (2-component Gaussian mixture) and an autoregressive exposure-lag model (AR(1) on session-level deltas). Mixture model posterior assigns 0.72 probability to anomalous component for Subject 07 cases.</p>
+
+        <h4>3.1 The Locus Exposure Correlate</h4>
+        <p>Textual and audio transcripts from The Locus sessions reveal thematic recurrence: memory displacement, echo narratives, and conditional compliance. Cross-modal embedding similarity (CLIP-derived vectors) shows increased alignment with negative valence templates post-exposure (cosine Δ = 0.18).</p>
+
+        <div class="figure">
+          <h4>Figure 3. Heatmap — Cross-modal Valence Shift (post-pre)</h4>
+          <svg class="chart" viewBox="0 0 900 220" preserveAspectRatio="none" aria-hidden="true">
+            <!-- simplistic heatmap grid -->
+            <g>
+              <!-- 6x6 grid -->
+              <g transform="translate(60,20)">
+                <rect x="0" y="0" width="40" height="30" fill="#f7fbff" stroke="#eee"/>
+                <rect x="44" y="0" width="40" height="30" fill="#e6f2fb" stroke="#eee"/>
+                <rect x="88" y="0" width="40" height="30" fill="#cfe9f6" stroke="#eee"/>
+                <rect x="132" y="0" width="40" height="30" fill="#b3dff0" stroke="#eee"/>
+                <rect x="176" y="0" width="40" height="30" fill="#86c8e8" stroke="#eee"/>
+                <rect x="220" y="0" width="40" height="30" fill="#2b7aa3" stroke="#eee"/>
+
+                <rect x="0" y="34" width="40" height="30" fill="#fff8f8" stroke="#eee"/>
+                <rect x="44" y="34" width="40" height="30" fill="#ffecec" stroke="#eee"/>
+                <rect x="88" y="34" width="40" height="30" fill="#ffd6d6" stroke="#eee"/>
+                <rect x="132" y="34" width="40" height="30" fill="#ffb3b3" stroke="#eee"/>
+                <rect x="176" y="34" width="40" height="30" fill="#ff8f8f" stroke="#eee"/>
+                <rect x="220" y="34" width="40" height="30" fill="#b03b3b" stroke="#eee"/>
+              </g>
+            </g>
+          </svg>
+          <div class="caption">Heatmap indicates cross-modal valence shift intensity; red indicates increased negative valence post Locus exposure.</div>
+        </div>
+
+        <h4>3.2 Risk Stratification</h4>
+        <p>Applying a Cox proportional hazards model on time-to-compliance-failure reveals hazard ratio HR=2.9 (Cluster 07 vs baseline, p&lt;0.01). We recommend elevating monitoring thresholds and ceasing high-dosage Locus exposures pending root-cause analysis.</p>
+
+        <h4>Conclusions & Recommendations</h4>
+        <ol>
+          <li>Immediate hold on Phase 3 Locus-dosed modules for Cluster 07 individuals until diagnostics completed.</li>
+          <li>Implement mixture-model informed screening in the real-time pipeline to flag high-anomaly posterior mass (&gt;0.6).</li>
+          <li>Commission independent auditory forensic analysis of Locus session assets (Appendix B).</li>
+        </ol>
+
+      </section>
+
+      <aside>
+        <div class="figure">
+          <h4>Key Metrics</h4>
+          <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Posterior ΔRI (mean)</td><td>+0.114</td></tr>
+              <tr><td>PSC → CD AUROC</td><td>0.83</td></tr>
+              <tr><td>Subject 07 Anomaly Prob</td><td>0.72</td></tr>
+              <tr><td>Avg Exposure Dose</td><td>2.1 sessions</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="figure">
+          <h4>Appendix — Quick References</h4>
+          <p style="font-size:13px;color:var(--muted)"><strong>Models:</strong> Bayesian HLM (NUTS), 2‑component Gaussian mixture, Cox PH. <br><strong>Tools:</strong> PyMC3 (NUTS), XGBoost, LibROSA, CLIP embeddings.</p>
+        </div>
+
+        <div class="figure">
+          <h4>Figure — Dosimetry Distribution</h4>
+          <svg class="smallchart" viewBox="0 0 360 140" preserveAspectRatio="none" aria-hidden="true">
+            <rect x="40" y="26" width="36" height="86" fill="#c9d6e8" stroke="#ddd"/>
+            <rect x="92" y="34" width="36" height="78" fill="#c9d6e8" stroke="#ddd"/>
+            <rect x="144" y="10" width="36" height="102" fill="#b03b3b" stroke="#ddd"/>
+            <rect x="196" y="40" width="36" height="72" fill="#c9d6e8" stroke="#ddd"/>
+            <rect x="248" y="30" width="36" height="82" fill="#c9d6e8" stroke="#ddd"/>
+          </svg>
+          <div class="caption">Subject 07 (center red) shows elevated dosimetry compared to clusters.</div>
+        </div>
+
+        <div class="figure">
+          <h4>Operational Notes</h4>
+          <p style="font-size:13px;color:var(--muted)">All datasets are stored under encrypted archive AICW-ENC-43. Access to Appendix sections B–D requires secondary clearance.</p>
+        </div>
+
+      </aside>
+    </div>
+
+    <section>
+      <h3>Notes & Footnotes</h3>
+      <ol class="fn">
+        <li><strong>T</strong>arget cohorts drawn from standard educational settings across districts A–E. (See Appendix A)</li>
+        <li><strong>H</strong>euristic weighting tuned via semi-supervised outcome augmentation using weak labels from domain experts.</li>
+        <li><strong>E</strong>valuation windows set to 90/180 days; nightly deltas logged and posteriorized.</li>
+        <li><strong>L</strong>ayered consent protocols applied under institutional waivers; redacted elements available to Oversight only.</li>
+        <li><strong>O</strong>utlier handling: silence periods treated as compliant stasis unless accompanied by PSC volatility.</li>
+        <li><strong>C</strong>onditioning cues embedded in ambient curriculum media; detection via spectrogram fingerprinting.</li>
+        <li><strong>U</strong>nder-reporting addressed by passive sentiment capture and cross-modal triangulation.</li>
+        <li><strong>S</strong>ubject access requests are deferred to Appendix D (restricted clearance required).</li>
+      </ol>
+    </section>
+
+    <div class="access" aria-label="Supplemental Data Access">
+      <label for="pw">Supplemental Data (clearance required):</label>
+      <input id="pw" name="pw" type="text" placeholder="enter passphrase" autocomplete="off" />
+      <button id="go">Unlock</button>
+      <div class="hint">Hint: see Notes initials</div>
+    </div>
+
+    <footer>
+      <strong>Appendix A:</strong> Enrollment criteria, pre-screening instruments (PCL-5 adapted), dosimetry schema. <br>
+      <strong>Appendix B:</strong> Selected Locus session transcripts — redacted. <br>
+      <strong>Appendix C:</strong> Full model priors & MCMC diagnostics (R-hat &lt; 1.01 for all parameters). <br>
+      <strong>References:</strong> Internal AICW memos; external: Smith et al. (2023) Neuroadaptive Conditioning; Perez & Zhao (2022) Passive Sentiment Capture.<br>
+    </footer>
+
+  </main>
+
+  <script>
+    // keep same unlock behavior
+    const NEXT_URL = "/phase2.html";
+    const PASSWORD = "THELOCUS";
+    const input = document.getElementById('pw');
+    const go = document.getElementById('go');
+
+    function tryUnlock(){
+      const v = (input.value || '').trim().toUpperCase().replace(/\s+/g,'');
+      if(v === PASSWORD){
+        input.style.borderColor = 'green';
+        input.disabled = true; go.disabled = true; go.textContent = 'GRANTED';
+        setTimeout(()=> window.location.href = NEXT_URL, 350);
+      } else {
+        input.animate([
+          { transform:'translateX(0)' },
+          { transform:'translateX(-6px)' },
+          { transform:'translateX(6px)' },
+          { transform:'translateX(0)' }
+        ], { duration:160 });
+        input.style.borderColor = 'red';
+        setTimeout(()=> input.style.borderColor = '', 300);
+      }
+    }
+    go.addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ tryUnlock(); }});
+  </script>
+</body>
+</html>
