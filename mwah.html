@@ -1,0 +1,595 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Mystery Movie Quiz — Anniversary</title>
+  <style>
+    :root{
+      --accent:#ff6ba3;
+      --accent2:#ff9fc2;
+      --bg1:#ffe8f1;
+      --bg2:#ffd3e5;
+      --text:#5a2a41;
+      --muted:#b27a94;
+      --glass:rgba(255,245,249,0.55);
+      --card-w:900px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:'Poppins',system-ui,-apple-system,Segoe UI,Roboto,Arial;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,182,218,0.35), transparent 60%),
+        radial-gradient(circle at 80% 0%, rgba(255,200,230,0.35), transparent 60%),
+        radial-gradient(circle at 50% 100%, rgba(255,170,210,0.35), transparent 60%),
+        linear-gradient(135deg,var(--bg1),var(--bg2));
+      min-height:100vh;
+      color:var(--text);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      overflow:hidden;
+    }
+    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:30px;position:relative;z-index:2}
+    .card{width:var(--card-w);max-width:95vw;border-radius:28px;padding:34px;background:var(--glass);backdrop-filter: blur(18px) saturate(160%);border:1px solid rgba(255,255,255,0.6);box-shadow:0 25px 55px rgba(255,120,165,0.18);position:relative;}
+    h1{margin:0;font-size:36px;background:linear-gradient(90deg,#ff85b4,#ff5d9e,#ff85b4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;font-weight:800;letter-spacing:1px}
+    p.lead{margin:8px 0 18px;color:var(--muted);font-size:15px}
+
+    /* COMBO DISPLAY — only visible in Round 3 */
+    #combosDisplay{
+      position:fixed;
+      top:10px;
+      right:10px;
+      background:rgba(255,255,255,0.85);
+      padding:10px 16px;
+      border-radius:12px;
+      font-size:14px;
+      color:var(--text);
+      text-align:center;
+      z-index:999;
+      box-shadow:0 4px 15px rgba(0,0,0,0.12);
+      display:none;
+    }
+
+    /* Scream button */
+    #screamBtn{
+      position:fixed;
+      bottom:18px;
+      right:18px;
+      padding:10px 14px;
+      border-radius:12px;
+      background:#ff6ba3;
+      color:white;
+      font-weight:700;
+      border:none;
+      cursor:pointer;
+      z-index:9999;
+      box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    }
+    #screamPopup{
+      position:fixed;
+      bottom:80px;
+      right:18px;
+      background:white;
+      padding:12px 16px;
+      border-radius:10px;
+      box-shadow:0 4px 14px rgba(0,0,0,0.18);
+      font-size:14px;
+      color:var(--text);
+      z-index:99999;
+      display:none;
+    }
+
+    /* Intro */
+    #intro{display:flex;flex-direction:column;align-items:center;text-align:center}
+    #intro .rules{max-width:760px;text-align:left;margin-top:10px}
+
+    /* Quiz */
+    #quiz{display:none}
+    .progress{height:12px;background:#ffd7e7;border-radius:999px;overflow:hidden;margin-bottom:18px;box-shadow:inset 0 2px 4px rgba(0,0,0,0.06)}
+    .progress > i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));width:0;transition:width 450ms ease}
+
+    .question{background:rgba(255,255,255,0.86);border-radius:14px;padding:20px;box-shadow:0 8px 20px rgba(0,0,0,0.06);position:relative}
+    .meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .difficulty{font-size:12px;color:var(--muted);padding:6px 12px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);background:#ffffffdd}
+    .qtext{font-size:18px;margin-bottom:12px;font-weight:600;color:var(--text)}
+
+    /* clue badge (top-right of the question card for round 3) */
+    .clue-badge{position:absolute;right:14px;top:14px;background:linear-gradient(90deg,#fff,#fff0);padding:6px 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);font-weight:700;color:var(--muted);font-size:13px;opacity:0.95}
+
+    .answers{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    button.opt{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,0.6);background:rgba(255,255,255,0.88);cursor:pointer;text-align:left;font-size:14px;transition:transform .18s ease, box-shadow .18s ease;color:var(--text)}
+    button.opt:hover{transform:translateY(-3px);box-shadow:0 10px 20px rgba(0,0,0,0.06)}
+    button.opt.correct{background:#e8ffe8;border-color:#9ddf9d;color:#176f17;font-weight:700}
+    button.opt.incorrect{background:#ffe6e6;border-color:#ffb4b4;color:#8f1a1a;font-weight:700}
+    button.opt[disabled]{opacity:0.9;cursor:default}
+
+    .actions{display:flex;justify-content:flex-end;margin-top:14px}
+    .btn{padding:10px 16px;border-radius:10px;border:none;background:linear-gradient(90deg,var(--accent),var(--accent2));color:white;font-weight:700;cursor:pointer}
+
+    .results{display:none;text-align:center;padding:18px}
+    .results.show{display:block}
+
+    /* password page */
+    .password-page{display:none;padding:20px;text-align:center}
+    .password-input{width:100%;max-width:760px;padding:12px;border-radius:10px;border:1px solid #ffd7e7;font-size:16px}
+
+    /* poem question */
+    .poem-q{display:none;padding:16px;text-align:left}
+
+    /* hearts */
+    .hearts-layer{position:fixed;inset:0;pointer-events:none;z-index:1;overflow:hidden}
+    .heart{position:absolute;bottom:-40px;font-size:20px;color:#ff6ba3;opacity:0.95;filter:drop-shadow(0 0 6px #ffb0d0);transform:translateY(0)}
+    @keyframes floatUp{0%{transform:translateY(0) scale(1);opacity:0.95}50%{opacity:1}100%{transform:translateY(-120vh) scale(1.6);opacity:0}}
+
+    /* hidden dev button (bottom-left) */
+    #devJump{position:fixed;left:6px;bottom:6px;width:44px;height:44px;border-radius:6px;background:transparent;border:none;opacity:0;z-index:9999;cursor:pointer}
+
+    @media(max-width:720px){
+      .answers{grid-template-columns:1fr}
+      .card{padding:18px;border-radius:18px}
+      h1{font-size:24px}
+      .qtext{font-size:16px}
+    }
+  </style>
+</head>
+<body>
+  <div id="combosDisplay"></div>
+  <div id="screamPopup">I am sorry Ace, wo kya hai na I used GPT for the questions, so could be galat.;)</div>
+  <button id="screamBtn">Scream at Suvan</button>
+  <div class="hearts-layer" id="heartsLayer" aria-hidden></div>
+
+  <div class="wrap">
+    <div class="card" id="card">
+      <!-- INTRO -->
+      <div id="intro">
+        <h1>Welcome, Love Detective</h1>
+        <p class="lead">You will face <strong>three rounds</strong>. The same set of questions repeats each round — but the stakes change. Learn, then prove your knowledge.</p>
+        <div class="rules">
+          <ul>
+            <li><strong>Round 1</strong> — practice (no penalty).</li>
+            <li><strong>Round 2</strong> — tougher secret pass mark.</li>
+            <li><strong>Round 3</strong> — final challenge; each question will show a code (a letter+number). Collect them in order.</li>
+          </ul>
+        </div>
+        <div style="height:8px"></div>
+        <button class="btn" id="startBtn">Start the Game</button>
+      </div>
+
+      <!-- QUIZ -->
+      <div id="quiz" aria-hidden="true">
+        <header style="margin-bottom:8px">
+          <h1>Mystery Movie Quiz</h1>
+          <p class="lead">Round <span id="roundLabel">1</span> of 3</p>
+        </header>
+
+        <div class="progress" aria-hidden><i id="progressBar"></i></div>
+
+        <div class="question" id="questionCard">
+          <div class="clue-badge" id="clueBadge" style="display:none"></div>
+          <div class="meta"><div id="qLabel">Question 1 of 19</div><div id="difficulty" class="difficulty">easy</div></div>
+          <div class="qtext" id="qText">Loading…</div>
+          <div class="answers" id="answers"></div>
+          <div class="actions"><button class="btn" id="nextBtn">Skip / Next</button></div>
+        </div>
+
+        <div class="results" id="results">
+          <h2 id="scoreText"></h2>
+          <p id="scoreMessage"></p>
+          <div style="margin-top:12px">
+            <button class="btn" id="continueBtn">Continue</button>
+          </div>
+        </div>
+
+        <!-- PASSWORD / CODE ENTRY (after Round 3) -->
+        <div class="password-page" id="passwordPage">
+          <h2>Enter the 19 combos you saw in Round 3</h2>
+          <p class="lead">Type them in the exact order you saw them, separated by spaces (example: <code>a1 l6 w1 ...</code> ). The last combo includes a heart emoji.</p>
+          <input id="passwordInput" class="password-input" placeholder="Enter 19 combos here (space-separated)" />
+          <div style="height:12px"></div>
+          <button class="btn" id="submitPassword">Submit</button>
+          <div style="height:10px"></div>
+          <div id="passwordFeedback" style="color:var(--muted);margin-top:8px"></div>
+        </div>
+
+        <!-- Poem question (after password) -->
+        <div class="poem-q" id="poemQ">
+          <h3>One last question</h3>
+          <p class="lead">Who was in the first poem I wrote you?</p>
+          <div class="answers" id="poemAnswers">
+            <!-- use only .opt so they inherit readable styling -->
+            <button class="opt" data-choice="a">a) Icarus</button>
+            <button class="opt" data-choice="b">b) Nirmala</button>
+            <button class="opt" data-choice="c">c) Sisyphus</button>
+            <button class="opt" data-choice="d">d) Anisha</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- hidden dev button to jump directly to password page -->
+  <button id="devJump" title="dev jump"></button>
+
+<script>
+/* ---------------- Floating hearts ---------------- */
+(function(){
+  const layer = document.getElementById('heartsLayer');
+  if(!layer) return;
+  function spawnHeart(){
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.textContent = '❤';
+    heart.style.left = (Math.random()*100) + 'vw';
+    heart.style.fontSize = (12 + Math.random()*28) + 'px';
+    const dur = 5 + Math.random()*5;
+    heart.style.animation = `floatUp ${dur}s linear forwards`;
+    layer.appendChild(heart);
+    setTimeout(()=> heart.remove(), (dur+0.2)*1000);
+  }
+  setInterval(spawnHeart, 700);
+  for(let i=0;i<6;i++) setTimeout(spawnHeart, i*220);
+  window._spawnHeart = spawnHeart;
+})();
+
+/* ---------------- QUIZ + LEVEL logic ---------------- */
+
+/* Hidden requirements per level */
+const REQUIRED = {1:0, 2:16, 3:11};
+
+/* 19 pairs (as provided): */
+const PREDEFINED_PAIRS = [
+  "a1","l6","w1","a1","y2","s4","a2","n5","d0","f9",
+  "o0","r6","e0","v7","e2","r0","a1","c0","e❤️"
+];
+
+/* Questions (19 items) - answer indices in `c` */
+const QUESTIONS = [
+  {q:"In *To All the Boys* (first movie), what exact color is the scrunchie Lara Jean wears when Peter first borrows her jeans?",a:["Pink","Blue","Black","Red"],c:1,d:'easy'},
+  {q:"In *27 Dresses*, what specific pattern is on Kevin's notebook?",a:["Polka dots","Striped","Floral","Plain leather"],c:2,d:'easy'},
+  {q:"In *Meri Pyaari Bindu*, what is the brand name on Abhi's cassette player?",a:["Sony","Philips","BPL","Sanyo"],c:0,d:'easy'},
+  {q:"In *How to Lose a Guy in 10 Days*, what nickname does Andie call Ben during the bathtub sabotage scene?",a:["Frodo","Prince","Princess Sofia","Benji"],c:2,d:'easy'},
+  {q:"In *Enola Holmes* (1), what color ribbon is Eudoria's pressed flower tied with in the cipher book?",a:["Red","Blue","Yellow","Black"],c:0,d:'medium'},
+  {q:"In *To All the Boys: P.S. I Still Love You*, what is the title of the playlist Lara Jean makes for Peter (exact wording)?",a:["Sunset Drive","Letters to Peter","Summer Mix","Just Us"],c:2,d:'medium'},
+  {q:"In *Enola Holmes 2*, what exact phrase is stamped on the leaflet Enola finds that links to the matchgirls?",a:["We Demand Justice","Workers Unite","Vote for Reform","Save Our Children"],c:1,d:'hard'},
+  {q:"In *How to Lose a Guy in 10 Days*, what coin trick does Ben show Andie early on (name of the trick)?",a:["French drop","The coin vanish","Palming","The steal"],c:0,d:'hard'},
+  {q:"In *To All the Boys: Always and Forever*, which Korean dish does Lara Jean's father learn to cook to impress Trina?",a:["Bibimbap","Japchae","Kimchi stew","Bulgogi"],c:1,d:'hard'},
+  {q:"In *27 Dresses*, what is the exact inscription on the charm bracelet Jane makes for Tess?",a:["Forever","Best Day","To Love","Always"],c:3,d:'hard'},
+  {q:"In *Meri Pyaari Bindu*, which poem's line does Abhi recite to Bindu during their college late-night conversation?",a:["Aaj Phir Dil Ne Ek Tamanna Ki","Mere Sapno Ki Rani","Pal Pal Dil Ke Paas","Chandni Raat"],c:0,d:'hard'},
+  {q:"In *To All the Boys* trilogy, what was the name of Lara Jean's childhood stuffed toy that appears in a flashback?",a:["Mr. Snuggles","Blue Bunny","Fluffy","Mr. Bearington"],c:1,d:'hard'},
+  {q:"In *Enola Holmes* (1), what is the botanical genus of the poison plant referenced in the code Eudoria left (scientific name used in the book scene)?",a:["Atropa (belladonna)","Digitalis","Aconitum","Datura"],c:0,d:'expert'},
+  {q:"In *How to Lose a Guy in 10 Days*, what exact words are on the sign outside Benjamin Barry's advertising pitch meeting?",a:["Winslow & Co.","Barry-Winslow Advertising","B. Barry Advertising","Winslow Media"],c:1,d:'expert'},
+  {q:"In *27 Dresses*, which specific flower does Jane arrange into the boutonniere that she later gives away?",a:["Lily of the valley","Sweet pea","Gardenia","Peony"],c:0,d:'expert'},
+  {q:"In *Meri Pyaari Bindu*, what is the exact name of the radio show Abhi interns at (as shown on the studio door)?",a:["Radio Asha","City Beats","All Night Radio","FM 90"],c:0,d:'expert'},
+  {q:"In *To All the Boys* (first movie), what is the handwritten store receipt item Lara Jean tucks into one of her letters (exact item)?",a:["Milkshake","Strawberries","A cardigan","A paper star"],c:3,d:'expert'},
+  {q:"In *Enola Holmes 2*, what exact substance residue does Enola notice on the factory worker's hands that provides a clue (chemical name or descriptor)?",a:["Sulfur (yellow powder)","Coal dust","Ash residue","Red dye"],c:0,d:'expert'},
+  {q:"In *How to Lose a Guy in 10 Days*, what is the exact name of the department store where Andie sets up the 'stalking' scene?",a:["Barneys","Lord & Taylor","Macy's","Bergdorf's"],c:1,d:'expert'}
+];
+
+const total = QUESTIONS.length;
+
+/* State */
+let level = 1;            // active level 1..3
+let order = [];           // shuffled indices for current round
+let idx = 0;              // position in order (0..total-1)
+let score = 0;
+let answering = false;
+
+/* For Round 3 - record the code sequence the user sees (in the order they see them).
+   We'll show combos in a fixed sequence using round3DisplayCounter so they are NOT tied to the shuffled question index.
+*/
+let round3Seen = [];
+let round3DisplayCounter = 0;
+
+/* DOM refs */
+const introEl = document.getElementById('intro');
+const startBtn = document.getElementById('startBtn');
+const quizEl = document.getElementById('quiz');
+const roundLabel = document.getElementById('roundLabel');
+const qLabel = document.getElementById('qLabel');
+const qText = document.getElementById('qText');
+const answersDiv = document.getElementById('answers');
+const diffEl = document.getElementById('difficulty');
+const progressBar = document.getElementById('progressBar');
+const nextBtn = document.getElementById('nextBtn');
+const resultsEl = document.getElementById('results');
+const scoreText = document.getElementById('scoreText');
+const scoreMessage = document.getElementById('scoreMessage');
+const continueBtn = document.getElementById('continueBtn');
+const clueBadge = document.getElementById('clueBadge');
+
+const passwordPage = document.getElementById('passwordPage');
+const passwordInput = document.getElementById('passwordInput');
+const submitPassword = document.getElementById('submitPassword');
+const passwordFeedback = document.getElementById('passwordFeedback');
+
+const poemQ = document.getElementById('poemQ');
+const poemAnswers = document.getElementById('poemAnswers');
+
+const devJump = document.getElementById('devJump');
+
+const combosDisplayEl = document.getElementById('combosDisplay');
+
+/* Shuffle helper */
+function shuffledIndices(n){
+  const a = Array.from({length:n}, (_,i) => i);
+  for(let i=n-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+/* Start a round */
+function startRound(){
+  order = shuffledIndices(total);
+  idx = 0; score = 0; answering = false;
+  round3Seen = [];
+  round3DisplayCounter = 0; // reset display counter so round 3 starts from first combo
+  roundLabel.textContent = level;
+  resultsEl.classList.remove('show');
+  passwordPage.style.display = 'none';
+  poemQ.style.display = 'none';
+  document.getElementById('questionCard').style.display = 'block';
+  combosDisplayEl.style.display = 'none';
+  updateProgress();
+  renderQuestion();
+}
+
+/* keyboard shortcuts */
+document.addEventListener('keydown', (e)=>{
+  if(getComputedStyle(introEl).display !== 'none') return;
+  if(resultsEl.classList.contains('show')) return;
+  if(passwordPage.style.display === 'block') return;
+  if(e.key >= '1' && e.key <= '4'){
+    const i = parseInt(e.key)-1;
+    const btns = document.querySelectorAll('button.opt');
+    if(btns[i]) btns[i].click();
+  }
+  if(e.key === 'ArrowRight') nextBtn.click();
+});
+
+/* Render current question */
+function renderQuestion(){
+  answering = false;
+  const Q = QUESTIONS[order[idx]];
+  qLabel.textContent = `Question ${idx+1} of ${total}`;
+  diffEl.textContent = Q.d;
+  qText.textContent = Q.q;
+  answersDiv.innerHTML = '';
+
+  // If we're in round 3, show the code from PREDEFINED_PAIRS in fixed sequence,
+  // based solely on round3DisplayCounter (NOT the shuffled question index).
+  if(level === 3){
+    if(round3DisplayCounter < PREDEFINED_PAIRS.length){
+      const pair = PREDEFINED_PAIRS[round3DisplayCounter]; // fixed sequence
+      clueBadge.style.display = 'block';
+      clueBadge.textContent = `${round3DisplayCounter+1} • ${pair}`;
+      // also show the floating box for visibility (optional)
+      combosDisplayEl.style.display = 'block';
+      combosDisplayEl.textContent = pair;
+    } else {
+      clueBadge.style.display = 'none';
+      combosDisplayEl.style.display = 'none';
+    }
+  } else {
+    clueBadge.style.display = 'none';
+    combosDisplayEl.style.display = 'none';
+  }
+
+  Q.a.forEach((txt,i)=>{
+    const b = document.createElement('button');
+    b.className = 'opt';
+    b.innerHTML = `<strong>${String.fromCharCode(65+i)}.</strong> ${txt}`;
+    b.onclick = () => handleAnswer(i, b);
+    answersDiv.appendChild(b);
+  });
+  updateProgress();
+}
+
+/* Handle answer selection */
+function handleAnswer(i, btn){
+  if(answering) return; answering = true;
+  const Q = QUESTIONS[order[idx]];
+  const buttons = document.querySelectorAll('button.opt');
+  btn.classList.add('selected');
+  setTimeout(()=>{
+    buttons.forEach((b,j)=>{
+      b.disabled = true;
+      if(j === Q.c) b.classList.add('correct');
+      else if(j === i) b.classList.add('incorrect');
+    });
+    if(i === Q.c) score++;
+    // If this is round 3 and we displayed a pair, record it now (in seen order)
+    if(level === 3){
+      if(round3DisplayCounter < PREDEFINED_PAIRS.length){
+        round3Seen.push(PREDEFINED_PAIRS[round3DisplayCounter]);
+      }
+      round3DisplayCounter++;
+    }
+    setTimeout(()=>{
+      idx++;
+      if(idx >= total) finishRound();
+      else renderQuestion();
+    }, 500);
+  }, 300);
+}
+
+/* Update progress bar */
+function updateProgress(){
+  const pct = Math.round((idx/total) * 100);
+  progressBar.style.width = pct + '%';
+}
+
+/* Next/Skip */
+nextBtn.addEventListener('click', ()=>{
+  if(answering) return;
+  // If round 3 and skipping a question that had a pair, still record the pair in the order they saw it
+  if(level === 3){
+    if(round3DisplayCounter < PREDEFINED_PAIRS.length){
+      round3Seen.push(PREDEFINED_PAIRS[round3DisplayCounter]);
+    }
+    round3DisplayCounter++;
+  }
+  idx++;
+  if(idx >= total) finishRound(); else renderQuestion();
+});
+
+/* Finish round */
+function finishRound(){
+  document.getElementById('questionCard').style.display = 'none';
+  resultsEl.classList.add('show');
+  scoreText.textContent = `Round ${level} score: ${score} / ${total}`;
+
+  const required = REQUIRED[level];
+  const passed = (score >= required);
+  if(passed){
+    if(level < 3){
+      scoreMessage.textContent = `Well done — you cleared round ${level}. Ready for the next one?`;
+      continueBtn.textContent = 'Next Round';
+    } else {
+      scoreMessage.textContent = `You cleared Round 3! Next, enter the 19 combos you collected.`;
+      continueBtn.textContent = 'Enter Codes';
+    }
+  } else {
+    scoreMessage.textContent = `Not quite — you need to improve. Try this round again.`;
+    continueBtn.textContent = 'Retry Round';
+  }
+}
+
+/* Continue / Retry */
+continueBtn.addEventListener('click', ()=>{
+  const required = REQUIRED[level];
+  const passed = (score >= required);
+  if(passed){
+    if(level < 3){
+      level++;
+      startRound();
+    } else {
+      // move to password entry page
+      showPasswordPage();
+    }
+  } else {
+    startRound();
+  }
+});
+
+/* Show password page (after passing round 3) */
+function showPasswordPage(){
+  // hide results and quiz area, show password UI
+  resultsEl.classList.remove('show');
+  document.getElementById('questionCard').style.display = 'none';
+  passwordPage.style.display = 'block';
+  passwordInput.value = '';
+  passwordFeedback.textContent = '';
+
+  // If for any reason round3Seen < PREDEFINED_PAIRS (because user skipped etc), attempt to fill
+  if(round3Seen.length < PREDEFINED_PAIRS.length){
+    // append remaining pairs from PREDEFINED_PAIRS in order
+    for(let i=0;i<PREDEFINED_PAIRS.length && round3Seen.length < PREDEFINED_PAIRS.length;i++){
+      round3Seen.push(PREDEFINED_PAIRS[i]);
+    }
+  }
+
+  // Show hint count
+  passwordFeedback.style.color = 'var(--muted)';
+  passwordFeedback.textContent = `You must enter ${PREDEFINED_PAIRS.length} combos (space-separated).`;
+  // hide clue badge and combos display
+  clueBadge.style.display = 'none';
+  combosDisplayEl.style.display = 'none';
+}
+
+/* Password submission */
+submitPassword.addEventListener('click', ()=>{
+  const raw = passwordInput.value.trim();
+  if(!raw){
+    passwordFeedback.style.color = '#b33';
+    passwordFeedback.textContent = 'Please enter the combos (space-separated).';
+    return;
+  }
+  // normalize: collapse multiple spaces, accept both heart variants (❤️ or ❤)
+  const normalizeForCompare = s => s.replace(/\uFE0F/g,'').replace(/❤/g,'❤️').replace(/\s+/g,' ').trim().toLowerCase();
+  const userNorm = normalizeForCompare(raw);
+  const expected = round3Seen.join(' ');
+  const expectedNorm = normalizeForCompare(expected);
+
+  if(userNorm === expectedNorm){
+    passwordFeedback.style.color = 'green';
+    passwordFeedback.textContent = 'Codes accepted — one last question coming up.';
+    // hide password UI and show poem question
+    setTimeout(()=> {
+      passwordPage.style.display = 'none';
+      showPoemQuestion();
+    }, 700);
+  } else {
+    passwordFeedback.style.color = '#b33';
+    passwordFeedback.textContent = 'Not a match. Double-check the combos and the order you saw them.';
+  }
+});
+
+/* Poem question flow */
+const POEM_CORRECT = 'b'; // set 'a'|'b'|'c'|'d' if you want a correct answer
+function showPoemQuestion(){
+  poemQ.style.display = 'block';
+  // wire up poem answer buttons
+  Array.from(poemAnswers.querySelectorAll('button.opt')).forEach(btn=>{
+    btn.onclick = ()=>{
+      const choice = btn.getAttribute('data-choice');
+      // optional correctness check
+      if(POEM_CORRECT && choice !== POEM_CORRECT){
+        btn.style.opacity = '0.7';
+        setTimeout(()=>{ btn.style.opacity = '1'; }, 300);
+        alert('Hmm — that is not the right answer. Try again!');
+        return;
+      }
+      // proceed to final reveal
+      finalReveal(choice);
+    };
+  });
+}
+
+/* Final reveal */
+function finalReveal(chosen){
+  const card = document.getElementById('card');
+  card.innerHTML = `
+    <div style="text-align:center;padding:30px">
+      <h1>Happy Anniversary ❤️</h1>
+      <p class="lead">You completed all the secret rounds and solved the little code puzzle- https://open.spotify.com/playlist/2JPLg7OtAWvOsaO2TzeRkL?si=l7Gd9n1EQYiLTyRc7kQyjA. This was made with love — congrats!</p>
+      <p style="margin-top:18px">— <strong>Ghostieee</strong></p>
+    </div>
+  `;
+}
+
+/* Start from intro */
+startBtn.addEventListener('click', ()=>{
+  introEl.style.display = 'none';
+  quizEl.style.display = 'block';
+  roundLabel.textContent = level;
+  startRound();
+});
+
+/* Dev jump button: directly opens password page for testing (bypasses playing) */
+devJump.addEventListener('click', ()=>{
+  // For testing we simulate that round3Seen equals the PREDEFINED_PAIRS (in order).
+  round3Seen = PREDEFINED_PAIRS.slice(); // copy
+  passwordPage.style.display = 'block';
+  introEl.style.display = 'none';
+  quizEl.style.display = 'block';
+  passwordInput.value = '';
+  passwordFeedback.style.color = 'var(--muted)';
+  passwordFeedback.textContent = 'Dev jump: enter the pairs (or click Submit to auto-check).';
+});
+
+/* Expose useful objects for debugging in console */
+window._QUIZ = { startRound, QUESTIONS, REQUIRED, PREDEFINED_PAIRS, state: ()=>({level, idx, score, round3Seen, round3DisplayCounter}) };
+
+/* scream button */
+const screamBtn = document.getElementById("screamBtn");
+const popup = document.getElementById("screamPopup");
+screamBtn.onclick = () => {
+  popup.style.display = "block";
+  setTimeout(()=> popup.style.display = "none", 2000);
+};
+</script>
+</body>
+</html>
